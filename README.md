@@ -16,11 +16,12 @@ La hora por defecto es el **1 de septiembre de 2026 a las 8:00 p. m.** (hora de 
 
 ## Detalles
 
-- El osito saluda con la mano (SVG animado con CSS).
+- Diseño mobile-first; los `@media (min-width)` agrandan para tablet y escritorio.
 - La cuenta regresiva marca horas, minutos y segundos. Al llegar a cero se
   revela el mensaje de cumpleaños con confeti.
-- **Modo prueba:** 5 toques seguidos al osito adelantan la página al estado
+- **Modo prueba:** 5 toques seguidos al gif adelantan la página al estado
   "ya es la hora". Otros 5 la devuelven a la cuenta regresiva.
 - Se adapta al tema claro u oscuro del celular.
+- El espacio del gif se llena poniendo la ruta en `GIF_SRC`, al inicio del `<script>`.
 - Hay una galería de fotos lista pero desactivada: se activa llenando el
-  arreglo `PHOTOS` al inicio del `<script>`.
+  arreglo `PHOTOS`, al lado de `GIF_SRC`.

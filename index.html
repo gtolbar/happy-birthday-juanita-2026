@@ -1,9 +1,14 @@
 <title>La vuelta al sol de Juanita</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&family=Caveat:wght@500;600;700&display=swap">
 
 <style>
+/* ============================================================
+   Mobile primero. Los @media (min-width) agrandan para tablet/desktop.
+   ============================================================ */
+
 :root{
   --ground:#E4F5F7;
   --card:#FFFFFF;
@@ -21,6 +26,11 @@
   --gold:#E9962A;
   --gold-ink:#A6660F;
   --paper:#FFFDF6;
+  --bw:2.5px;        /* grosor de borde  */
+  --sx:3px;          /* sombra dura x    */
+  --sy:4px;          /* sombra dura y    */
+  --pad:16px;        /* margen lateral   */
+  --radius:38px;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -62,66 +72,67 @@
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;overflow-x:hidden}
+html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
 body{
   margin:0;background:var(--ground);color:var(--ink);
   font-family:Nunito,"Segoe UI",system-ui,sans-serif;
-  font-size:17px;line-height:1.65;overflow-x:hidden;
+  font-size:16px;line-height:1.6;overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
-h1,h2,h3{font-family:"Baloo 2",Verdana,sans-serif;font-weight:700;line-height:1.12;margin:0;text-wrap:balance}
+h1,h2,h3{font-family:"Baloo 2",Verdana,sans-serif;font-weight:700;line-height:1.14;margin:0;text-wrap:balance}
 p{margin:0}
-:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+img{max-width:100%}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
 
-.shell{max-width:940px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
+.shell{width:100%;max-width:940px;margin:0 auto;padding:0 var(--pad);position:relative;z-index:2}
 .narrow{max-width:660px}
 
 .eyebrow{
-  font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--teal);margin:0 0 12px;
+  font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--teal);margin:0 0 10px;
 }
-.hand{font-family:Caveat,cursive;font-size:clamp(26px,4.6vw,36px);color:var(--coral);line-height:1.2}
+.hand{font-family:Caveat,cursive;font-size:26px;color:var(--coral);line-height:1.2}
 
 .band{
-  position:relative;padding:clamp(54px,8vw,86px) 0 clamp(58px,8vw,90px);
-  border-radius:44px 44px 0 0;margin-top:-32px;border-top:3px solid var(--stroke);
+  position:relative;padding:46px 0 50px;
+  border-radius:var(--radius) var(--radius) 0 0;margin-top:-26px;
+  border-top:var(--bw) solid var(--stroke);
 }
 .band-sun{background:var(--band-sun)}
 .band-sea{background:var(--band-sea)}
 .band-rose{background:var(--band-rose)}
 .band-lime{background:var(--band-lime)}
 .band-lav{background:var(--band-lav)}
-.band h2{font-size:clamp(30px,5.6vw,48px)}
-.band .lede{color:var(--ink-soft);margin-top:12px;max-width:52ch;font-size:17px}
-.head{margin-bottom:34px}
+.band h2{font-size:28px}
+.band .lede{color:var(--ink-soft);margin-top:10px;max-width:52ch;font-size:16px}
+.head{margin-bottom:26px}
 
-/* ---------- hero ---------- */
+/* ---------- portada ---------- */
 .hero{
   position:relative;text-align:center;overflow:hidden;
-  padding:clamp(30px,5vw,52px) 0 clamp(96px,13vw,150px);background:var(--ground);
+  padding:26px 0 78px;background:var(--ground);
 }
-.hero h1{font-size:clamp(44px,10vw,86px);font-weight:800;letter-spacing:-.01em;margin-top:6px}
+.hero h1{font-size:40px;font-weight:800;letter-spacing:-.01em;margin-top:4px}
 .hero h1 span{display:block;color:var(--gold-ink)}
 .date-chip{
-  display:inline-block;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;
-  background:var(--coral);color:var(--hard);border:3px solid var(--stroke);border-radius:999px;
-  padding:7px 20px;box-shadow:4px 4px 0 var(--hard);
+  display:inline-block;font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--coral);color:var(--hard);border:var(--bw) solid var(--stroke);border-radius:999px;
+  padding:7px 18px;box-shadow:var(--sx) var(--sy) 0 var(--hard);
 }
-.hero-copy{margin:22px auto 0;max-width:42ch;color:var(--ink-soft);font-size:clamp(16px,2.3vw,18.5px)}
+.hero-copy{margin:18px auto 0;max-width:36ch;color:var(--ink-soft);font-size:16px}
 .cta{
-  margin-top:30px;display:inline-flex;align-items:center;gap:10px;
-  font-family:"Baloo 2",sans-serif;font-weight:700;font-size:19px;
-  background:var(--gold);color:#22160A;border:3px solid var(--stroke);
-  border-radius:999px;padding:14px 30px;cursor:pointer;text-decoration:none;
-  box-shadow:5px 6px 0 var(--hard);transition:transform .14s ease, box-shadow .14s ease;
+  margin-top:24px;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:52px;font-family:"Baloo 2",sans-serif;font-weight:700;font-size:18px;
+  background:var(--gold);color:#22160A;border:var(--bw) solid var(--stroke);
+  border-radius:999px;padding:12px 28px;cursor:pointer;text-decoration:none;
+  box-shadow:var(--sx) var(--sy) 0 var(--hard);transition:transform .14s ease, box-shadow .14s ease;
 }
-.cta:hover{transform:translate(2px,3px);box-shadow:2px 3px 0 var(--hard)}
-.cta:active{transform:translate(5px,6px);box-shadow:0 0 0 var(--hard)}
+.cta:active{transform:translate(var(--sx),var(--sy));box-shadow:0 0 0 var(--hard)}
 
 .bubbles{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .bub{
   position:absolute;bottom:-90px;border-radius:50%;
-  border:2.5px solid var(--stroke);opacity:.3;animation:float linear infinite;
+  border:2px solid var(--stroke);opacity:.28;animation:float linear infinite;
 }
 .bub::after{
   content:"";position:absolute;top:16%;left:18%;width:26%;height:26%;
@@ -129,148 +140,173 @@ p{margin:0}
 }
 @keyframes float{
   0%{transform:translateY(0) translateX(0)}
-  50%{transform:translateY(-52vh) translateX(16px)}
-  100%{transform:translateY(-108vh) translateX(-10px)}
+  50%{transform:translateY(-52vh) translateX(14px)}
+  100%{transform:translateY(-108vh) translateX(-8px)}
 }
-.wave{display:block;width:100%;height:auto;margin-bottom:-6px;position:relative;z-index:1}
+.wave{display:block;width:100%;height:auto;margin-bottom:-4px;position:relative;z-index:1}
 
-/* ---------- osito ---------- */
-.bear-wrap{position:relative;z-index:2;display:inline-block;cursor:pointer;border:0;background:none;padding:0}
-.bear{width:clamp(160px,28vw,230px);height:auto;display:block}
-.bear .arm-wave{transform-box:view-box;transform-origin:170px 175px;animation:wave 1.3s ease-in-out infinite}
-@keyframes wave{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(14deg)}}
-.bear-caption{display:block;margin-top:8px;font-family:Caveat,cursive;font-size:20px;color:var(--ink-soft)}
+/* ---------- espacio del GIF ---------- */
+.gif-slot{
+  position:relative;z-index:2;display:block;margin:0 auto;
+  width:min(220px,62vw);aspect-ratio:1/1;
+  border:var(--bw) solid var(--stroke);border-radius:28px;
+  background:var(--band-sun);box-shadow:var(--sx) var(--sy) 0 var(--hard);
+  padding:0;cursor:pointer;overflow:hidden;
+  display:grid;place-items:center;
+}
+.gif-slot img{width:100%;height:100%;object-fit:contain;display:block}
+.gif-hint{
+  display:grid;place-items:center;gap:6px;padding:14px;
+  font-family:Caveat,cursive;font-size:21px;color:var(--ink-soft);line-height:1.25;
+}
+.gif-hint .ico{font-size:34px;line-height:1}
+.gif-slot.filled{background:var(--card)}
+.gif-caption{display:block;margin-top:8px;font-family:Caveat,cursive;font-size:19px;color:var(--ink-soft)}
 
 /* ---------- invitación ---------- */
 .invite{
-  background:var(--paper);border:3px solid var(--stroke);border-radius:28px;
-  box-shadow:7px 8px 0 var(--hard);padding:clamp(24px,4.5vw,40px);position:relative;
+  background:var(--paper);border:var(--bw) solid var(--stroke);border-radius:24px;
+  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:20px 16px;position:relative;
 }
 .invite::before{
-  content:"";position:absolute;inset:9px;border:2px dashed var(--stroke);
-  border-radius:20px;opacity:.35;pointer-events:none;
+  content:"";position:absolute;inset:7px;border:2px dashed var(--stroke);
+  border-radius:18px;opacity:.3;pointer-events:none;
 }
 .invite-inner{position:relative}
-.invite h2{font-size:clamp(28px,5.2vw,42px);text-align:center}
-.invite .sub{text-align:center;color:var(--ink-soft);margin-top:8px}
-.rows{margin-top:26px;display:grid;border:2.5px solid var(--stroke);border-radius:16px;overflow:hidden}
-.row{display:flex;gap:14px;align-items:baseline;padding:13px 18px;background:var(--card)}
-.row + .row{border-top:2.5px solid var(--stroke)}
-.row dt{font-weight:700;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);min-width:104px;flex:none}
-.row dd{margin:0;font-family:"Baloo 2",sans-serif;font-weight:600;font-size:19px}
+.invite h2{font-size:27px;text-align:center}
+.invite .sub{text-align:center;color:var(--ink-soft);margin-top:6px;font-size:15px}
+.rows{margin-top:20px;display:grid;border:2px solid var(--stroke);border-radius:14px;overflow:hidden}
+.row{display:grid;gap:1px;padding:11px 14px;background:var(--card)}
+.row + .row{border-top:2px solid var(--stroke)}
+.row dt{font-weight:700;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal)}
+.row dd{margin:0;font-family:"Baloo 2",sans-serif;font-weight:600;font-size:17px}
 
-.count{margin-top:28px;text-align:center}
-.count-label{font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
-.clock{display:flex;justify-content:center;gap:clamp(8px,2.4vw,18px);margin-top:14px;flex-wrap:wrap}
+.count{margin-top:22px;text-align:center}
+.count-label{font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+.clock{display:flex;justify-content:center;gap:8px;margin-top:12px}
 .slot{
-  background:var(--card);border:3px solid var(--stroke);border-radius:18px;
-  box-shadow:4px 5px 0 var(--hard);padding:12px clamp(12px,2.8vw,22px);min-width:80px;
+  flex:1 1 0;min-width:0;max-width:110px;
+  background:var(--card);border:var(--bw) solid var(--stroke);border-radius:16px;
+  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:10px 6px;
 }
 .slot b{
   display:block;font-family:"Baloo 2",sans-serif;font-weight:800;
-  font-size:clamp(32px,7.4vw,46px);line-height:1;font-variant-numeric:tabular-nums;color:var(--coral);
+  font-size:30px;line-height:1;font-variant-numeric:tabular-nums;color:var(--coral);
 }
-.slot span{display:block;margin-top:4px;font-weight:700;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft)}
+.slot span{display:block;margin-top:3px;font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
 
-.boom{display:none;text-align:center;padding:6px 0 2px}
+.boom{display:none;text-align:center;padding:4px 0 2px}
 .is-time .clock,.is-time .count-label{display:none}
 .is-time .boom{display:block;animation:pop-in .7s cubic-bezier(.2,.9,.3,1) both}
-.boom h3{font-size:clamp(30px,6.4vw,50px);color:var(--coral)}
-.boom p{margin-top:12px;font-size:clamp(17px,2.6vw,20px)}
-.boom .hand{margin-top:14px}
-@keyframes pop-in{from{opacity:0;transform:scale(.92) translateY(10px)}to{opacity:1;transform:none}}
-
-/* ---------- razones ---------- */
-.reasons{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
-.reason{
-  position:relative;min-height:134px;border:3px solid var(--stroke);border-radius:20px;
-  background:var(--card);box-shadow:4px 5px 0 var(--hard);cursor:pointer;
-  padding:16px;text-align:left;font:inherit;color:inherit;
-  display:flex;flex-direction:column;justify-content:center;gap:8px;
-  transition:transform .16s ease, box-shadow .16s ease, background .2s ease;
-}
-.reason:hover{transform:translate(2px,3px);box-shadow:2px 3px 0 var(--hard)}
-.reason .num{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:26px;color:var(--teal);line-height:1}
-.reason .front{font-family:"Baloo 2",sans-serif;font-weight:600;font-size:18px;color:var(--ink-soft)}
-.reason .text{display:none;font-size:16px;line-height:1.5}
-.reason.open{background:var(--band-rose)}
-.reason.open .front{display:none}
-.reason.open .text{display:block;animation:pop-in .35s ease both}
-.reason .pin{position:absolute;top:12px;right:14px;font-size:16px;color:var(--coral)}
-
-/* ---------- tarjetas ---------- */
-.uni{display:grid;grid-template-columns:repeat(auto-fit,minmax(262px,1fr));gap:16px}
-.ucard{background:var(--card);border:3px solid var(--stroke);border-radius:22px;box-shadow:5px 6px 0 var(--hard);padding:22px}
-.ucard h3{font-size:23px;margin-top:4px}
-.ucard p{margin-top:8px;color:var(--ink-soft);font-size:16px}
-.ucard .mini{font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
-.note{margin-top:14px;background:var(--band-sun);border:2.5px solid var(--stroke);border-radius:14px;padding:11px 14px;font-size:15px;color:var(--ink)}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.tags span{background:var(--band-lime);border:2.5px solid var(--stroke);border-radius:999px;padding:4px 13px;font-weight:700;font-size:13.5px}
-.songbtn{
-  margin-top:14px;font-family:"Baloo 2",sans-serif;font-weight:700;font-size:15.5px;
-  background:var(--band-lav);color:var(--ink);border:2.5px solid var(--stroke);border-radius:999px;
-  padding:9px 20px;cursor:pointer;box-shadow:3px 4px 0 var(--hard);transition:transform .14s ease, box-shadow .14s ease;
-}
-.songbtn:hover{transform:translate(1px,2px);box-shadow:2px 2px 0 var(--hard)}
+.boom h3{font-size:29px;color:var(--coral)}
+.boom p{margin-top:10px;font-size:17px}
+.boom .hand{margin-top:12px}
+@keyframes pop-in{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:none}}
 
 /* ---------- lo que admiro ---------- */
-.admiro{display:grid;gap:14px}
+.admiro{display:grid;gap:12px}
 .arow{
-  display:flex;gap:16px;align-items:flex-start;background:var(--card);
-  border:3px solid var(--stroke);border-radius:20px;box-shadow:5px 6px 0 var(--hard);padding:18px 20px;
+  display:flex;gap:13px;align-items:flex-start;background:var(--card);
+  border:var(--bw) solid var(--stroke);border-radius:18px;
+  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:15px 16px;
 }
 .arow .mark{
-  flex:none;width:42px;height:42px;border-radius:50%;border:3px solid var(--stroke);
-  background:var(--band-sun);display:grid;place-items:center;font-size:19px;
+  flex:none;width:38px;height:38px;border-radius:50%;border:2px solid var(--stroke);
+  background:var(--band-sun);display:grid;place-items:center;font-size:17px;
 }
-.arow h3{font-size:21px}
-.arow p{margin-top:6px;color:var(--ink-soft);font-size:16px}
+.arow h3{font-size:19px}
+.arow p{margin-top:5px;color:var(--ink-soft);font-size:15.5px}
 
 /* ---------- fotos ---------- */
-.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:14px}
 .polaroid{
-  background:var(--paper);border:3px solid var(--stroke);border-radius:8px;
-  box-shadow:5px 6px 0 var(--hard);padding:11px 11px 0;
+  background:var(--paper);border:var(--bw) solid var(--stroke);border-radius:8px;
+  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:9px 9px 0;margin:0;
 }
 .polaroid:nth-child(odd){transform:rotate(-1.4deg)}
 .polaroid:nth-child(even){transform:rotate(1.6deg)}
 .polaroid img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px;background:var(--band-sea)}
-.polaroid figcaption{font-family:Caveat,cursive;font-size:22px;text-align:center;padding:8px 4px 12px;color:var(--ink)}
+.polaroid figcaption{font-family:Caveat,cursive;font-size:20px;text-align:center;padding:7px 4px 10px;color:var(--ink)}
 
 /* ---------- carta ---------- */
-.letter{background:var(--paper);border:3px solid var(--stroke);border-radius:26px;box-shadow:7px 8px 0 var(--hard);padding:clamp(26px,5vw,46px)}
-.letter h2{font-family:Caveat,cursive;font-size:clamp(38px,7vw,58px);color:var(--coral);font-weight:700}
-.letter p{margin-top:16px;font-size:17.5px;line-height:1.78}
-.sign{margin-top:26px}
-.sign span{display:block;font-family:Caveat,cursive;font-size:26px;color:var(--ink-soft)}
-.sign strong{font-family:Caveat,cursive;font-size:44px;color:var(--coral);font-weight:700;line-height:1}
+.letter{
+  background:var(--paper);border:var(--bw) solid var(--stroke);border-radius:22px;
+  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:22px 18px;
+}
+.letter h2{font-family:Caveat,cursive;font-size:38px;color:var(--coral);font-weight:700}
+.letter p{margin-top:14px;font-size:16.5px;line-height:1.75}
+.sign{margin-top:22px}
+.sign span{display:block;font-family:Caveat,cursive;font-size:24px;color:var(--ink-soft)}
+.sign strong{font-family:Caveat,cursive;font-size:40px;color:var(--coral);font-weight:700;line-height:1}
 
 /* ---------- cierre ---------- */
 .end{
-  text-align:center;background:var(--band-sea);border-top:3px solid var(--stroke);
-  border-radius:44px 44px 0 0;margin-top:-32px;padding:clamp(56px,9vw,92px) 20px clamp(64px,9vw,96px);position:relative;
+  text-align:center;background:var(--band-sea);border-top:var(--bw) solid var(--stroke);
+  border-radius:var(--radius) var(--radius) 0 0;margin-top:-26px;
+  padding:48px var(--pad) calc(56px + env(safe-area-inset-bottom));position:relative;
 }
-.end .heart{font-size:44px;color:var(--coral);line-height:1}
-.end h2{font-size:clamp(28px,5.4vw,44px);margin-top:12px}
-.end p{margin-top:14px;color:var(--ink-soft)}
-.end .stamp{display:inline-block;margin-top:24px;font-weight:700;font-size:12px;letter-spacing:.22em;border:2.5px solid var(--stroke);border-radius:999px;padding:6px 18px}
+.end .heart{font-size:38px;color:var(--coral);line-height:1}
+.end h2{font-size:26px;margin-top:10px}
+.end p{margin-top:12px;color:var(--ink-soft);font-size:16px}
+.end .stamp{display:inline-block;margin-top:20px;font-weight:700;font-size:11px;letter-spacing:.2em;border:2px solid var(--stroke);border-radius:999px;padding:6px 16px}
 
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:80;display:none}
 #toast{
-  position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);
-  background:var(--ink);color:var(--ground);border-radius:999px;padding:10px 22px;
-  font-weight:700;font-size:14px;opacity:0;pointer-events:none;z-index:90;
-  transition:opacity .25s ease, transform .25s ease;max-width:88vw;
+  position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:var(--ground);border-radius:999px;padding:10px 20px;
+  font-weight:700;font-size:13.5px;opacity:0;pointer-events:none;z-index:90;
+  transition:opacity .25s ease, transform .25s ease;max-width:calc(100vw - 32px);text-align:center;
 }
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-@media (max-width:620px){
-  body{font-size:16px}
-  .row{flex-direction:column;gap:2px}
-  .row dt{min-width:0}
-  .slot{min-width:72px}
+/* ============================================================
+   Tablet en adelante
+   ============================================================ */
+@media (min-width:700px){
+  :root{--bw:3px;--sx:5px;--sy:6px;--pad:20px;--radius:44px}
+  body{font-size:17px;line-height:1.65}
+  .band{padding:74px 0 80px;margin-top:-32px}
+  .band h2{font-size:40px}
+  .band .lede{font-size:17px;margin-top:12px}
+  .head{margin-bottom:34px}
+  .hero{padding:44px 0 120px}
+  .hero h1{font-size:72px}
+  .hero-copy{font-size:18px;max-width:42ch;margin-top:22px}
+  .hand{font-size:34px}
+  .cta{font-size:19px;padding:14px 30px}
+  .gif-slot{width:250px;border-radius:32px}
+  .invite{padding:34px 32px;border-radius:28px}
+  .invite h2{font-size:38px}
+  .invite .sub{font-size:16px}
+  .row{display:flex;gap:14px;align-items:baseline;padding:13px 18px}
+  .row dt{min-width:104px;flex:none;font-size:11.5px}
+  .row dd{font-size:19px}
+  .clock{gap:16px}
+  .slot{flex:0 0 auto;min-width:96px;padding:12px 20px;border-radius:18px}
+  .slot b{font-size:44px}
+  .slot span{font-size:10.5px}
+  .boom h3{font-size:44px}
+  .boom p{font-size:19px}
+  .admiro{gap:14px}
+  .arow{padding:18px 20px;border-radius:20px;gap:16px}
+  .arow .mark{width:42px;height:42px;font-size:19px}
+  .arow h3{font-size:21px}
+  .arow p{font-size:16px}
+  .photos{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+  .letter{padding:44px 40px;border-radius:26px}
+  .letter h2{font-size:54px}
+  .letter p{font-size:17.5px;margin-top:16px}
+  .sign strong{font-size:44px}
+  .end{padding:84px 20px 90px}
+  .end h2{font-size:40px}
+  .end .heart{font-size:44px}
 }
+@media (min-width:1024px){
+  .hero h1{font-size:86px}
+  .band h2{font-size:48px}
+}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
@@ -283,117 +319,23 @@ p{margin:0}
 <header class="hero">
   <div class="bubbles" id="bubbles" aria-hidden="true"></div>
   <div class="shell">
-    <button class="bear-wrap" id="bear" type="button" aria-label="Osito saludando">
-      <svg class="bear" viewBox="0 0 260 290" role="img" aria-hidden="true">
-        <defs>
-          <radialGradient id="fHead" cx="38%" cy="30%" r="78%">
-            <stop offset="0%" stop-color="#F0CBA4"></stop>
-            <stop offset="55%" stop-color="#D9A473"></stop>
-            <stop offset="100%" stop-color="#A87244"></stop>
-          </radialGradient>
-          <radialGradient id="fBody" cx="36%" cy="26%" r="80%">
-            <stop offset="0%" stop-color="#E7BE92"></stop>
-            <stop offset="58%" stop-color="#CE9B69"></stop>
-            <stop offset="100%" stop-color="#9C673C"></stop>
-          </radialGradient>
-          <radialGradient id="fLimb" cx="35%" cy="25%" r="85%">
-            <stop offset="0%" stop-color="#DDB086"></stop>
-            <stop offset="60%" stop-color="#C08F5E"></stop>
-            <stop offset="100%" stop-color="#8F5F36"></stop>
-          </radialGradient>
-          <radialGradient id="fMuzzle" cx="40%" cy="30%" r="75%">
-            <stop offset="0%" stop-color="#FDEBD6"></stop>
-            <stop offset="70%" stop-color="#F2D2B0"></stop>
-            <stop offset="100%" stop-color="#DDB489"></stop>
-          </radialGradient>
-          <radialGradient id="fPaw" cx="40%" cy="32%" r="76%">
-            <stop offset="0%" stop-color="#FCE8D2"></stop>
-            <stop offset="100%" stop-color="#E4BC94"></stop>
-          </radialGradient>
-          <radialGradient id="fEar" cx="45%" cy="40%" r="70%">
-            <stop offset="0%" stop-color="#E7A9A2"></stop>
-            <stop offset="100%" stop-color="#C77F79"></stop>
-          </radialGradient>
-          <filter id="fuzz" x="-12%" y="-12%" width="124%" height="124%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="6" result="n"></feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
-          </filter>
-          <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="7"></feGaussianBlur>
-          </filter>
-        </defs>
 
-        <!-- sombra en el piso -->
-        <ellipse cx="130" cy="274" rx="74" ry="12" fill="#8A5A32" opacity=".28" filter="url(#soft)"></ellipse>
-
-        <g filter="url(#fuzz)">
-          <!-- orejas -->
-          <circle cx="76" cy="62" r="27" fill="url(#fHead)"></circle>
-          <circle cx="184" cy="62" r="27" fill="url(#fHead)"></circle>
-          <circle cx="76" cy="63" r="13" fill="url(#fEar)"></circle>
-          <circle cx="184" cy="63" r="13" fill="url(#fEar)"></circle>
-
-          <!-- piernas -->
-          <ellipse cx="92" cy="256" rx="27" ry="19" fill="url(#fLimb)"></ellipse>
-          <ellipse cx="168" cy="256" rx="27" ry="19" fill="url(#fLimb)"></ellipse>
-          <ellipse cx="90" cy="256" rx="15" ry="10" fill="url(#fPaw)"></ellipse>
-          <ellipse cx="170" cy="256" rx="15" ry="10" fill="url(#fPaw)"></ellipse>
-
-          <!-- cuerpo -->
-          <ellipse cx="130" cy="208" rx="68" ry="60" fill="url(#fBody)"></ellipse>
-          <ellipse cx="130" cy="219" rx="40" ry="38" fill="url(#fMuzzle)" opacity=".8"></ellipse>
-
-          <!-- brazo quieto -->
-          <ellipse cx="68" cy="196" rx="18" ry="30" transform="rotate(20 68 196)" fill="url(#fLimb)"></ellipse>
-          <ellipse cx="62" cy="215" rx="11" ry="9" fill="url(#fPaw)"></ellipse>
-
-          <!-- cabeza -->
-          <circle cx="130" cy="120" r="68" fill="url(#fHead)"></circle>
-          <ellipse cx="130" cy="145" rx="35" ry="27" fill="url(#fMuzzle)"></ellipse>
-        </g>
-
-        <!-- brazo que saluda: filtro propio para que la animación no repinte todo el oso -->
-        <g class="arm-wave">
-          <g filter="url(#fuzz)">
-            <ellipse cx="196" cy="142" rx="17" ry="40" transform="rotate(38.7 196 142)" fill="url(#fLimb)"></ellipse>
-            <circle cx="222" cy="110" r="18" fill="url(#fPaw)"></circle>
-            <circle cx="214" cy="99" r="4.6" fill="#C89467" opacity=".8"></circle>
-            <circle cx="224" cy="96" r="4.6" fill="#C89467" opacity=".8"></circle>
-            <circle cx="233" cy="103" r="4.6" fill="#C89467" opacity=".8"></circle>
-          </g>
-        </g>
-
-        <!-- cara (sin fuzz, para que quede nítida) -->
-        <ellipse cx="106" cy="110" rx="9" ry="10" fill="#2E1B10"></ellipse>
-        <ellipse cx="154" cy="110" rx="9" ry="10" fill="#2E1B10"></ellipse>
-        <circle cx="109" cy="106" r="3.2" fill="#FFFFFF" opacity=".92"></circle>
-        <circle cx="157" cy="106" r="3.2" fill="#FFFFFF" opacity=".92"></circle>
-        <circle cx="103" cy="114" r="1.6" fill="#FFFFFF" opacity=".5"></circle>
-        <circle cx="151" cy="114" r="1.6" fill="#FFFFFF" opacity=".5"></circle>
-
-        <path d="M118 133 q12 -9 24 0 q-3 12 -12 12 q-9 0 -12 -12 Z" fill="#3A2417"></path>
-        <ellipse cx="124" cy="136" rx="4" ry="2.6" fill="#6B4A33" opacity=".7"></ellipse>
-        <path d="M130 145 v7" stroke="#3A2417" stroke-width="3.4" stroke-linecap="round" fill="none"></path>
-        <path d="M130 152 q-11 9 -19 1" stroke="#3A2417" stroke-width="3.4" stroke-linecap="round" fill="none"></path>
-        <path d="M130 152 q11 9 19 1" stroke="#3A2417" stroke-width="3.4" stroke-linecap="round" fill="none"></path>
-
-        <ellipse cx="88" cy="140" rx="12" ry="7.5" fill="#E4788A" opacity=".38"></ellipse>
-        <ellipse cx="172" cy="140" rx="12" ry="7.5" fill="#E4788A" opacity=".38"></ellipse>
-
-        <!-- gorrito -->
-        <path d="M166 62 L196 12 L214 66 Z" fill="#F2647F"></path>
-        <path d="M166 62 L196 12 L205 39 Z" fill="#FF8298" opacity=".75"></path>
-        <circle cx="196" cy="12" r="9" fill="#FFE07A"></circle>
-        <circle cx="193" cy="9" r="3" fill="#FFF3C4"></circle>
-      </svg>
-      <span class="bear-caption">tócame</span>
+    <!-- ====== ESPACIO PARA EL GIF ======
+         Cuando tengas el gif, pon la ruta en GIF_SRC (abajo en el script).
+         Mientras esté vacío se muestra el marco con el mensajito. -->
+    <button class="gif-slot" id="gifslot" type="button" aria-label="Sorpresa">
+      <span class="gif-hint" id="gifhint">
+        <span class="ico" aria-hidden="true">🎁</span>
+        aquí va el gif
+      </span>
     </button>
+    <span class="gif-caption">tócame</span>
 
     <p class="hand" style="margin-top:12px">Para mi amor</p>
     <h1>Feliz vuelta <span>al sol</span></h1>
-    <p class="hero-copy">Hoy es tu día. Te hice esto con calma, léelo todo que abajo te tengo algo.</p>
-    <p style="margin-top:22px"><span class="date-chip">01 · 09 · 2026</span></p>
-    <p style="margin-top:26px"><a class="cta" href="#invitacion">🎁 Ábreme</a></p>
+    <p class="hero-copy">Hoy es tu día, mi amor. Te hice esto con calma para que sepas todo lo que pienso de ti. Léelo completo, que abajo te tengo algo.</p>
+    <p style="margin-top:20px"><span class="date-chip">01 · 09 · 2026</span></p>
+    <p style="margin-top:22px"><a class="cta" href="#invitacion">🎂 Ábreme</a></p>
   </div>
 </header>
 
@@ -407,14 +349,14 @@ p{margin:0}
       <div class="invite-inner">
         <p class="eyebrow" style="text-align:center">Estás invitada</p>
         <h2>Cena de cumpleaños</h2>
-        <p class="sub">Solo nosotros dos.</p>
+        <p class="sub">Solo tú y yo, mi amor.</p>
 
         <dl class="rows">
           <div class="row"><dt>Cuándo</dt><dd>Martes 1 de septiembre</dd></div>
           <div class="row"><dt>A las</dt><dd id="hora-txt">8:00 p.&nbsp;m.</dd></div>
-          <div class="row"><dt>Cómo</dt><dd>Paso por ti, usted no se preocupe por nada</dd></div>
-          <div class="row"><dt>Qué ponerse</dt><dd>Lo que quiera, igual va a estar hermosa</dd></div>
-          <div class="row"><dt>Qué llevar</dt><dd>Hambre, nada más</dd></div>
+          <div class="row"><dt>Cómo</dt><dd>Paso por ti, no te preocupes por nada</dd></div>
+          <div class="row"><dt>Qué ponerse</dt><dd>Lo que tú quieras, igual vas a estar hermosa</dd></div>
+          <div class="row"><dt>Qué llevar</dt><dd>Solo hambre y ganas de que te consienta</dd></div>
         </dl>
 
         <div class="count" id="count">
@@ -425,9 +367,9 @@ p{margin:0}
             <div class="slot"><b id="cd-s">—</b><span>seg</span></div>
           </div>
           <div class="boom">
-            <h3>¡Feliz cumpleaños amor!</h3>
-            <p>Ya es la hora, voy en camino.</p>
-            <p class="hand">Alístese que hoy manda usted.</p>
+            <h3>¡Feliz cumpleaños mi amor!</h3>
+            <p>Ya es la hora, voy en camino por ti.</p>
+            <p class="hand">Alístate, que hoy te consiento todo el día.</p>
           </div>
         </div>
       </div>
@@ -436,55 +378,11 @@ p{margin:0}
 </section>
 
 <section class="band band-rose">
-  <div class="shell">
-    <div class="head">
-      <p class="eyebrow">Toca cada una</p>
-      <h2>Diez razones por las que te quiero</h2>
-      <p class="lede">Son más, pero tocaba escoger.</p>
-    </div>
-    <div class="reasons" id="reasons"></div>
-  </div>
-</section>
-
-<section class="band band-sea">
-  <div class="shell">
-    <div class="head">
-      <p class="eyebrow">Cosas tuyas</p>
-      <h2>Las cositas que te hacen tú</h2>
-      <p class="lede">Bobadas que uno se va aprendiendo.</p>
-    </div>
-
-    <div class="uni">
-      <article class="ucard">
-        <p class="mini">Comida</p>
-        <h3>Lo que te alegra el día</h3>
-        <p>Sushi, pasta, pizza bien tostada, capuchino y cerezas. Y ojo, la pizza tiene que ser tostada, si no ya no sirve.</p>
-        <div class="note">Y por encima de todo: el melado de frutos rojos de tu mamá, con panela y canela.</div>
-      </article>
-
-      <article class="ucard">
-        <p class="mini">Música</p>
-        <h3>Bad Bunny y vallenato</h3>
-        <p>Te sabes <em>Un verano sin ti</em> completo y lo defiendes con argumentos. Pero pones un vallenato y ya es otra persona.</p>
-        <button class="songbtn" id="songbtn" type="button">¿Y cuál es nuestra canción?</button>
-      </article>
-
-      <article class="ucard">
-        <p class="mini">Cómo eres</p>
-        <h3>Una berraca</h3>
-        <p>Trabajando, estudiando y en el gimnasio, todo al tiempo. Y todavía te queda cabeza para acordarte de lo que a los demás se nos olvida.</p>
-        <div class="tags"><span>Gym</span><span>Bordar</span><span>Bailar</span><span>Cine</span><span>Viajar</span></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="band band-lime">
   <div class="shell narrow">
     <div class="head">
-      <p class="eyebrow">La verdad</p>
+      <p class="eyebrow">De corazón</p>
       <h2>Lo que admiro de ti</h2>
-      <p class="lede">Sin exagerar, esto es lo que pienso.</p>
+      <p class="lede">Cosas que pienso de ti y que te digo poco.</p>
     </div>
 
     <div class="admiro">
@@ -492,42 +390,63 @@ p{margin:0}
         <div class="mark">🧳</div>
         <div>
           <h3>Que te viniste sola</h3>
-          <p>Dejaste Neiva y te vinistes a Bogotá a arrancar de cero, sin conocer a nadie. Eso no lo hace cualquiera y usted lo hizo sin quejarse.</p>
+          <p>Dejaste Neiva y te viniste a Bogotá a arrancar de cero, sin conocer a nadie. Eso no lo hace cualquiera, mi amor, y tú lo hiciste sin quejarte ni una vez.</p>
         </div>
       </article>
       <article class="arow">
         <div class="mark">🎓</div>
         <div>
           <h3>Que te graduaste</h3>
-          <p>Trabajando todo el día, viajando de noche y estudiando cuando podía. Y aun así la sacaste. Yo la vi haciéndolo.</p>
+          <p>Trabajando todo el día, viajando de noche y estudiando cuando podías. Yo te vi haciéndolo y no te imaginas lo orgulloso que estoy de ti.</p>
         </div>
       </article>
       <article class="arow">
         <div class="mark">💪</div>
         <div>
           <h3>Que no te rindes</h3>
-          <p>Cuando algo no le sale usted no se queda llorando, lo vuelve a intentar. Y cuando le llegó lo que se había ganado ni se sorprendió.</p>
+          <p>Cuando algo no te sale no te quedas llorando, lo vuelves a intentar. Y cuando te llegó lo que te habías ganado ni te sorprendiste, porque sabías todo lo que habías trabajado.</p>
+        </div>
+      </article>
+      <article class="arow">
+        <div class="mark">🏋️</div>
+        <div>
+          <h3>Que eres disciplinada</h3>
+          <p>Sales de trabajar muerta del cansancio y aun así te vas para el gimnasio. Así llueva, así no tengas ganas. Eso me encanta de ti.</p>
         </div>
       </article>
       <article class="arow">
         <div class="mark">🏠</div>
         <div>
           <h3>Que nunca sueltas a los tuyos</h3>
-          <p>Esté como esté, siempre está pendiente de su mamá, de su papá y de su hermano. Se le nota en la cara cuando habla de ellos.</p>
+          <p>Estés como estés, siempre estás pendiente de tu mamá, de tu papá y de tu hermano. Se te ilumina la cara cuando hablas de ellos y a mí me encanta verte así.</p>
+        </div>
+      </article>
+      <article class="arow">
+        <div class="mark">🧵</div>
+        <div>
+          <h3>Que tienes manos para todo</h3>
+          <p>Bordas, cocinas, arreglas y te inventas cosas. Se te ocurre algo por la mañana y por la tarde ya está hecho.</p>
+        </div>
+      </article>
+      <article class="arow">
+        <div class="mark">🧠</div>
+        <div>
+          <h3>Que te acuerdas de todo</h3>
+          <p>Las fechas, los detalles, lo que uno dijo hace meses. En esa cabecita tuya vive la agenda de todo el mundo.</p>
         </div>
       </article>
       <article class="arow">
         <div class="mark">☕</div>
         <div>
-          <h3>Que todavía le sobra</h3>
-          <p>Para el gimnasio, para bordar, para preguntarme si ya almorcé y para acordarse de todo. No sé de dónde saca.</p>
+          <h3>Que todavía te sobra</h3>
+          <p>Después de todo eso todavía sacas tiempo para preguntar cómo voy yo. No sé de dónde sacas, mi amor.</p>
         </div>
       </article>
     </div>
   </div>
 </section>
 
-<section class="band band-lav" id="fotos" hidden>
+<section class="band band-lime" id="fotos" hidden>
   <div class="shell">
     <div class="head">
       <p class="eyebrow">Nuestro carrete</p>
@@ -542,12 +461,12 @@ p{margin:0}
   <div class="shell narrow">
     <div class="letter">
       <p class="eyebrow">Para ti</p>
-      <h2>Juanita,</h2>
-      <p>Usted sabe que yo casi no escribo, que para eso le mando audios. Pero hoy quise sentarme y hacerle esto con calma, porque hay cosas que se las digo poco.</p>
-      <p>Yo la admiro arto. Es una mujer berraca, juiciosa y de las que no aflojan. Me gusta cómo cuida a su gente, cómo se acuerda de todo y cómo siempre encuentra la forma de hacerme sentir bien, así ande de mal genio.</p>
-      <p>Gracias por aguantarme, por las llamadas eternas, por preguntarme si ya almorcé y por seguir escogiéndome. Igual usted y yo sabemos que no siempre es fácil, pero aquí sigo y aquí me quedo.</p>
-      <p>Ojalá este año le traiga salud, tranquilidad y cosas buenas. Todavía nos faltan viajes, cabañas, sushi y un poco de todo. Yo quiero estar ahí para todo eso.</p>
-      <p>Feliz cumpleaños amor.</p>
+      <h2>Mi amor,</h2>
+      <p>Tú sabes que yo casi no escribo, que para eso te mando audios. Pero hoy me senté a hacerte esto con calma, porque hay cosas que te digo poco y quiero que hoy te queden bien claras.</p>
+      <p>Te admiro arto, en serio. Eres una mujer berraca, juiciosa y de las que no aflojan. Me encanta cómo cuidas a tu gente, cómo te acuerdas de todo y cómo sacas adelante todo lo que te propones. A veces me quedo mirándote y pienso que me gané la lotería contigo.</p>
+      <p>Hoy no es día de hablar de mí. Hoy el mundo gira alrededor tuyo y con toda la razón. Quiero que te consientan, que te celebren y que no hagas nada que no tengas ganas de hacer.</p>
+      <p>Ojalá este año te traiga salud, tranquilidad y todo lo que estás buscando. Y que te sobre para celebrarlo.</p>
+      <p>Feliz cumpleaños, mi amor. Eres lo mejor que tengo.</p>
       <div class="sign">
         <span>Te amo un montón mucho,</span>
         <strong>Tavo</strong>
@@ -558,9 +477,9 @@ p{margin:0}
 
 <footer class="end">
   <div class="heart">♡</div>
-  <p class="eyebrow" style="margin-top:14px">Feliz cumpleaños, mi amor</p>
-  <h2>Gracias por escogerme.<br>Yo también te escojo.</h2>
-  <p>Nos vemos esta noche.</p>
+  <p class="eyebrow" style="margin-top:12px">Feliz cumpleaños, mi amor</p>
+  <h2>Hoy el día es tuyo.<br>Disfrútalo completo.</h2>
+  <p>Te amo. Nos vemos esta noche.</p>
   <span class="stamp">01 · 09 · 2026</span>
 </footer>
 
@@ -570,10 +489,40 @@ p{margin:0}
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ============================================================
-     HORA DE LA CENA. Por defecto 1 de septiembre de 2026, 8:00 p.m.
-     También se puede mandar el link con  ?hora=21:30  al final.
+     1) EL GIF. Pon aquí la ruta o el link del gif, por ejemplo:
+        var GIF_SRC = "oso.gif";
+        Si queda vacío, se muestra el marco con el mensajito.
+     ============================================================ */
+  var GIF_SRC = "";
+
+  /* ============================================================
+     2) HORA DE LA CENA. Por defecto 1 de septiembre de 2026, 8:00 p.m.
+        También se puede mandar el link con  ?hora=21:30  al final.
      ============================================================ */
   var HOUR = 20, MIN = 0;
+
+  /* ============================================================
+     3) FOTOS. Ejemplo:
+        var PHOTOS = [{src:"fotos/1.jpg", label:"La primera salida"}];
+        Vacío = la sección no se muestra.
+     ============================================================ */
+  var PHOTOS = [];
+
+  /* ---------- gif ---------- */
+  (function(){
+    if (!GIF_SRC) return;
+    var slot = document.getElementById("gifslot");
+    var img = document.createElement("img");
+    img.alt = "";
+    img.addEventListener("load", function(){
+      document.getElementById("gifhint").remove();
+      slot.classList.add("filled");
+    });
+    img.src = GIF_SRC;
+    slot.appendChild(img);
+  })();
+
+  /* ---------- hora ---------- */
   try {
     var q = new URLSearchParams(location.search).get("hora");
     if (q){
@@ -594,8 +543,7 @@ p{margin:0}
   }
   document.getElementById("hora-txt").innerHTML = pretty(HOUR, MIN);
 
-  /* ---------- fotos (vacío = la sección no se muestra) ---------- */
-  var PHOTOS = [];
+  /* ---------- fotos ---------- */
   (function(){
     if (!PHOTOS.length) return;
     var sec = document.getElementById("fotos"), host = document.getElementById("photos");
@@ -611,7 +559,7 @@ p{margin:0}
     sec.hidden = false;
   })();
 
-  /* ---------- cuenta regresiva (solo horas hacia abajo) ---------- */
+  /* ---------- cuenta regresiva ---------- */
   var count = document.getElementById("count");
   var eh = document.getElementById("cd-h"), em = document.getElementById("cd-m"), es = document.getElementById("cd-s");
   var fired = false, forced = false;
@@ -644,7 +592,8 @@ p{margin:0}
     size(); addEventListener("resize", size);
     cv.style.display = "block";
     var cols = ["#FFE07A","#F2647F","#26A9BA","#A8D46F","#8C63C4","#FFA552"];
-    for (var i = 0; i < 160; i++){
+    var n = innerWidth < 620 ? 90 : 160;
+    for (var i = 0; i < n; i++){
       bits.push({
         x: Math.random() * w, y: -20 - Math.random() * h * 0.8,
         r: 4 + Math.random() * 7, vy: 1.5 + Math.random() * 3,
@@ -674,9 +623,10 @@ p{margin:0}
   (function(){
     if (reduce) return;
     var host = document.getElementById("bubbles");
-    for (var i = 0; i < 16; i++){
+    var n = innerWidth < 620 ? 9 : 16;
+    for (var i = 0; i < n; i++){
       var b = document.createElement("span");
-      var d = 12 + Math.random() * 40;
+      var d = 12 + Math.random() * 38;
       b.className = "bub";
       b.style.width = b.style.height = d + "px";
       b.style.left = (2 + Math.random() * 88) + "%";
@@ -685,44 +635,6 @@ p{margin:0}
       host.appendChild(b);
     }
   })();
-
-  /* ---------- diez razones ---------- */
-  var REASONS = [
-    "Porque cuidas a tu gente con hechos, no solo con palabras.",
-    "Porque me preguntas si ya almorcé antes de contarme tu día.",
-    "Porque te acuerdas de detalles míos que ni yo me acuerdo.",
-    "Porque tu risa arregla cualquier día malo.",
-    "Porque eres una berraca y no aflojas con nada.",
-    "Porque hasta el plan más bobo contigo se vuelve chévere.",
-    "Porque se te ilumina la cara cuando hablas de tus papás.",
-    "Porque contigo aprendí a querer distinto y a dejarme querer.",
-    "Porque me haces sentir escogido todos los días.",
-    "Porque mi vida está más bonita desde ese primer «Hola»."
-  ];
-  var grid = document.getElementById("reasons");
-  REASONS.forEach(function(txt, i){
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "reason";
-    b.setAttribute("aria-expanded", "false");
-    b.innerHTML = '<span class="pin">♡</span>' +
-                  '<span class="num">' + (i < 9 ? "0" : "") + (i + 1) + '</span>' +
-                  '<span class="front">Una razón</span>' +
-                  '<span class="text"></span>';
-    b.querySelector(".text").textContent = txt;
-    b.addEventListener("click", function(){
-      var on = b.classList.toggle("open");
-      b.setAttribute("aria-expanded", on ? "true" : "false");
-    });
-    grid.appendChild(b);
-  });
-
-  /* ---------- botón de la canción ---------- */
-  var sb = document.getElementById("songbtn"), songOn = false;
-  sb.addEventListener("click", function(){
-    songOn = !songOn;
-    sb.textContent = songOn ? "A besitos, de Los Diablitos 🎶" : "¿Y cuál es nuestra canción?";
-  });
 
   /* ---------- avisito ---------- */
   var toast = document.getElementById("toast"), toastT;
@@ -733,9 +645,9 @@ p{margin:0}
     toastT = setTimeout(function(){ toast.classList.remove("show"); }, 2600);
   }
 
-  /* ---------- huevo de pascua: 5 toques al osito ---------- */
-  var bear = document.getElementById("bear"), taps = 0, tapT;
-  bear.addEventListener("click", function(){
+  /* ---------- huevo de pascua: 5 toques al gif ---------- */
+  var slot = document.getElementById("gifslot"), taps = 0, tapT;
+  slot.addEventListener("click", function(){
     taps++;
     clearTimeout(tapT);
     tapT = setTimeout(function(){ taps = 0; }, 1800);
@@ -746,6 +658,7 @@ p{margin:0}
       if (forced){
         arrive();
         say("Modo prueba: así se va a ver a la hora");
+        document.getElementById("invitacion").scrollIntoView({behavior:"smooth", block:"center"});
       } else {
         count.classList.remove("is-time");
         fired = false;
