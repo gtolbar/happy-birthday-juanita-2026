@@ -2,389 +2,342 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Caveat:wght@500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap">
 
 <style>
 /* ============================================================
-   Mobile primero. Los @media (min-width) agrandan para tablet/desktop.
+   CUADERNO DE AVENTURAS — hecho a mano, para Juanita
+   Mobile primero. Los @media (min-width) agrandan.
+   Un solo mundo visual: papel envejecido en cualquier tema.
    ============================================================ */
 
 :root{
-  --ground:#D8F1F5;
-  --card:#FFFFFF;
-  --band-sun:#FFE79A;
-  --band-sea:#B2E6EF;
-  --band-rose:#FFCBD8;
-  --band-lime:#D2EEAE;
-  --band-lav:#DCCDF6;
-  --ink:#1B4653;
-  --ink-soft:#4E7E8C;
-  --stroke:#1B4653;
-  --hard:#1B4653;
-  --coral:#F2647F;
-  --teal:#0E7F8E;
-  --gold:#E9962A;
-  --gold-ink:#9C5F0D;
-  --plum:#7B4FB8;
-  --paper:#FFFDF6;
-  --bw:2.5px;        /* grosor de borde  */
-  --sx:3px;          /* sombra dura x    */
-  --sy:4px;          /* sombra dura y    */
-  --pad:16px;        /* margen lateral   */
-  --radius:38px;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --ground:#0E2A32;
-    --card:#15373F;
-    --band-sun:#33351F;
-    --band-sea:#123840;
-    --band-rose:#3A2530;
-    --band-lime:#1F3324;
-    --band-lav:#2A2540;
-    --ink:#EDFAFB;
-    --ink-soft:#9FC6CE;
-    --stroke:#7FC9D6;
-    --hard:#061A20;
-    --coral:#FF8FA6;
-    --teal:#5FD2E0;
-    --gold:#F5BE63;
-    --gold-ink:#F5BE63;
-    --plum:#C4A6F5;
-    --paper:#193F48;
-  }
-}
-:root[data-theme="dark"]{
-  --ground:#0E2A32;
-  --card:#15373F;
-  --band-sun:#33351F;
-  --band-sea:#123840;
-  --band-rose:#3A2530;
-  --band-lime:#1F3324;
-  --band-lav:#2A2540;
-  --ink:#EDFAFB;
-  --ink-soft:#9FC6CE;
-  --stroke:#7FC9D6;
-  --hard:#061A20;
-  --coral:#FF8FA6;
-  --teal:#5FD2E0;
-  --gold:#F5BE63;
-  --gold-ink:#F5BE63;
-  --plum:#C4A6F5;
-  --paper:#193F48;
+  color-scheme:light;
+
+  --paper:#EFE1C3;        /* papel base            */
+  --paper-2:#E7D7B5;      /* papel un tono abajo   */
+  --paper-3:#F4E9D2;      /* papel claro (tarjetas)*/
+  --paper-4:#E1CFA9;      /* papel oscuro          */
+  --ink:#463322;          /* café tinta            */
+  --ink-soft:#7C6446;     /* café suave            */
+  --line:#C4AC80;         /* línea de lápiz        */
+  --red:#8C2F2A;          /* rojo oscuro           */
+  --red-2:#6E231F;
+  --mustard:#B77F17;      /* mostaza               */
+  --mustard-2:#8F6210;
+  --sky:#4F87A8;          /* azul cielo            */
+  --sky-2:#3B6C89;
+  --moss:#5A7A4E;
+  --cover:#7C3B2C;
+  --cover-2:#5A2820;
+  --tape:rgba(226,208,164,.78);
+  --tape-2:rgba(206,182,132,.62);
+
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+
+  --soft:0 6px 18px rgba(70,45,25,.18);
+  --soft-2:0 10px 26px rgba(70,45,25,.24);
+  --sketch:255px 12px 225px 12px/12px 225px 12px 255px;
+  --pad:16px;
 }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
 body{
-  margin:0;background:var(--ground);color:var(--ink);
+  margin:0;color:var(--ink);
+  background-color:var(--paper);
+  background-image:
+    radial-gradient(70% 45% at 8% 4%, rgba(150,110,55,.14), transparent 62%),
+    radial-gradient(60% 40% at 96% 30%, rgba(140,100,50,.12), transparent 60%),
+    radial-gradient(70% 50% at 20% 92%, rgba(150,110,55,.12), transparent 62%),
+    var(--grain);
+  background-blend-mode:multiply,multiply,multiply,multiply;
+  background-attachment:scroll;
   font-family:Nunito,"Segoe UI",system-ui,sans-serif;
-  font-size:16px;line-height:1.6;overflow-x:hidden;
+  font-size:16px;line-height:1.62;overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
-h1,h2,h3{font-family:"Baloo 2",Verdana,sans-serif;font-weight:700;line-height:1.14;margin:0;text-wrap:balance}
+h1,h2,h3{font-family:Kalam,"Segoe Print","Comic Sans MS",cursive;font-weight:700;line-height:1.14;margin:0;text-wrap:balance}
 p{margin:0}
 img{max-width:100%}
-:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+em{font-style:italic}
+:focus-visible{outline:3px solid var(--mustard);outline-offset:3px;border-radius:6px}
 
-.shell{width:100%;max-width:940px;margin:0 auto;padding:0 var(--pad);position:relative;z-index:2}
-.narrow{max-width:660px}
+.shell{width:100%;max-width:900px;margin:0 auto;padding:0 var(--pad);position:relative;z-index:2}
+.narrow{max-width:640px}
 
 .eyebrow{
-  font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--teal);margin:0 0 10px;
+  font-family:Nunito,sans-serif;font-weight:700;font-size:10.5px;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--red);margin:0 0 9px;
 }
-.hand{font-family:Caveat,cursive;font-size:26px;color:var(--coral);line-height:1.2}
+.eyebrow-sky{color:var(--sky-2)}
+.eyebrow-mustard{color:var(--mustard-2)}
+.eyebrow-moss{color:var(--moss)}
+.hand{font-family:Caveat,cursive;font-size:25px;color:var(--red);line-height:1.25}
 
-.band{
-  position:relative;padding:46px 0 50px;
-  border-radius:var(--radius) var(--radius) 0 0;margin-top:-26px;
-  border-top:var(--bw) solid var(--stroke);
-}
-.band-sun{background:var(--band-sun)}
-.band-sea{background:var(--band-sea)}
-.band-rose{background:var(--band-rose)}
-.band-lime{background:var(--band-lime)}
-.band-lav{background:var(--band-lav)}
-.band h2{font-size:28px}
-.band .lede{color:var(--ink-soft);margin-top:10px;max-width:52ch;font-size:16px}
-.head{margin-bottom:26px}
+/* ---------- bandas de papel ---------- */
+.band{position:relative;padding:44px 0 48px;overflow:hidden}
+.band-a{background:rgba(225,207,169,.42)}
+.band-b{background:rgba(244,233,210,.5)}
+.band-c{background:rgba(215,193,150,.36)}
+.band h2{font-size:31px}
+.band .lede{color:var(--ink-soft);margin-top:9px;max-width:52ch;font-size:16px}
+.head{margin-bottom:24px}
 
-/* ---------- portada ---------- */
-.hero{
-  position:relative;text-align:center;overflow:hidden;
-  padding:26px 0 78px;background:var(--ground);
-}
-.hero h1{font-size:40px;font-weight:800;letter-spacing:-.01em;margin-top:4px}
-.hero h1 span{display:block;color:var(--gold-ink)}
-.date-chip{
-  display:inline-block;font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-  background:var(--coral);color:var(--hard);border:var(--bw) solid var(--stroke);border-radius:999px;
-  padding:7px 18px;box-shadow:var(--sx) var(--sy) 0 var(--hard);
-}
-.hero-copy{margin:18px auto 0;max-width:36ch;color:var(--ink-soft);font-size:16px}
-.cta{
-  margin-top:24px;display:inline-flex;align-items:center;justify-content:center;gap:9px;
-  min-height:52px;font-family:"Baloo 2",sans-serif;font-weight:700;font-size:18px;
-  background:var(--gold);color:#22160A;border:var(--bw) solid var(--stroke);
-  border-radius:999px;padding:12px 28px;cursor:pointer;text-decoration:none;
-  box-shadow:var(--sx) var(--sy) 0 var(--hard);transition:transform .14s ease, box-shadow .14s ease;
-}
-.cta:active{transform:translate(var(--sx),var(--sy));box-shadow:0 0 0 var(--hard)}
+/* costura punteada que separa bandas */
+.seam{display:block;width:100%;height:14px}
+.seam svg{display:block;width:100%;height:14px}
 
-.bubbles{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.bub{
-  position:absolute;bottom:-90px;border-radius:50%;
-  border:2px solid var(--stroke);opacity:.28;animation:float linear infinite;
-}
-.bub::after{
-  content:"";position:absolute;top:16%;left:18%;width:26%;height:26%;
-  border-radius:50%;background:var(--stroke);opacity:.5;
-}
-@keyframes float{
-  0%{transform:translateY(0) translateX(0)}
-  50%{transform:translateY(-52vh) translateX(14px)}
-  100%{transform:translateY(-108vh) translateX(-8px)}
-}
-.wave{display:block;width:100%;height:auto;margin-bottom:-4px;position:relative;z-index:1}
+/* subrayado a mano bajo los títulos */
+.underline{display:block;width:126px;height:8px;margin-top:7px;overflow:visible}
+.underline path{fill:none;stroke:var(--mustard);stroke-width:3;stroke-linecap:round;opacity:.85}
 
-/* ---------- espacio del GIF ---------- */
-.gif-slot{
-  position:relative;z-index:2;display:block;margin:0 auto;
-  width:min(220px,62vw);aspect-ratio:1/1;
-  border:var(--bw) solid var(--stroke);border-radius:28px;
-  background:var(--band-sun);box-shadow:var(--sx) var(--sy) 0 var(--hard);
-  padding:0;cursor:pointer;overflow:hidden;
-  display:grid;place-items:center;
-}
-.gif-slot img{width:100%;height:100%;object-fit:contain;display:block}
-.gif-hint{
-  display:grid;place-items:center;gap:6px;padding:14px;
-  font-family:Caveat,cursive;font-size:21px;color:var(--ink-soft);line-height:1.25;
-}
-.gif-hint .ico{font-size:34px;line-height:1}
-.gif-slot.filled{background:var(--card)}
-.gif-caption{display:block;margin-top:8px;font-family:Caveat,cursive;font-size:19px;color:var(--ink-soft)}
-
-/* ---------- invitación ---------- */
-.invite{
-  background:var(--paper);border:var(--bw) solid var(--stroke);border-radius:24px;
-  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:20px 16px;position:relative;
-}
-.invite::before{
-  content:"";position:absolute;inset:7px;border:2px dashed var(--stroke);
-  border-radius:18px;opacity:.3;pointer-events:none;
-}
-.invite-inner{position:relative}
-.invite h2{font-size:27px;text-align:center}
-.invite .sub{text-align:center;color:var(--ink-soft);margin-top:6px;font-size:15px}
-.rows{margin-top:20px;display:grid;border:2px solid var(--stroke);border-radius:14px;overflow:hidden}
-.row{display:grid;gap:1px;padding:11px 14px;background:var(--card)}
-.row + .row{border-top:2px solid var(--stroke)}
-.row dt{font-weight:700;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal)}
-.row dd{margin:0;font-family:"Baloo 2",sans-serif;font-weight:600;font-size:17px}
-
-.count{margin-top:24px}
-.count-panel{
-  background:var(--coral);border:var(--bw) solid var(--stroke);border-radius:22px;
-  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:18px 12px 20px;text-align:center;
-  position:relative;overflow:hidden;
-}
-/* lunares de confeti dentro del panel */
-.count-panel::before,.count-panel::after{
-  content:"";position:absolute;width:64px;height:64px;border-radius:50%;
-  background:#FFFFFF;opacity:.16;pointer-events:none;
-}
-.count-panel::before{top:-26px;left:-18px}
-.count-panel::after{bottom:-30px;right:-14px;width:82px;height:82px}
-.count-label{
-  position:relative;font-family:"Baloo 2",sans-serif;font-weight:700;
-  font-size:19px;line-height:1.2;letter-spacing:0;text-transform:none;color:var(--hard);
-}
-.clock{position:relative;display:flex;justify-content:center;gap:8px;margin-top:14px}
-.slot{
-  flex:1 1 0;min-width:0;max-width:112px;
-  border:var(--bw) solid var(--stroke);border-radius:16px;
-  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:12px 6px;
-}
-.slot-1{background:var(--band-sun)}
-.slot-2{background:var(--band-lime)}
-.slot-3{background:var(--band-lav)}
-.slot b{
-  display:block;font-family:"Baloo 2",sans-serif;font-weight:800;
-  font-size:42px;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink);
-}
-.slot span{display:block;margin-top:4px;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
-.slot-3 b{animation:beat 1s ease-in-out infinite}
-@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
-
-.boom{display:none;position:relative;text-align:center;padding:2px 0}
-.is-time .clock,.is-time .count-label{display:none}
-.is-time .boom{display:block;animation:pop-in .7s cubic-bezier(.2,.9,.3,1) both}
-.boom h3{font-size:30px;color:var(--hard)}
-.boom p{margin-top:10px;font-size:17px;color:var(--hard)}
-.boom .hand{margin-top:12px;color:var(--hard)}
-@keyframes pop-in{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:none}}
-
-/* ---------- lo que admiro ---------- */
-.admiro{display:grid;gap:12px}
-.arow{
-  display:flex;gap:13px;align-items:flex-start;background:var(--card);
-  border:var(--bw) solid var(--stroke);border-radius:18px;
-  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:15px 16px;
-}
-.arow .mark{
-  flex:none;width:38px;height:38px;border-radius:50%;border:2px solid var(--stroke);
-  background:var(--band-sun);display:grid;place-items:center;font-size:17px;
-}
-.arow:nth-child(5n+2) .mark{background:var(--band-lime)}
-.arow:nth-child(5n+3) .mark{background:var(--band-lav)}
-.arow:nth-child(5n+4) .mark{background:var(--band-sea)}
-.arow:nth-child(5n+5) .mark{background:var(--band-rose)}
-
-/* variantes de color para los rótulos */
-.eyebrow-coral{color:var(--coral)}
-.eyebrow-plum{color:var(--plum)}
-.eyebrow-gold{color:var(--gold-ink)}
-
-/* ---------- créditos ---------- */
-.credits{
-  background:var(--ground);border-top:var(--bw) solid var(--stroke);
-  padding:34px var(--pad) calc(38px + env(safe-area-inset-bottom));text-align:center;
-}
-.credits h3{font-size:21px;color:var(--plum)}
-.credits .roll{list-style:none;margin:18px auto 0;padding:0;max-width:400px;display:grid;gap:11px}
-.credits .roll li{display:grid;gap:2px}
-.credits .roll b{font-weight:700;font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--teal)}
-.credits .roll span{font-family:"Baloo 2",sans-serif;font-weight:600;font-size:16px;color:var(--ink)}
-.credits .tail{margin-top:22px;font-family:Caveat,cursive;font-size:19px;color:var(--ink-soft)}
-.credits .dots{display:flex;justify-content:center;gap:7px;margin-bottom:16px}
-.credits .dots i{width:11px;height:11px;border-radius:50%;border:2px solid var(--stroke);display:block}
-.arow h3{font-size:19px}
-.arow p{margin-top:5px;color:var(--ink-soft);font-size:15.5px}
-
-/* ---------- fotos ---------- */
-.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:14px}
-.polaroid{
-  background:var(--paper);border:var(--bw) solid var(--stroke);border-radius:8px;
-  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:9px 9px 0;margin:0;
-}
-.polaroid:nth-child(odd){transform:rotate(-1.4deg)}
-.polaroid:nth-child(even){transform:rotate(1.6deg)}
-.polaroid img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px;background:var(--band-sea)}
-.polaroid figcaption{font-family:Caveat,cursive;font-size:20px;text-align:center;padding:7px 4px 10px;color:var(--ink)}
-
-/* ============================================================
-   CUADERNO DE AVENTURAS  (sección de la carta)
-   Objeto físico: mantiene sus colores de papel en tema claro y oscuro.
-   ============================================================ */
-.book-band{
-  --bk-paper:#F1E3C6;
-  --bk-paper-2:#E3D0AA;
-  --bk-ink:#463322;
-  --bk-ink-soft:#7C6446;
-  --bk-line:#C9B389;
-  --bk-cover:#7C3B2C;
-  --bk-cover-2:#5E2A20;
-  --bk-mustard:#C08A22;
-  --bk-red:#8C2F2A;
-  --bk-sky:#6FA8C9;
-  --bk-tape:rgba(226,208,164,.75);
-  --bk-grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
-  background:#E4D6BB;
-  overflow:hidden;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]) .book-band{background:#2A2018}
-}
-:root[data-theme="dark"] .book-band{background:#2A2018}
-
-.book-band .eyebrow{color:var(--bk-red)}
-.book-band .lede{color:var(--bk-ink-soft)}
-
-/* globos de fondo */
-.bk-sky-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+/* ---------- globos ---------- */
+.sky-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
 .balloon{position:absolute;width:var(--w,16px);will-change:transform}
 .balloon .bulb{
   display:block;width:100%;aspect-ratio:.82/1;
-  background:var(--c,#C08A22);border-radius:50% 50% 46% 46%/54% 54% 46% 46%;
-  box-shadow:inset -2px -3px 0 rgba(0,0,0,.14), inset 2px 2px 0 rgba(255,255,255,.22);
+  background:var(--c,#B77F17);border-radius:50% 50% 46% 46%/54% 54% 46% 46%;
+  box-shadow:inset -2px -3px 0 rgba(0,0,0,.15), inset 2px 2px 0 rgba(255,255,255,.24);
 }
-.balloon .str{display:block;width:1px;height:var(--s,26px);margin:0 auto;background:rgba(70,51,34,.42)}
-.bk-ambient .balloon{opacity:.38;animation:drift 16s ease-in-out infinite alternate}
-@keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(10px,-22px,0)}}
-.bk-rise{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:5}
-.bk-rise .balloon{bottom:-90px;animation:rise var(--d,12s) linear forwards}
+.balloon .str{display:block;width:1px;height:var(--s,24px);margin:0 auto;background:rgba(70,51,34,.4)}
+.ambient .balloon{opacity:.42;animation:drift 18s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(12px,-26px,0)}}
+.rise-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.rise-layer .balloon{bottom:-90px;animation:rise var(--d,12s) linear forwards}
 @keyframes rise{
   0%{transform:translate3d(0,0,0);opacity:0}
   8%{opacity:1}
   100%{transform:translate3d(var(--dx,14px),calc(-100% - 120vh),0);opacity:0}
 }
 
-/* el libro */
+/* ---------- sellos y cintas ---------- */
+.stamp-mark{
+  display:inline-block;font-family:Nunito,sans-serif;font-weight:700;font-size:9.5px;
+  letter-spacing:.17em;text-transform:uppercase;padding:6px 11px;
+  border:2px dashed currentColor;border-radius:4px;opacity:.75;transform:rotate(-2deg);
+}
+.sm-red{color:var(--red)}
+.sm-sky{color:var(--sky-2)}
+.sm-mustard{color:var(--mustard-2)}
+.sm-moss{color:var(--moss)}
+.taped{position:relative}
+.taped::before{
+  content:"";position:absolute;top:-10px;left:50%;width:64px;height:19px;
+  transform:translateX(-50%) rotate(-2.5deg);background:var(--tape);
+  box-shadow:0 1px 2px rgba(0,0,0,.13);z-index:3;
+}
+
+/* ---------- portada de la página ---------- */
+.hero{position:relative;text-align:center;overflow:hidden;padding:26px 0 44px}
+.hero .kicker{
+  font-family:Caveat,cursive;font-size:25px;color:var(--ink-soft);
+  transform:rotate(-1.6deg);display:inline-block;
+}
+.hero h1{font-size:44px;margin-top:6px;color:var(--ink)}
+.hero h1 span{display:block;color:var(--red)}
+.stamp-date{
+  display:inline-block;margin-top:18px;font-family:Nunito,sans-serif;font-weight:700;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);
+  border:2.5px dashed var(--red);border-radius:6px;padding:8px 16px;
+  transform:rotate(-2.2deg);opacity:.85;
+}
+.hero-copy{margin:18px auto 0;max-width:34ch;color:var(--ink-soft);font-size:16px}
+.cta{
+  margin-top:24px;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:52px;font-family:Kalam,cursive;font-weight:700;font-size:19px;
+  background:var(--red);color:#F6EBD3;border:0;border-radius:var(--sketch);
+  padding:13px 30px;cursor:pointer;text-decoration:none;box-shadow:var(--soft);
+  transition:transform .16s ease, box-shadow .16s ease;
+}
+.cta:hover{transform:translateY(-2px) rotate(-.6deg);box-shadow:var(--soft-2)}
+.cta:active{transform:translateY(1px)}
+.cta .arrow{animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+
+/* espacio del gif, pegado como una polaroid */
+.gif-slot{
+  position:relative;z-index:2;display:block;margin:0 auto;width:min(232px,66vw);
+  background:#FBF6E9;padding:10px 10px 0;border:0;border-radius:2px;
+  box-shadow:var(--soft-2);cursor:pointer;transform:rotate(-1.8deg);
+}
+.gif-slot::before{
+  content:"";position:absolute;top:-11px;left:50%;width:74px;height:21px;
+  transform:translateX(-50%) rotate(-3deg);background:var(--tape);
+  box-shadow:0 1px 2px rgba(0,0,0,.14);
+}
+.gif-frame{display:block;width:100%;aspect-ratio:1/1;overflow:hidden;background:#E2D4B7}
+.gif-frame img{width:100%;height:100%;object-fit:contain;display:block}
+.gif-hint{
+  display:grid;place-items:center;gap:5px;width:100%;height:100%;
+  background:repeating-linear-gradient(45deg,#E4D6B9 0 9px,#DCCDAE 9px 18px);
+  font-family:Nunito,sans-serif;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.gif-hint .ico{font-size:26px;line-height:1;letter-spacing:0}
+.gif-slot figcaption{
+  font-family:Caveat,cursive;font-size:19px;text-align:center;
+  padding:7px 4px 11px;color:var(--ink-soft);
+}
+
+/* ---------- invitación ---------- */
+.invite{
+  position:relative;background:var(--paper-3);padding:24px 17px;
+  box-shadow:var(--soft-2);border-radius:3px;
+  background-image:var(--grain);background-blend-mode:multiply;
+}
+.invite::after{
+  content:"";position:absolute;inset:8px;border:2px dashed var(--line);
+  border-radius:3px;pointer-events:none;
+}
+.invite-inner{position:relative;z-index:1}
+.invite h2{font-size:30px;text-align:center}
+.invite .sub{text-align:center;color:var(--ink-soft);margin-top:6px;font-size:15px}
+.rows{margin-top:20px;display:grid;gap:0}
+.row{display:grid;gap:1px;padding:11px 2px}
+.row + .row{border-top:1.5px dashed var(--line)}
+.row dt{font-family:Nunito,sans-serif;font-weight:700;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--sky-2)}
+.row dd{margin:0;font-family:Kalam,cursive;font-weight:700;font-size:18px;color:var(--ink)}
+
+/* cuenta regresiva */
+.count{margin-top:24px;position:relative;z-index:1}
+.count-panel{
+  position:relative;overflow:hidden;text-align:center;padding:18px 12px 20px;
+  background:var(--red);border-radius:4px;box-shadow:var(--soft-2);
+  background-image:var(--grain);background-blend-mode:multiply;
+}
+.count-panel::before,.count-panel::after{
+  content:"";position:absolute;border-radius:50%;background:#F6EBD3;opacity:.1;pointer-events:none;
+}
+.count-panel::before{top:-30px;left:-20px;width:76px;height:76px}
+.count-panel::after{bottom:-34px;right:-16px;width:92px;height:92px}
+.count-label{
+  position:relative;font-family:Kalam,cursive;font-weight:700;
+  font-size:20px;line-height:1.2;color:#F6EBD3;
+}
+.clock{position:relative;display:flex;justify-content:center;gap:9px;margin-top:15px}
+.slot{
+  flex:1 1 0;min-width:0;max-width:112px;padding:11px 6px;border-radius:3px;
+  background:var(--paper-3);box-shadow:0 3px 9px rgba(0,0,0,.26);
+}
+.slot-1{transform:rotate(-1.4deg)}
+.slot-2{transform:rotate(.8deg)}
+.slot-3{transform:rotate(-.6deg)}
+.slot b{
+  display:block;font-family:Kalam,cursive;font-weight:700;
+  font-size:40px;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.slot span{
+  display:block;margin-top:3px;font-family:Nunito,sans-serif;font-weight:700;
+  font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+}
+.slot-3 b{animation:beat 1s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+.boom{display:none;position:relative;text-align:center;padding:2px 0}
+.is-time .clock,.is-time .count-label{display:none}
+.is-time .boom{display:block;animation:pop-in .7s cubic-bezier(.2,.9,.3,1) both}
+.boom h3{font-size:29px;color:#F6EBD3}
+.boom p{margin-top:10px;font-size:17px;color:#F0E0BE}
+.boom .hand{margin-top:12px;color:#F6D9A0}
+@keyframes pop-in{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---------- lo que admiro ---------- */
+.admiro{display:grid;gap:14px}
+.arow{
+  display:flex;gap:13px;align-items:flex-start;padding:16px 16px;
+  background:var(--paper-3);box-shadow:var(--soft);border-radius:2px;
+  background-image:var(--grain);background-blend-mode:multiply;
+}
+.arow:nth-child(odd){transform:rotate(-.35deg)}
+.arow:nth-child(even){transform:rotate(.3deg)}
+.arow .mark{
+  flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  font-size:17px;background:var(--mustard);box-shadow:0 2px 6px rgba(70,45,25,.28);
+}
+.arow:nth-child(5n+2) .mark{background:var(--sky)}
+.arow:nth-child(5n+3) .mark{background:var(--red)}
+.arow:nth-child(5n+4) .mark{background:var(--moss)}
+.arow:nth-child(5n+5) .mark{background:var(--cover)}
+.arow h3{font-size:20px}
+.arow p{margin-top:5px;color:var(--ink-soft);font-size:15.5px}
+
+/* ---------- polaroids (galería opcional) ---------- */
+.photos{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.polaroid{
+  position:relative;background:#FBF6E9;padding:8px 8px 0;border-radius:2px;margin:0;
+  box-shadow:var(--soft);
+}
+.polaroid:nth-child(odd){transform:rotate(-2deg)}
+.polaroid:nth-child(even){transform:rotate(1.6deg)}
+.polaroid::before{
+  content:"";position:absolute;top:-9px;left:50%;width:58px;height:18px;
+  transform:translateX(-50%) rotate(-3deg);background:var(--tape);
+  box-shadow:0 1px 2px rgba(0,0,0,.13);
+}
+.polaroid img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;background:#DED0B4}
+.polaroid figcaption{
+  font-family:Caveat,cursive;font-size:18px;text-align:center;
+  padding:6px 3px 10px;color:var(--ink-soft);
+}
+
+/* ============================================================
+   EL CUADERNO (la carta)
+   ============================================================ */
 .book{position:relative;z-index:2;max-width:520px;margin:0 auto}
 .book-stage{position:relative;aspect-ratio:3/4;perspective:1500px}
 .book.is-open .book-stage{aspect-ratio:auto}
 
-/* portada */
 .book-cover{
   position:absolute;top:0;left:0;width:100%;aspect-ratio:3/4;z-index:4;
   font:inherit;color:inherit;cursor:pointer;padding:26px 20px;
   border:0;border-radius:5px 12px 12px 5px;
   background:
-    linear-gradient(100deg, rgba(0,0,0,.24) 0 12px, rgba(0,0,0,.06) 12px 20px, transparent 20px),
+    linear-gradient(100deg, rgba(0,0,0,.25) 0 12px, rgba(0,0,0,.07) 12px 20px, transparent 20px),
     radial-gradient(120% 90% at 25% 15%, rgba(255,255,255,.10), transparent 60%),
-    linear-gradient(160deg, var(--bk-cover), var(--bk-cover-2));
-  box-shadow:0 10px 26px rgba(50,30,18,.38), inset 0 0 0 1px rgba(255,255,255,.07);
+    linear-gradient(160deg, var(--cover), var(--cover-2));
+  box-shadow:0 12px 28px rgba(50,30,18,.4), inset 0 0 0 1px rgba(255,255,255,.07);
   transform-origin:left center;transform-style:preserve-3d;
   transition:transform 1s cubic-bezier(.25,.75,.25,1), opacity .35s ease .7s;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
   text-align:center;
 }
-.book.is-open .book-cover{transform:rotateY(-158deg);opacity:0}
-.book.is-open .book-cover{pointer-events:none}
+.book.is-open .book-cover{transform:rotateY(-158deg);opacity:0;pointer-events:none}
 .cover-plate{
-  background:var(--bk-paper);border-radius:2px;padding:20px 18px;width:100%;max-width:250px;
-  box-shadow:0 2px 8px rgba(0,0,0,.28);
-  background-image:var(--bk-grain);background-blend-mode:multiply;
-  transform:rotate(-.8deg);
+  background:var(--paper);border-radius:2px;padding:20px 18px;width:100%;max-width:250px;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);
+  background-image:var(--grain);background-blend-mode:multiply;transform:rotate(-.8deg);
 }
-.cover-plate h2{
-  font-family:Kalam,"Comic Sans MS",cursive;font-weight:700;
-  font-size:31px;line-height:1.05;color:var(--bk-ink);letter-spacing:.01em;
+.cover-plate .tag{
+  display:block;margin-bottom:8px;font-family:Nunito,sans-serif;font-size:9.5px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);
 }
-.cover-rule{display:block;height:2px;background:var(--bk-ink);opacity:.45;margin:11px 24px;border-radius:2px}
+.cover-plate h2{font-size:31px;line-height:1.05;color:var(--ink)}
+.cover-rule{display:block;height:2px;background:var(--ink);opacity:.42;margin:11px 24px;border-radius:2px}
 .cover-plate small{
-  display:block;font-family:Nunito,sans-serif;font-weight:700;
-  font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--bk-ink-soft);
+  display:block;font-family:Nunito,sans-serif;font-weight:700;font-size:9.5px;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft);
 }
 .cover-open{
-  font-family:Kalam,cursive;font-weight:700;font-size:14px;color:#F1E3C6;opacity:.86;
+  font-family:Kalam,cursive;font-weight:700;font-size:14.5px;color:#F1E3C6;opacity:.88;
   display:inline-flex;align-items:center;gap:7px;
 }
-.cover-open .arrow{animation:nudge 1.7s ease-in-out infinite}
-@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
-.book-sub{
-  margin-top:16px;text-align:center;font-family:Kalam,cursive;
-  font-size:17px;line-height:1.4;color:var(--bk-ink-soft);
-}
+.book-sub{margin-top:16px;text-align:center;font-family:Kalam,cursive;font-size:17px;line-height:1.4;color:var(--ink-soft)}
 
-/* páginas */
 .book-inside{display:none}
 .book.is-open .book-inside{display:block;animation:pageIn .7s ease .42s both}
 @keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .page{
-  position:relative;background:var(--bk-paper);color:var(--bk-ink);
+  position:relative;background:var(--paper);color:var(--ink);
   border-radius:4px 10px 10px 4px;padding:26px 18px 30px;
-  box-shadow:0 8px 22px rgba(50,30,18,.26);
+  box-shadow:0 10px 26px rgba(50,30,18,.3);
   background-image:
     radial-gradient(60% 40% at 12% 8%, rgba(160,120,60,.13), transparent 60%),
     radial-gradient(50% 40% at 88% 78%, rgba(140,100,50,.12), transparent 60%),
-    var(--bk-grain);
+    var(--grain);
   background-blend-mode:multiply,multiply,multiply;
   overflow:hidden;
 }
-/* lomo cosido */
 .page::before{
   content:"";position:absolute;left:0;top:0;bottom:0;width:16px;
   background:linear-gradient(90deg, rgba(90,62,36,.22), transparent);
@@ -394,135 +347,140 @@ img{max-width:100%}
   border-left:2px dashed rgba(90,62,36,.34);
 }
 .page-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-left:14px}
-.page-head h3{font-family:Kalam,cursive;font-weight:700;font-size:22px;color:var(--bk-ink)}
-.page-num{font-family:Nunito,sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--bk-ink-soft)}
-
+.page-head h3{font-size:22px}
+.page-num{font-family:Nunito,sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
 .route{display:block;width:100%;height:34px;margin:10px 0 4px}
 
-/* carta a mano, línea por línea */
 .hand-letter{margin:6px 0 0 14px}
-.ln{
-  display:block;font-family:Caveat,cursive;font-size:22px;line-height:1.5;
-  color:var(--bk-ink);opacity:0;transform:translateY(6px);
-}
+.ln{display:block;font-family:Caveat,cursive;font-size:22px;line-height:1.5;color:var(--ink);opacity:0;transform:translateY(6px)}
 .book.is-open .ln{animation:lineIn .5s ease forwards;animation-delay:calc(.75s + var(--i, 0) * .28s)}
 @keyframes lineIn{to{opacity:1;transform:none}}
 .ln.gap{margin-top:12px}
 .ln.big{font-size:26px;font-weight:700}
 
-/* polaroids */
 .tapes{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:26px 0 6px 14px}
-.tape-photo{
-  position:relative;background:#FBF6E9;padding:8px 8px 0;border-radius:2px;margin:0;
-  box-shadow:0 4px 12px rgba(50,30,18,.24);
-}
+.tape-photo{position:relative;background:#FBF6E9;padding:8px 8px 0;border-radius:2px;margin:0;box-shadow:0 4px 12px rgba(50,30,18,.24)}
 .tape-photo:nth-child(1){transform:rotate(-2.4deg)}
 .tape-photo:nth-child(2){transform:rotate(1.8deg)}
 .tape-photo:nth-child(3){transform:rotate(1.2deg)}
 .tape-photo:nth-child(4){transform:rotate(-1.6deg)}
 .tape-photo::before{
   content:"";position:absolute;top:-9px;left:50%;width:56px;height:18px;
-  transform:translateX(-50%) rotate(-3deg);
-  background:var(--bk-tape);box-shadow:0 1px 2px rgba(0,0,0,.14);
+  transform:translateX(-50%) rotate(-3deg);background:var(--tape);box-shadow:0 1px 2px rgba(0,0,0,.14);
 }
-.tape-photo .shot{
-  display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:1px;
-  background:#DED0B4;
-}
+.tape-photo .shot{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;background:#DED0B4}
 .tape-photo .empty{
   display:grid;place-items:center;gap:5px;width:100%;aspect-ratio:1/1;
   background:repeating-linear-gradient(45deg,#E2D4B7 0 8px,#DCCDAE 8px 16px);
-  color:var(--bk-ink-soft);font-family:Nunito,sans-serif;font-size:10px;
+  color:var(--ink-soft);font-family:Nunito,sans-serif;font-size:10px;
   letter-spacing:.16em;text-transform:uppercase;
 }
-.tape-photo .empty span{font-size:19px;line-height:1}
-.tape-photo figcaption{
-  font-family:Caveat,cursive;font-size:17px;text-align:center;
-  padding:6px 2px 9px;color:var(--bk-ink-soft);
-}
+.tape-photo .empty span{font-size:19px;line-height:1;letter-spacing:0}
+.tape-photo figcaption{font-family:Caveat,cursive;font-size:17px;text-align:center;padding:6px 2px 9px;color:var(--ink-soft)}
 
-/* sellos de viaje */
 .stamps{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0 0 14px}
-.stamp-mark{
-  font-family:Nunito,sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.16em;
-  text-transform:uppercase;padding:6px 11px;border:2px dashed currentColor;
-  border-radius:4px;opacity:.72;transform:rotate(-2deg);
-}
-.stamp-mark:nth-child(2){transform:rotate(2.4deg)}
-.stamp-mark:nth-child(3){transform:rotate(-1.2deg)}
-.sm-red{color:var(--bk-red)}
-.sm-sky{color:#3F7C9E}
-.sm-mustard{color:#9A6C13}
+.stamps .stamp-mark:nth-child(2){transform:rotate(2.4deg)}
+.stamps .stamp-mark:nth-child(3){transform:rotate(-1.2deg)}
 
-/* cierre del cuaderno */
 .book-end{
   margin:28px 14px 0;padding:18px 14px;text-align:center;
-  border:2px solid transparent;
-  border-radius:255px 14px 225px 14px/14px 225px 14px 255px;
-  box-shadow:inset 0 0 0 2px rgba(140,47,42,.5);
-  opacity:0;
+  border-radius:var(--sketch);box-shadow:inset 0 0 0 2px rgba(140,47,42,.5);opacity:0;
 }
 .book.is-open .book-end{animation:lineIn .7s ease forwards;animation-delay:var(--end-delay,4s)}
-.book-end p{font-family:Kalam,cursive;font-weight:700;font-size:19px;line-height:1.35;color:var(--bk-red)}
+.book-end p{font-family:Kalam,cursive;font-weight:700;font-size:19px;line-height:1.35;color:var(--red)}
 .book-sign{margin-top:16px;text-align:right;margin-right:6px;opacity:0}
 .book.is-open .book-sign{animation:lineIn .6s ease forwards;animation-delay:calc(var(--end-delay,4s) + .3s)}
-.book-sign span{display:block;font-family:Caveat,cursive;font-size:19px;color:var(--bk-ink-soft)}
-.book-sign strong{font-family:Caveat,cursive;font-weight:700;font-size:34px;color:var(--bk-ink);line-height:1}
+.book-sign span{display:block;font-family:Caveat,cursive;font-size:19px;color:var(--ink-soft)}
+.book-sign strong{font-family:Caveat,cursive;font-weight:700;font-size:34px;color:var(--ink);line-height:1}
 
 /* ---------- cierre ---------- */
-.end{
-  text-align:center;background:var(--band-sea);border-top:var(--bw) solid var(--stroke);
-  border-radius:var(--radius) var(--radius) 0 0;margin-top:-26px;
-  padding:48px var(--pad) 54px;position:relative;
+.end{position:relative;text-align:center;padding:52px var(--pad) 56px;overflow:hidden}
+.end-card{
+  position:relative;z-index:2;max-width:520px;margin:0 auto;padding:30px 20px;
+  background:var(--paper-3);box-shadow:var(--soft-2);border-radius:3px;
+  background-image:var(--grain);background-blend-mode:multiply;transform:rotate(-.5deg);
 }
-.end .heart{font-size:38px;color:var(--coral);line-height:1}
-.end h2{font-size:26px;margin-top:10px}
+.end-card::after{content:"";position:absolute;inset:9px;border:2px dashed var(--line);border-radius:3px;pointer-events:none}
+.end-inner{position:relative;z-index:1}
+.end h2{font-size:29px;margin-top:10px}
 .end p{margin-top:12px;color:var(--ink-soft);font-size:16px}
-.end .stamp{display:inline-block;margin-top:20px;font-weight:700;font-size:11px;letter-spacing:.2em;border:2px solid var(--stroke);border-radius:999px;padding:6px 16px}
+.end .stamp-date{margin-top:20px}
 
+/* ---------- créditos ---------- */
+.credits{
+  position:relative;text-align:center;
+  padding:38px var(--pad) calc(42px + env(safe-area-inset-bottom));
+  border-top:2px dashed var(--line);
+}
+.credits h3{font-size:23px;color:var(--ink)}
+.credits .dots{display:flex;justify-content:center;gap:8px;margin-bottom:14px}
+.credits .dots i{width:11px;height:11px;border-radius:50%;display:block;opacity:.8}
+.credits .roll{list-style:none;margin:18px auto 0;padding:0;max-width:400px;display:grid;gap:11px}
+.credits .roll li{display:grid;gap:2px}
+.credits .roll b{font-family:Nunito,sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--sky-2)}
+.credits .roll span{font-family:Kalam,cursive;font-weight:700;font-size:16.5px;color:var(--ink)}
+.credits .tail{margin-top:22px;font-family:Caveat,cursive;font-size:19px;color:var(--ink-soft)}
+
+/* ---------- confeti y avisito ---------- */
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:80;display:none}
 #toast{
   position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));
-  transform:translateX(-50%) translateY(20px);
-  background:var(--ink);color:var(--ground);border-radius:999px;padding:10px 20px;
-  font-weight:700;font-size:13.5px;opacity:0;pointer-events:none;z-index:90;
-  transition:opacity .25s ease, transform .25s ease;max-width:calc(100vw - 32px);text-align:center;
+  transform:translateX(-50%) translateY(20px) rotate(-1deg);
+  background:var(--paper-3);color:var(--ink);border-radius:3px;
+  padding:11px 20px;box-shadow:var(--soft-2);
+  font-family:Kalam,cursive;font-weight:700;font-size:15px;
+  opacity:0;pointer-events:none;z-index:90;
+  transition:opacity .25s ease, transform .25s ease;
+  max-width:calc(100vw - 32px);text-align:center;
 }
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0) rotate(-1deg)}
 
 /* ============================================================
    Tablet en adelante
    ============================================================ */
 @media (min-width:700px){
-  :root{--bw:3px;--sx:5px;--sy:6px;--pad:20px;--radius:44px}
-  body{font-size:17px;line-height:1.65}
-  .band{padding:74px 0 80px;margin-top:-32px}
-  .band h2{font-size:40px}
-  .band .lede{font-size:17px;margin-top:12px}
-  .head{margin-bottom:34px}
-  .hero{padding:44px 0 120px}
-  .hero h1{font-size:72px}
-  .hero-copy{font-size:18px;max-width:42ch;margin-top:22px}
-  .hand{font-size:34px}
-  .cta{font-size:19px;padding:14px 30px}
-  .gif-slot{width:250px;border-radius:32px}
-  .invite{padding:34px 32px;border-radius:28px}
+  :root{--pad:20px}
+  body{font-size:17px;line-height:1.66}
+  .band{padding:70px 0 76px}
+  .band h2{font-size:42px}
+  .band .lede{font-size:17px;margin-top:11px}
+  .head{margin-bottom:32px}
+  .underline{width:170px}
+
+  .hero{padding:44px 0 66px}
+  .hero .kicker{font-size:31px}
+  .hero h1{font-size:76px}
+  .hero-copy{font-size:18px;max-width:40ch;margin-top:22px}
+  .stamp-date{font-size:12px;padding:9px 20px}
+  .gif-slot{width:268px}
+  .cta{font-size:21px;padding:15px 34px}
+
+  .invite{padding:34px 30px}
   .invite h2{font-size:38px}
   .invite .sub{font-size:16px}
-  .row{display:flex;gap:14px;align-items:baseline;padding:13px 18px}
-  .row dt{min-width:104px;flex:none;font-size:11.5px}
-  .row dd{font-size:19px}
+  .row{display:flex;gap:16px;align-items:baseline;padding:13px 6px}
+  .row dt{min-width:112px;flex:none;font-size:11px}
+  .row dd{font-size:20px}
+
   .count{margin-top:30px}
-  .count-panel{padding:26px 22px 28px;border-radius:26px}
-  .count-label{font-size:27px}
+  .count-panel{padding:26px 22px 28px}
+  .count-label{font-size:28px}
   .clock{gap:16px;margin-top:18px}
-  .slot{flex:0 0 auto;min-width:112px;padding:16px 22px;border-radius:20px}
-  .slot b{font-size:62px}
-  .slot span{font-size:11px}
-  .boom h3{font-size:44px}
+  .slot{flex:0 0 auto;min-width:112px;padding:15px 22px}
+  .slot b{font-size:58px}
+  .slot span{font-size:10.5px}
+  .boom h3{font-size:42px}
   .boom p{font-size:19px}
+
+  .arow{padding:19px 22px;gap:16px}
+  .arow .mark{width:44px;height:44px;font-size:19px}
+  .arow h3{font-size:22px}
+  .arow p{font-size:16px}
+
+  .photos{grid-template-columns:repeat(3,1fr);gap:20px}
+
   .book{max-width:560px}
-  .book-cover{padding:34px 26px;border-radius:6px 14px 14px 6px}
+  .book-cover{padding:34px 26px}
   .cover-plate{max-width:300px;padding:26px 22px}
   .cover-plate h2{font-size:40px}
   .cover-open{font-size:15px}
@@ -535,28 +493,15 @@ img{max-width:100%}
   .tapes{gap:20px}
   .book-end p{font-size:23px}
   .book-sign strong{font-size:38px}
-  .credits{padding:48px 20px 56px}
-  .credits h3{font-size:26px}
-  .credits .roll{gap:13px;max-width:440px}
-  .credits .roll span{font-size:17px}
-  .credits .tail{font-size:21px}
-  .admiro{gap:14px}
-  .arow{padding:18px 20px;border-radius:20px;gap:16px}
-  .arow .mark{width:42px;height:42px;font-size:19px}
-  .arow h3{font-size:21px}
-  .arow p{font-size:16px}
-  .photos{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
-  .letter{padding:44px 40px;border-radius:26px}
-  .letter h2{font-size:54px}
-  .letter p{font-size:17.5px;margin-top:16px}
-  .sign strong{font-size:44px}
+
   .end{padding:84px 20px 88px}
+  .end-card{padding:44px 34px}
   .end h2{font-size:40px}
-  .end .heart{font-size:44px}
-}
-@media (min-width:1024px){
-  .hero h1{font-size:86px}
-  .band h2{font-size:48px}
+  .credits{padding:50px 20px 58px}
+  .credits h3{font-size:27px}
+  .credits .roll{gap:13px;max-width:440px}
+  .credits .roll span{font-size:17.5px}
+  .credits .tail{font-size:21px}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -569,37 +514,38 @@ img{max-width:100%}
 <div id="toast" role="status"></div>
 
 <header class="hero">
-  <div class="bubbles" id="bubbles" aria-hidden="true"></div>
+  <div class="sky-layer ambient" id="heroSky" aria-hidden="true"></div>
   <div class="shell">
 
     <!-- ====== ESPACIO PARA EL GIF ======
-         Cuando tengas el gif, pon la ruta en GIF_SRC (abajo en el script).
-         Mientras esté vacío se muestra el marco con el mensajito. -->
-    <button class="gif-slot" id="gifslot" type="button" aria-label="Sorpresa">
-      <span class="gif-hint" id="gifhint">
-        <span class="ico" aria-hidden="true">🎁</span>
-        aquí va el gif
+         Pon la ruta en GIF_SRC, al inicio del <script>. -->
+    <figure class="gif-slot" id="gifslot" role="button" tabindex="0" aria-label="Sorpresa">
+      <span class="gif-frame" id="gifFrame">
+        <span class="gif-hint">
+          <span class="ico" aria-hidden="true">🎁</span>
+          aquí va el gif
+        </span>
       </span>
-    </button>
-    <span class="gif-caption">tócame</span>
+      <figcaption>tócame</figcaption>
+    </figure>
 
-    <p class="hand" style="margin-top:12px">Para mi amor</p>
+    <p class="kicker" style="margin-top:20px">Para mi amor</p>
     <h1>Feliz vuelta <span>al sol</span></h1>
     <p class="hero-copy">Hoy es tu día, mi amor. Te hice esto con calma para que sepas todo lo que pienso de ti. Léelo completo, que abajo te tengo algo.</p>
-    <p style="margin-top:20px"><span class="date-chip">01 · 09 · 2026</span></p>
-    <p style="margin-top:22px"><a class="cta" href="#invitacion">🎂 Ábreme</a></p>
+    <p><span class="stamp-date">01 · 09 · 2026</span></p>
+    <p style="margin-top:24px"><a class="cta" href="#invitacion">Ábreme <span class="arrow" aria-hidden="true">›</span></a></p>
   </div>
 </header>
 
-<svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
-  <path d="M0,48 C160,92 300,4 480,30 C660,56 780,96 960,72 C1120,50 1300,10 1440,42 L1440,90 L0,90 Z" fill="var(--band-sun)" stroke="var(--stroke)" stroke-width="3"></path>
-</svg>
+<span class="seam" aria-hidden="true">
+  <svg viewBox="0 0 1200 14" preserveAspectRatio="none"><path d="M0 7 H1200" fill="none" stroke="#C4AC80" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"></path></svg>
+</span>
 
-<section class="band band-sun" id="invitacion" style="margin-top:0;border-radius:0;border-top:0">
+<section class="band band-a" id="invitacion">
   <div class="shell narrow">
     <div class="invite">
       <div class="invite-inner">
-        <p class="eyebrow eyebrow-coral" style="text-align:center">Estás invitada</p>
+        <p class="eyebrow" style="text-align:center">Estás invitada</p>
         <h2>Cena de cumpleaños</h2>
         <p class="sub">Solo tú y yo, mi amor.</p>
 
@@ -631,11 +577,12 @@ img{max-width:100%}
   </div>
 </section>
 
-<section class="band band-rose">
+<section class="band band-b">
   <div class="shell narrow">
     <div class="head">
-      <p class="eyebrow eyebrow-plum">De corazón</p>
+      <p class="eyebrow eyebrow-sky">De corazón</p>
       <h2>Lo que admiro de ti</h2>
+      <svg class="underline" viewBox="0 0 170 8" aria-hidden="true"><path d="M2 6 C 40 1, 74 8, 110 3 S 158 5, 168 2"></path></svg>
       <p class="lede">Cosas que pienso de ti y que te digo poco.</p>
     </div>
 
@@ -700,31 +647,30 @@ img{max-width:100%}
   </div>
 </section>
 
-<section class="band band-lime" id="fotos" hidden>
+<section class="band band-c" id="fotos" hidden>
   <div class="shell">
     <div class="head">
-      <p class="eyebrow">Nuestro carrete</p>
+      <p class="eyebrow eyebrow-mustard">Nuestro carrete</p>
       <h2>Unas cuantas fotos</h2>
-      <p class="lede">De las que uno se queda mirando otra vez.</p>
+      <svg class="underline" viewBox="0 0 170 8" aria-hidden="true"><path d="M2 6 C 40 1, 74 8, 110 3 S 158 5, 168 2"></path></svg>
     </div>
     <div class="photos" id="photos"></div>
   </div>
 </section>
 
-<section class="band book-band" id="carta">
-  <div class="bk-sky-layer bk-ambient" id="bkAmbient" aria-hidden="true"></div>
-  <div class="bk-rise" id="bkRise" aria-hidden="true"></div>
+<section class="band band-c" id="carta">
+  <div class="sky-layer ambient" id="bkAmbient" aria-hidden="true"></div>
+  <div class="rise-layer" id="bkRise" aria-hidden="true"></div>
 
   <div class="shell narrow">
     <div class="head" style="text-align:center">
-      <p class="eyebrow">Para ti</p>
-      <h2 style="color:var(--bk-ink)">El cuaderno</h2>
+      <p class="eyebrow eyebrow-moss">Para ti</p>
+      <h2>El cuaderno</h2>
     </div>
 
     <div class="book" id="book">
       <div class="book-stage">
 
-        <!-- páginas -->
         <div class="book-inside">
           <div class="page">
             <div class="page-head">
@@ -733,9 +679,7 @@ img{max-width:100%}
             </div>
 
             <svg class="route" viewBox="0 0 320 34" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M6 26 C 60 4, 108 34, 158 18 S 258 6, 314 20"
-                    fill="none" stroke="#8C2F2A" stroke-width="2"
-                    stroke-dasharray="1 7" stroke-linecap="round" opacity=".7"></path>
+              <path d="M6 26 C 60 4, 108 34, 158 18 S 258 6, 314 20" fill="none" stroke="#8C2F2A" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" opacity=".7"></path>
               <circle cx="6" cy="26" r="4" fill="#8C2F2A"></circle>
               <path d="M314 20 l-9 -5 l0 10 z" fill="#8C2F2A"></path>
               <ellipse cx="86" cy="30" rx="2.6" ry="3.4" fill="#7C6446" opacity=".5"></ellipse>
@@ -779,10 +723,9 @@ img{max-width:100%}
           </div>
         </div>
 
-        <!-- portada -->
         <button class="book-cover" id="bookCover" type="button" aria-expanded="false" aria-controls="book">
           <span class="cover-plate">
-            <span class="page-num" style="display:block;margin-bottom:8px">Para Juanita</span>
+            <span class="tag">Para Juanita</span>
             <h2>Nuestra<br>aventura</h2>
             <span class="cover-rule"></span>
             <small>Tomo I</small>
@@ -791,27 +734,30 @@ img{max-width:100%}
         </button>
 
       </div>
-
       <p class="book-sub">Una historia que quiero seguir escribiendo contigo</p>
     </div>
   </div>
 </section>
 
 <footer class="end">
-  <div class="heart">♡</div>
-  <p class="eyebrow eyebrow-coral" style="margin-top:12px">Feliz cumpleaños, mi amor</p>
-  <h2>Hoy el día es tuyo.<br>Disfrútalo completo.</h2>
-  <p>Te amo. Nos vemos esta noche.</p>
-  <span class="stamp">01 · 09 · 2026</span>
+  <div class="sky-layer ambient" id="endSky" aria-hidden="true"></div>
+  <div class="end-card">
+    <div class="end-inner">
+      <p class="eyebrow">Feliz cumpleaños, mi amor</p>
+      <h2>Hoy el día es tuyo.<br>Disfrútalo completo.</h2>
+      <p>Te amo. Nos vemos esta noche.</p>
+      <p><span class="stamp-date">01 · 09 · 2026</span></p>
+    </div>
+  </div>
 </footer>
 
 <section class="credits" aria-labelledby="cred-t">
   <div class="dots" aria-hidden="true">
-    <i style="background:var(--coral)"></i>
-    <i style="background:var(--gold)"></i>
-    <i style="background:var(--band-lime)"></i>
-    <i style="background:var(--plum)"></i>
-    <i style="background:var(--teal)"></i>
+    <i style="background:var(--red)"></i>
+    <i style="background:var(--mustard)"></i>
+    <i style="background:var(--moss)"></i>
+    <i style="background:var(--sky)"></i>
+    <i style="background:var(--cover)"></i>
   </div>
   <h3 id="cred-t">Créditos</h3>
   <ul class="roll">
@@ -835,9 +781,8 @@ img{max-width:100%}
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ============================================================
-     1) EL GIF. Pon aquí la ruta o el link del gif, por ejemplo:
-        var GIF_SRC = "oso.gif";
-        Si queda vacío, se muestra el marco con el mensajito.
+     1) EL GIF. Ejemplo:  var GIF_SRC = "oso.gif";
+        Vacío = queda el espacio marcado.
      ============================================================ */
   var GIF_SRC = "";
 
@@ -848,24 +793,57 @@ img{max-width:100%}
   var HOUR = 20, MIN = 0;
 
   /* ============================================================
-     3) FOTOS. Ejemplo:
+     3) GALERÍA. Vacía = la sección no aparece.
         var PHOTOS = [{src:"fotos/1.jpg", label:"La primera salida"}];
-        Vacío = la sección no se muestra.
      ============================================================ */
   var PHOTOS = [];
+
+  /* ============================================================
+     4) FOTOS DEL CUADERNO. Entre 2 y 4. src vacío deja el espacio.
+     ============================================================ */
+  var BOOK_PHOTOS = [
+    { src: "", label: "Nuestra primera salida" },
+    { src: "", label: "Un viaje de los nuestros" },
+    { src: "", label: "Tú, viéndote hermosa" },
+    { src: "", label: "El próximo recuerdo" }
+  ];
+
+  var PALETTE = ["#B77F17", "#8C2F2A", "#4F87A8", "#5A7A4E", "#7C3B2C", "#D9C79A"];
+
+  /* ---------- globos ---------- */
+  function balloon(w, color, str){
+    var b = document.createElement("span");
+    b.className = "balloon";
+    b.style.setProperty("--w", w + "px");
+    b.style.setProperty("--c", color);
+    b.style.setProperty("--s", str + "px");
+    b.innerHTML = '<span class="bulb"></span><span class="str"></span>';
+    return b;
+  }
+  function ambient(hostId, n){
+    if (reduce) return;
+    var host = document.getElementById(hostId);
+    if (!host) return;
+    for (var i = 0; i < n; i++){
+      var b = balloon(11 + Math.random() * 14, PALETTE[i % PALETTE.length], 20);
+      b.style.left = (5 + Math.random() * 86) + "%";
+      b.style.top  = (8 + Math.random() * 74) + "%";
+      b.style.animationDelay = (-Math.random() * 18) + "s";
+      host.appendChild(b);
+    }
+  }
+  ambient("heroSky", 6);
+  ambient("bkAmbient", 5);
+  ambient("endSky", 4);
 
   /* ---------- gif ---------- */
   (function(){
     if (!GIF_SRC) return;
-    var slot = document.getElementById("gifslot");
+    var frame = document.getElementById("gifFrame");
     var img = document.createElement("img");
     img.alt = "";
-    img.addEventListener("load", function(){
-      document.getElementById("gifhint").remove();
-      slot.classList.add("filled");
-    });
+    img.addEventListener("load", function(){ frame.innerHTML = ""; frame.appendChild(img); });
     img.src = GIF_SRC;
-    slot.appendChild(img);
   })();
 
   /* ---------- hora ---------- */
@@ -889,7 +867,7 @@ img{max-width:100%}
   }
   document.getElementById("hora-txt").innerHTML = pretty(HOUR, MIN);
 
-  /* ---------- fotos ---------- */
+  /* ---------- galería ---------- */
   (function(){
     if (!PHOTOS.length) return;
     var sec = document.getElementById("fotos"), host = document.getElementById("photos");
@@ -911,12 +889,10 @@ img{max-width:100%}
   var fired = false, forced = false;
 
   function pad(n){ return (n < 10 ? "0" : "") + n; }
-
   function arrive(){
     count.classList.add("is-time");
     if (!fired){ fired = true; party(); }
   }
-
   function tick(){
     if (forced) return;
     var left = TARGET - Date.now();
@@ -937,15 +913,14 @@ img{max-width:100%}
     function size(){ w = cv.width = innerWidth; h = cv.height = innerHeight; }
     size(); addEventListener("resize", size);
     cv.style.display = "block";
-    var cols = ["#FFE07A","#F2647F","#26A9BA","#A8D46F","#8C63C4","#FFA552"];
-    var n = innerWidth < 620 ? 90 : 160;
+    var n = innerWidth < 620 ? 90 : 150;
     for (var i = 0; i < n; i++){
       bits.push({
         x: Math.random() * w, y: -20 - Math.random() * h * 0.8,
         r: 4 + Math.random() * 7, vy: 1.5 + Math.random() * 3,
         vx: -1.2 + Math.random() * 2.4, a: Math.random() * 6.28,
         va: -0.14 + Math.random() * 0.28,
-        c: cols[(Math.random() * cols.length) | 0]
+        c: PALETTE[(Math.random() * PALETTE.length) | 0]
       });
     }
     var t0 = Date.now();
@@ -965,35 +940,7 @@ img{max-width:100%}
     })();
   }
 
-  /* ---------- burbujas ---------- */
-  (function(){
-    if (reduce) return;
-    var host = document.getElementById("bubbles");
-    var n = innerWidth < 620 ? 9 : 16;
-    for (var i = 0; i < n; i++){
-      var b = document.createElement("span");
-      var d = 12 + Math.random() * 38;
-      b.className = "bub";
-      b.style.width = b.style.height = d + "px";
-      b.style.left = (2 + Math.random() * 88) + "%";
-      b.style.animationDuration = (13 + Math.random() * 16) + "s";
-      b.style.animationDelay = (-Math.random() * 22) + "s";
-      host.appendChild(b);
-    }
-  })();
-
-  /* ============================================================
-     CUADERNO DE AVENTURAS
-     Las fotos van aquí. Entre 2 y 4. Deja src en "" para que quede
-     el espacio marcado hasta que tengas la foto.
-     ============================================================ */
-  var BOOK_PHOTOS = [
-    { src: "", label: "Nuestra primera salida" },
-    { src: "", label: "Un viaje de los nuestros" },
-    { src: "", label: "Tú, viéndote hermosa" },
-    { src: "", label: "El próximo recuerdo" }
-  ];
-
+  /* ---------- el cuaderno ---------- */
   (function(){
     var book = document.getElementById("book");
     if (!book) return;
@@ -1001,7 +948,6 @@ img{max-width:100%}
     var lines = [].slice.call(document.querySelectorAll("#handLetter .ln"));
     var host  = document.getElementById("bookPhotos");
 
-    /* fotos */
     BOOK_PHOTOS.slice(0, 4).forEach(function(p){
       var fig = document.createElement("figure");
       fig.className = "tape-photo";
@@ -1021,36 +967,10 @@ img{max-width:100%}
       host.appendChild(fig);
     });
 
-    /* tiempos del revelado */
     lines.forEach(function(l, i){ l.style.setProperty("--i", i); });
     var endDelay = 0.75 + lines.length * 0.28 + 0.45;
     book.style.setProperty("--end-delay", endDelay.toFixed(2) + "s");
 
-    /* globos */
-    var COLORS = ["#C08A22", "#8C2F2A", "#6FA8C9", "#A8632F", "#D9C79A", "#4E7E5A"];
-    function balloon(w, color, str){
-      var b = document.createElement("span");
-      b.className = "balloon";
-      b.style.setProperty("--w", w + "px");
-      b.style.setProperty("--c", color);
-      b.style.setProperty("--s", str + "px");
-      b.innerHTML = '<span class="bulb"></span><span class="str"></span>';
-      return b;
-    }
-
-    /* globos de fondo, quietos y suaves */
-    if (!reduce){
-      var amb = document.getElementById("bkAmbient");
-      for (var i = 0; i < 5; i++){
-        var b = balloon(11 + Math.random() * 12, COLORS[i % COLORS.length], 20);
-        b.style.left = (6 + Math.random() * 84) + "%";
-        b.style.top  = (10 + Math.random() * 70) + "%";
-        b.style.animationDelay = (-Math.random() * 16) + "s";
-        amb.appendChild(b);
-      }
-    }
-
-    /* globos que suben al terminar */
     var flew = false;
     function flyBalloons(){
       if (flew || reduce) return;
@@ -1058,7 +978,7 @@ img{max-width:100%}
       var rise = document.getElementById("bkRise");
       for (var i = 0; i < 12; i++){
         (function(i){
-          var b = balloon(13 + Math.random() * 15, COLORS[i % COLORS.length], 22 + Math.random() * 14);
+          var b = balloon(13 + Math.random() * 15, PALETTE[i % PALETTE.length], 22 + Math.random() * 14);
           b.style.left = (4 + Math.random() * 88) + "%";
           b.style.setProperty("--d", (11 + Math.random() * 7).toFixed(1) + "s");
           b.style.setProperty("--dx", (-30 + Math.random() * 60).toFixed(0) + "px");
@@ -1075,7 +995,6 @@ img{max-width:100%}
       opened = true;
       book.classList.add("is-open");
       cover.setAttribute("aria-expanded", "true");
-      /* la portada sale del camino cuando termina de girar */
       setTimeout(function(){ cover.style.visibility = "hidden"; }, 1050);
       if (reduce){
         lines.forEach(function(l){ l.style.opacity = 1; l.style.transform = "none"; });
@@ -1098,7 +1017,7 @@ img{max-width:100%}
 
   /* ---------- huevo de pascua: 5 toques al gif ---------- */
   var slot = document.getElementById("gifslot"), taps = 0, tapT;
-  slot.addEventListener("click", function(){
+  function tap(){
     taps++;
     clearTimeout(tapT);
     tapT = setTimeout(function(){ taps = 0; }, 1800);
@@ -1117,6 +1036,10 @@ img{max-width:100%}
         say("Listo, cuenta regresiva de vuelta");
       }
     }
+  }
+  slot.addEventListener("click", tap);
+  slot.addEventListener("keydown", function(e){
+    if (e.key === "Enter" || e.key === " "){ e.preventDefault(); tap(); }
   });
 })();
 </script>

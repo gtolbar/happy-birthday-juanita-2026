@@ -21,7 +21,8 @@ La hora por defecto es el **1 de septiembre de 2026 a las 8:00 p. m.** (hora de 
   revela el mensaje de cumpleaños con confeti.
 - **Modo prueba:** 5 toques seguidos al gif adelantan la página al estado
   "ya es la hora". Otros 5 la devuelven a la cuenta regresiva.
-- Se adapta al tema claro u oscuro del celular.
+- Un solo mundo visual: papel envejecido en tema claro y oscuro (es un cuaderno,
+  no tiene modo noche).
 - El espacio del gif se llena poniendo la ruta en `GIF_SRC`, al inicio del `<script>`.
 - La carta vive dentro de un cuaderno de aventuras que se abre al tocar la
   portada y se escribe línea por línea. Sus fotos van en `BOOK_PHOTOS`
