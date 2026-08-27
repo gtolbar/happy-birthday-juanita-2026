@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&family=Caveat:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&display=swap">
 
 <style>
 /* ============================================================
@@ -274,16 +274,200 @@ img{max-width:100%}
 .polaroid img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px;background:var(--band-sea)}
 .polaroid figcaption{font-family:Caveat,cursive;font-size:20px;text-align:center;padding:7px 4px 10px;color:var(--ink)}
 
-/* ---------- carta ---------- */
-.letter{
-  background:var(--paper);border:var(--bw) solid var(--stroke);border-radius:22px;
-  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:22px 18px;
+/* ============================================================
+   CUADERNO DE AVENTURAS  (sección de la carta)
+   Objeto físico: mantiene sus colores de papel en tema claro y oscuro.
+   ============================================================ */
+.book-band{
+  --bk-paper:#F1E3C6;
+  --bk-paper-2:#E3D0AA;
+  --bk-ink:#463322;
+  --bk-ink-soft:#7C6446;
+  --bk-line:#C9B389;
+  --bk-cover:#7C3B2C;
+  --bk-cover-2:#5E2A20;
+  --bk-mustard:#C08A22;
+  --bk-red:#8C2F2A;
+  --bk-sky:#6FA8C9;
+  --bk-tape:rgba(226,208,164,.75);
+  --bk-grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  background:#E4D6BB;
+  overflow:hidden;
 }
-.letter h2{font-family:Caveat,cursive;font-size:38px;color:var(--coral);font-weight:700}
-.letter p{margin-top:14px;font-size:16.5px;line-height:1.75}
-.sign{margin-top:22px}
-.sign span{display:block;font-family:Caveat,cursive;font-size:24px;color:var(--ink-soft)}
-.sign strong{font-family:Caveat,cursive;font-size:40px;color:var(--coral);font-weight:700;line-height:1}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .book-band{background:#2A2018}
+}
+:root[data-theme="dark"] .book-band{background:#2A2018}
+
+.book-band .eyebrow{color:var(--bk-red)}
+.book-band .lede{color:var(--bk-ink-soft)}
+
+/* globos de fondo */
+.bk-sky-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.balloon{position:absolute;width:var(--w,16px);will-change:transform}
+.balloon .bulb{
+  display:block;width:100%;aspect-ratio:.82/1;
+  background:var(--c,#C08A22);border-radius:50% 50% 46% 46%/54% 54% 46% 46%;
+  box-shadow:inset -2px -3px 0 rgba(0,0,0,.14), inset 2px 2px 0 rgba(255,255,255,.22);
+}
+.balloon .str{display:block;width:1px;height:var(--s,26px);margin:0 auto;background:rgba(70,51,34,.42)}
+.bk-ambient .balloon{opacity:.38;animation:drift 16s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(10px,-22px,0)}}
+.bk-rise{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.bk-rise .balloon{bottom:-90px;animation:rise var(--d,12s) linear forwards}
+@keyframes rise{
+  0%{transform:translate3d(0,0,0);opacity:0}
+  8%{opacity:1}
+  100%{transform:translate3d(var(--dx,14px),calc(-100% - 120vh),0);opacity:0}
+}
+
+/* el libro */
+.book{position:relative;z-index:2;max-width:520px;margin:0 auto}
+.book-stage{position:relative;aspect-ratio:3/4;perspective:1500px}
+.book.is-open .book-stage{aspect-ratio:auto}
+
+/* portada */
+.book-cover{
+  position:absolute;top:0;left:0;width:100%;aspect-ratio:3/4;z-index:4;
+  font:inherit;color:inherit;cursor:pointer;padding:26px 20px;
+  border:0;border-radius:5px 12px 12px 5px;
+  background:
+    linear-gradient(100deg, rgba(0,0,0,.24) 0 12px, rgba(0,0,0,.06) 12px 20px, transparent 20px),
+    radial-gradient(120% 90% at 25% 15%, rgba(255,255,255,.10), transparent 60%),
+    linear-gradient(160deg, var(--bk-cover), var(--bk-cover-2));
+  box-shadow:0 10px 26px rgba(50,30,18,.38), inset 0 0 0 1px rgba(255,255,255,.07);
+  transform-origin:left center;transform-style:preserve-3d;
+  transition:transform 1s cubic-bezier(.25,.75,.25,1), opacity .35s ease .7s;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  text-align:center;
+}
+.book.is-open .book-cover{transform:rotateY(-158deg);opacity:0}
+.book.is-open .book-cover{pointer-events:none}
+.cover-plate{
+  background:var(--bk-paper);border-radius:2px;padding:20px 18px;width:100%;max-width:250px;
+  box-shadow:0 2px 8px rgba(0,0,0,.28);
+  background-image:var(--bk-grain);background-blend-mode:multiply;
+  transform:rotate(-.8deg);
+}
+.cover-plate h2{
+  font-family:Kalam,"Comic Sans MS",cursive;font-weight:700;
+  font-size:31px;line-height:1.05;color:var(--bk-ink);letter-spacing:.01em;
+}
+.cover-rule{display:block;height:2px;background:var(--bk-ink);opacity:.45;margin:11px 24px;border-radius:2px}
+.cover-plate small{
+  display:block;font-family:Nunito,sans-serif;font-weight:700;
+  font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--bk-ink-soft);
+}
+.cover-open{
+  font-family:Kalam,cursive;font-weight:700;font-size:14px;color:#F1E3C6;opacity:.86;
+  display:inline-flex;align-items:center;gap:7px;
+}
+.cover-open .arrow{animation:nudge 1.7s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+.book-sub{
+  margin-top:16px;text-align:center;font-family:Kalam,cursive;
+  font-size:17px;line-height:1.4;color:var(--bk-ink-soft);
+}
+
+/* páginas */
+.book-inside{display:none}
+.book.is-open .book-inside{display:block;animation:pageIn .7s ease .42s both}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.page{
+  position:relative;background:var(--bk-paper);color:var(--bk-ink);
+  border-radius:4px 10px 10px 4px;padding:26px 18px 30px;
+  box-shadow:0 8px 22px rgba(50,30,18,.26);
+  background-image:
+    radial-gradient(60% 40% at 12% 8%, rgba(160,120,60,.13), transparent 60%),
+    radial-gradient(50% 40% at 88% 78%, rgba(140,100,50,.12), transparent 60%),
+    var(--bk-grain);
+  background-blend-mode:multiply,multiply,multiply;
+  overflow:hidden;
+}
+/* lomo cosido */
+.page::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:16px;
+  background:linear-gradient(90deg, rgba(90,62,36,.22), transparent);
+}
+.page::after{
+  content:"";position:absolute;left:7px;top:16px;bottom:16px;width:0;
+  border-left:2px dashed rgba(90,62,36,.34);
+}
+.page-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-left:14px}
+.page-head h3{font-family:Kalam,cursive;font-weight:700;font-size:22px;color:var(--bk-ink)}
+.page-num{font-family:Nunito,sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--bk-ink-soft)}
+
+.route{display:block;width:100%;height:34px;margin:10px 0 4px}
+
+/* carta a mano, línea por línea */
+.hand-letter{margin:6px 0 0 14px}
+.ln{
+  display:block;font-family:Caveat,cursive;font-size:22px;line-height:1.5;
+  color:var(--bk-ink);opacity:0;transform:translateY(6px);
+}
+.book.is-open .ln{animation:lineIn .5s ease forwards;animation-delay:calc(.75s + var(--i, 0) * .28s)}
+@keyframes lineIn{to{opacity:1;transform:none}}
+.ln.gap{margin-top:12px}
+.ln.big{font-size:26px;font-weight:700}
+
+/* polaroids */
+.tapes{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:26px 0 6px 14px}
+.tape-photo{
+  position:relative;background:#FBF6E9;padding:8px 8px 0;border-radius:2px;margin:0;
+  box-shadow:0 4px 12px rgba(50,30,18,.24);
+}
+.tape-photo:nth-child(1){transform:rotate(-2.4deg)}
+.tape-photo:nth-child(2){transform:rotate(1.8deg)}
+.tape-photo:nth-child(3){transform:rotate(1.2deg)}
+.tape-photo:nth-child(4){transform:rotate(-1.6deg)}
+.tape-photo::before{
+  content:"";position:absolute;top:-9px;left:50%;width:56px;height:18px;
+  transform:translateX(-50%) rotate(-3deg);
+  background:var(--bk-tape);box-shadow:0 1px 2px rgba(0,0,0,.14);
+}
+.tape-photo .shot{
+  display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:1px;
+  background:#DED0B4;
+}
+.tape-photo .empty{
+  display:grid;place-items:center;gap:5px;width:100%;aspect-ratio:1/1;
+  background:repeating-linear-gradient(45deg,#E2D4B7 0 8px,#DCCDAE 8px 16px);
+  color:var(--bk-ink-soft);font-family:Nunito,sans-serif;font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase;
+}
+.tape-photo .empty span{font-size:19px;line-height:1}
+.tape-photo figcaption{
+  font-family:Caveat,cursive;font-size:17px;text-align:center;
+  padding:6px 2px 9px;color:var(--bk-ink-soft);
+}
+
+/* sellos de viaje */
+.stamps{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0 0 14px}
+.stamp-mark{
+  font-family:Nunito,sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;padding:6px 11px;border:2px dashed currentColor;
+  border-radius:4px;opacity:.72;transform:rotate(-2deg);
+}
+.stamp-mark:nth-child(2){transform:rotate(2.4deg)}
+.stamp-mark:nth-child(3){transform:rotate(-1.2deg)}
+.sm-red{color:var(--bk-red)}
+.sm-sky{color:#3F7C9E}
+.sm-mustard{color:#9A6C13}
+
+/* cierre del cuaderno */
+.book-end{
+  margin:28px 14px 0;padding:18px 14px;text-align:center;
+  border:2px solid transparent;
+  border-radius:255px 14px 225px 14px/14px 225px 14px 255px;
+  box-shadow:inset 0 0 0 2px rgba(140,47,42,.5);
+  opacity:0;
+}
+.book.is-open .book-end{animation:lineIn .7s ease forwards;animation-delay:var(--end-delay,4s)}
+.book-end p{font-family:Kalam,cursive;font-weight:700;font-size:19px;line-height:1.35;color:var(--bk-red)}
+.book-sign{margin-top:16px;text-align:right;margin-right:6px;opacity:0}
+.book.is-open .book-sign{animation:lineIn .6s ease forwards;animation-delay:calc(var(--end-delay,4s) + .3s)}
+.book-sign span{display:block;font-family:Caveat,cursive;font-size:19px;color:var(--bk-ink-soft)}
+.book-sign strong{font-family:Caveat,cursive;font-weight:700;font-size:34px;color:var(--bk-ink);line-height:1}
 
 /* ---------- cierre ---------- */
 .end{
@@ -337,6 +521,20 @@ img{max-width:100%}
   .slot span{font-size:11px}
   .boom h3{font-size:44px}
   .boom p{font-size:19px}
+  .book{max-width:560px}
+  .book-cover{padding:34px 26px;border-radius:6px 14px 14px 6px}
+  .cover-plate{max-width:300px;padding:26px 22px}
+  .cover-plate h2{font-size:40px}
+  .cover-open{font-size:15px}
+  .book-sub{font-size:20px;margin-top:20px}
+  .page{padding:34px 30px 38px}
+  .page-head h3{font-size:26px}
+  .ln{font-size:25px}
+  .ln.big{font-size:30px}
+  .hand-letter,.tapes,.stamps{margin-left:20px}
+  .tapes{gap:20px}
+  .book-end p{font-size:23px}
+  .book-sign strong{font-size:38px}
   .credits{padding:48px 20px 56px}
   .credits h3{font-size:26px}
   .credits .roll{gap:13px;max-width:440px}
@@ -513,21 +711,88 @@ img{max-width:100%}
   </div>
 </section>
 
-<section class="band band-lav" id="carta">
+<section class="band book-band" id="carta">
+  <div class="bk-sky-layer bk-ambient" id="bkAmbient" aria-hidden="true"></div>
+  <div class="bk-rise" id="bkRise" aria-hidden="true"></div>
+
   <div class="shell narrow">
-    <div class="letter">
-      <p class="eyebrow eyebrow-gold">Para ti</p>
-      <h2>Mi amor,</h2>
-      <p>Tú sabes que yo casi no escribo, que para eso te mando audios. Pero hoy me senté a hacerte esto con calma, porque hay cosas que te digo poco.</p>
-      <p>La verdad me gustas arto, y no solo por bonita. Me gusta lo juiciosa que eres, cómo cuidas a tu gente y cómo le metes a todo lo que te propones. Quiero que sepas que estoy muy orgulloso de ti.</p>
-      <p>Eres la mejor persona que ha llegado a mi vida. Así de simple.</p>
-      <p>Hoy no es día de hablar de mí, hoy es tuyo. Quiero que te consientan y que no hagas nada que no tengas ganas de hacer.</p>
-      <p>Ojalá este año te vaya bien en todo, que tengas salud y tranquilidad, y que Dios te dé todo lo que estás buscando.</p>
-      <p>Feliz cumpleaños mi amor.</p>
-      <div class="sign">
-        <span>Te amo un montón mucho,</span>
-        <strong>Tavo</strong>
+    <div class="head" style="text-align:center">
+      <p class="eyebrow">Para ti</p>
+      <h2 style="color:var(--bk-ink)">El cuaderno</h2>
+    </div>
+
+    <div class="book" id="book">
+      <div class="book-stage">
+
+        <!-- páginas -->
+        <div class="book-inside">
+          <div class="page">
+            <div class="page-head">
+              <h3>Nuestra aventura</h3>
+              <span class="page-num">01 · 09 · 2026</span>
+            </div>
+
+            <svg class="route" viewBox="0 0 320 34" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M6 26 C 60 4, 108 34, 158 18 S 258 6, 314 20"
+                    fill="none" stroke="#8C2F2A" stroke-width="2"
+                    stroke-dasharray="1 7" stroke-linecap="round" opacity=".7"></path>
+              <circle cx="6" cy="26" r="4" fill="#8C2F2A"></circle>
+              <path d="M314 20 l-9 -5 l0 10 z" fill="#8C2F2A"></path>
+              <ellipse cx="86" cy="30" rx="2.6" ry="3.4" fill="#7C6446" opacity=".5"></ellipse>
+              <ellipse cx="97" cy="26" rx="2.6" ry="3.4" fill="#7C6446" opacity=".5"></ellipse>
+              <ellipse cx="212" cy="21" rx="2.6" ry="3.4" fill="#7C6446" opacity=".5"></ellipse>
+              <ellipse cx="223" cy="17" rx="2.6" ry="3.4" fill="#7C6446" opacity=".5"></ellipse>
+            </svg>
+
+            <div class="hand-letter" id="handLetter">
+              <span class="ln big">Mi amor,</span>
+              <span class="ln gap">Tú sabes que yo casi no escribo, que para eso te mando audios.</span>
+              <span class="ln">Pero hoy me senté a hacerte esto con calma, porque hay cosas que te digo poco.</span>
+              <span class="ln gap">La verdad me gustas arto, y no solo por bonita.</span>
+              <span class="ln">Me gusta lo juiciosa que eres, cómo cuidas a tu gente</span>
+              <span class="ln">y cómo le metes a todo lo que te propones.</span>
+              <span class="ln">Quiero que sepas que estoy muy orgulloso de ti.</span>
+              <span class="ln gap">Eres la mejor persona que ha llegado a mi vida. Así de simple.</span>
+              <span class="ln gap">Hoy no es día de hablar de mí, hoy es tuyo.</span>
+              <span class="ln">Quiero que te consientan y que no hagas nada que no tengas ganas de hacer.</span>
+              <span class="ln gap">Ojalá este año te vaya bien en todo, que tengas salud y tranquilidad,</span>
+              <span class="ln">y que Dios te dé todo lo que estás buscando.</span>
+              <span class="ln gap big">Feliz cumpleaños mi amor.</span>
+            </div>
+
+            <div class="tapes" id="bookPhotos"></div>
+
+            <div class="stamps" aria-hidden="true">
+              <span class="stamp-mark sm-red">Neiva</span>
+              <span class="stamp-mark sm-sky">Bogotá</span>
+              <span class="stamp-mark sm-mustard">Sigue la ruta</span>
+            </div>
+
+            <div class="book-end">
+              <p>Lo mejor de nuestra aventura<br>todavía está por escribirse</p>
+            </div>
+
+            <div class="book-sign">
+              <span>Te amo un montón mucho,</span>
+              <strong>Tavo</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- portada -->
+        <button class="book-cover" id="bookCover" type="button" aria-expanded="false" aria-controls="book">
+          <span class="cover-plate">
+            <span class="page-num" style="display:block;margin-bottom:8px">Para Juanita</span>
+            <h2>Nuestra<br>aventura</h2>
+            <span class="cover-rule"></span>
+            <small>Tomo I</small>
+          </span>
+          <span class="cover-open">Ábrelo <span class="arrow" aria-hidden="true">›</span></span>
+        </button>
+
       </div>
+
+      <p class="book-sub">Una historia que quiero seguir escribiendo contigo</p>
     </div>
   </div>
 </section>
@@ -715,6 +980,111 @@ img{max-width:100%}
       b.style.animationDelay = (-Math.random() * 22) + "s";
       host.appendChild(b);
     }
+  })();
+
+  /* ============================================================
+     CUADERNO DE AVENTURAS
+     Las fotos van aquí. Entre 2 y 4. Deja src en "" para que quede
+     el espacio marcado hasta que tengas la foto.
+     ============================================================ */
+  var BOOK_PHOTOS = [
+    { src: "", label: "Nuestra primera salida" },
+    { src: "", label: "Un viaje de los nuestros" },
+    { src: "", label: "Tú, viéndote hermosa" },
+    { src: "", label: "El próximo recuerdo" }
+  ];
+
+  (function(){
+    var book = document.getElementById("book");
+    if (!book) return;
+    var cover = document.getElementById("bookCover");
+    var lines = [].slice.call(document.querySelectorAll("#handLetter .ln"));
+    var host  = document.getElementById("bookPhotos");
+
+    /* fotos */
+    BOOK_PHOTOS.slice(0, 4).forEach(function(p){
+      var fig = document.createElement("figure");
+      fig.className = "tape-photo";
+      if (p.src){
+        var img = document.createElement("img");
+        img.className = "shot"; img.src = p.src; img.alt = p.label; img.loading = "lazy";
+        fig.appendChild(img);
+      } else {
+        var ph = document.createElement("div");
+        ph.className = "empty";
+        ph.innerHTML = '<span aria-hidden="true">✦</span>foto';
+        fig.appendChild(ph);
+      }
+      var cap = document.createElement("figcaption");
+      cap.textContent = p.label;
+      fig.appendChild(cap);
+      host.appendChild(fig);
+    });
+
+    /* tiempos del revelado */
+    lines.forEach(function(l, i){ l.style.setProperty("--i", i); });
+    var endDelay = 0.75 + lines.length * 0.28 + 0.45;
+    book.style.setProperty("--end-delay", endDelay.toFixed(2) + "s");
+
+    /* globos */
+    var COLORS = ["#C08A22", "#8C2F2A", "#6FA8C9", "#A8632F", "#D9C79A", "#4E7E5A"];
+    function balloon(w, color, str){
+      var b = document.createElement("span");
+      b.className = "balloon";
+      b.style.setProperty("--w", w + "px");
+      b.style.setProperty("--c", color);
+      b.style.setProperty("--s", str + "px");
+      b.innerHTML = '<span class="bulb"></span><span class="str"></span>';
+      return b;
+    }
+
+    /* globos de fondo, quietos y suaves */
+    if (!reduce){
+      var amb = document.getElementById("bkAmbient");
+      for (var i = 0; i < 5; i++){
+        var b = balloon(11 + Math.random() * 12, COLORS[i % COLORS.length], 20);
+        b.style.left = (6 + Math.random() * 84) + "%";
+        b.style.top  = (10 + Math.random() * 70) + "%";
+        b.style.animationDelay = (-Math.random() * 16) + "s";
+        amb.appendChild(b);
+      }
+    }
+
+    /* globos que suben al terminar */
+    var flew = false;
+    function flyBalloons(){
+      if (flew || reduce) return;
+      flew = true;
+      var rise = document.getElementById("bkRise");
+      for (var i = 0; i < 12; i++){
+        (function(i){
+          var b = balloon(13 + Math.random() * 15, COLORS[i % COLORS.length], 22 + Math.random() * 14);
+          b.style.left = (4 + Math.random() * 88) + "%";
+          b.style.setProperty("--d", (11 + Math.random() * 7).toFixed(1) + "s");
+          b.style.setProperty("--dx", (-30 + Math.random() * 60).toFixed(0) + "px");
+          b.style.animationDelay = (i * 0.42).toFixed(2) + "s";
+          b.addEventListener("animationend", function(){ b.remove(); });
+          rise.appendChild(b);
+        })(i);
+      }
+    }
+
+    var opened = false;
+    cover.addEventListener("click", function(){
+      if (opened) return;
+      opened = true;
+      book.classList.add("is-open");
+      cover.setAttribute("aria-expanded", "true");
+      /* la portada sale del camino cuando termina de girar */
+      setTimeout(function(){ cover.style.visibility = "hidden"; }, 1050);
+      if (reduce){
+        lines.forEach(function(l){ l.style.opacity = 1; l.style.transform = "none"; });
+        document.querySelector(".book-end").style.opacity = 1;
+        document.querySelector(".book-sign").style.opacity = 1;
+      } else {
+        setTimeout(flyBalloons, (endDelay + 0.5) * 1000);
+      }
+    });
   })();
 
   /* ---------- avisito ---------- */
