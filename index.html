@@ -10,21 +10,22 @@
    ============================================================ */
 
 :root{
-  --ground:#E4F5F7;
+  --ground:#D8F1F5;
   --card:#FFFFFF;
-  --band-sun:#FFF1C4;
-  --band-sea:#CFEEF3;
-  --band-rose:#FFE0E7;
-  --band-lime:#E2F3CE;
-  --band-lav:#EAE0F8;
-  --ink:#1F4A57;
-  --ink-soft:#5B8794;
-  --stroke:#1F4A57;
-  --hard:#1F4A57;
+  --band-sun:#FFE79A;
+  --band-sea:#B2E6EF;
+  --band-rose:#FFCBD8;
+  --band-lime:#D2EEAE;
+  --band-lav:#DCCDF6;
+  --ink:#1B4653;
+  --ink-soft:#4E7E8C;
+  --stroke:#1B4653;
+  --hard:#1B4653;
   --coral:#F2647F;
   --teal:#0E7F8E;
   --gold:#E9962A;
-  --gold-ink:#A6660F;
+  --gold-ink:#9C5F0D;
+  --plum:#7B4FB8;
   --paper:#FFFDF6;
   --bw:2.5px;        /* grosor de borde  */
   --sx:3px;          /* sombra dura x    */
@@ -49,6 +50,7 @@
     --teal:#5FD2E0;
     --gold:#F5BE63;
     --gold-ink:#F5BE63;
+    --plum:#C4A6F5;
     --paper:#193F48;
   }
 }
@@ -68,6 +70,7 @@
   --teal:#5FD2E0;
   --gold:#F5BE63;
   --gold-ink:#F5BE63;
+  --plum:#C4A6F5;
   --paper:#193F48;
 }
 
@@ -181,26 +184,46 @@ img{max-width:100%}
 .row dt{font-weight:700;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal)}
 .row dd{margin:0;font-family:"Baloo 2",sans-serif;font-weight:600;font-size:17px}
 
-.count{margin-top:22px;text-align:center}
-.count-label{font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
-.clock{display:flex;justify-content:center;gap:8px;margin-top:12px}
-.slot{
-  flex:1 1 0;min-width:0;max-width:110px;
-  background:var(--card);border:var(--bw) solid var(--stroke);border-radius:16px;
-  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:10px 6px;
+.count{margin-top:24px}
+.count-panel{
+  background:var(--coral);border:var(--bw) solid var(--stroke);border-radius:22px;
+  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:18px 12px 20px;text-align:center;
+  position:relative;overflow:hidden;
 }
+/* lunares de confeti dentro del panel */
+.count-panel::before,.count-panel::after{
+  content:"";position:absolute;width:64px;height:64px;border-radius:50%;
+  background:#FFFFFF;opacity:.16;pointer-events:none;
+}
+.count-panel::before{top:-26px;left:-18px}
+.count-panel::after{bottom:-30px;right:-14px;width:82px;height:82px}
+.count-label{
+  position:relative;font-family:"Baloo 2",sans-serif;font-weight:700;
+  font-size:19px;line-height:1.2;letter-spacing:0;text-transform:none;color:var(--hard);
+}
+.clock{position:relative;display:flex;justify-content:center;gap:8px;margin-top:14px}
+.slot{
+  flex:1 1 0;min-width:0;max-width:112px;
+  border:var(--bw) solid var(--stroke);border-radius:16px;
+  box-shadow:var(--sx) var(--sy) 0 var(--hard);padding:12px 6px;
+}
+.slot-1{background:var(--band-sun)}
+.slot-2{background:var(--band-lime)}
+.slot-3{background:var(--band-lav)}
 .slot b{
   display:block;font-family:"Baloo 2",sans-serif;font-weight:800;
-  font-size:30px;line-height:1;font-variant-numeric:tabular-nums;color:var(--coral);
+  font-size:42px;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink);
 }
-.slot span{display:block;margin-top:3px;font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.slot span{display:block;margin-top:4px;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.slot-3 b{animation:beat 1s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
 
-.boom{display:none;text-align:center;padding:4px 0 2px}
+.boom{display:none;position:relative;text-align:center;padding:2px 0}
 .is-time .clock,.is-time .count-label{display:none}
 .is-time .boom{display:block;animation:pop-in .7s cubic-bezier(.2,.9,.3,1) both}
-.boom h3{font-size:29px;color:var(--coral)}
-.boom p{margin-top:10px;font-size:17px}
-.boom .hand{margin-top:12px}
+.boom h3{font-size:30px;color:var(--hard)}
+.boom p{margin-top:10px;font-size:17px;color:var(--hard)}
+.boom .hand{margin-top:12px;color:var(--hard)}
 @keyframes pop-in{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:none}}
 
 /* ---------- lo que admiro ---------- */
@@ -214,6 +237,29 @@ img{max-width:100%}
   flex:none;width:38px;height:38px;border-radius:50%;border:2px solid var(--stroke);
   background:var(--band-sun);display:grid;place-items:center;font-size:17px;
 }
+.arow:nth-child(5n+2) .mark{background:var(--band-lime)}
+.arow:nth-child(5n+3) .mark{background:var(--band-lav)}
+.arow:nth-child(5n+4) .mark{background:var(--band-sea)}
+.arow:nth-child(5n+5) .mark{background:var(--band-rose)}
+
+/* variantes de color para los rótulos */
+.eyebrow-coral{color:var(--coral)}
+.eyebrow-plum{color:var(--plum)}
+.eyebrow-gold{color:var(--gold-ink)}
+
+/* ---------- créditos ---------- */
+.credits{
+  background:var(--ground);border-top:var(--bw) solid var(--stroke);
+  padding:34px var(--pad) calc(38px + env(safe-area-inset-bottom));text-align:center;
+}
+.credits h3{font-size:21px;color:var(--plum)}
+.credits .roll{list-style:none;margin:18px auto 0;padding:0;max-width:400px;display:grid;gap:11px}
+.credits .roll li{display:grid;gap:2px}
+.credits .roll b{font-weight:700;font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--teal)}
+.credits .roll span{font-family:"Baloo 2",sans-serif;font-weight:600;font-size:16px;color:var(--ink)}
+.credits .tail{margin-top:22px;font-family:Caveat,cursive;font-size:19px;color:var(--ink-soft)}
+.credits .dots{display:flex;justify-content:center;gap:7px;margin-bottom:16px}
+.credits .dots i{width:11px;height:11px;border-radius:50%;border:2px solid var(--stroke);display:block}
 .arow h3{font-size:19px}
 .arow p{margin-top:5px;color:var(--ink-soft);font-size:15.5px}
 
@@ -243,7 +289,7 @@ img{max-width:100%}
 .end{
   text-align:center;background:var(--band-sea);border-top:var(--bw) solid var(--stroke);
   border-radius:var(--radius) var(--radius) 0 0;margin-top:-26px;
-  padding:48px var(--pad) calc(56px + env(safe-area-inset-bottom));position:relative;
+  padding:48px var(--pad) 54px;position:relative;
 }
 .end .heart{font-size:38px;color:var(--coral);line-height:1}
 .end h2{font-size:26px;margin-top:10px}
@@ -282,12 +328,20 @@ img{max-width:100%}
   .row{display:flex;gap:14px;align-items:baseline;padding:13px 18px}
   .row dt{min-width:104px;flex:none;font-size:11.5px}
   .row dd{font-size:19px}
-  .clock{gap:16px}
-  .slot{flex:0 0 auto;min-width:96px;padding:12px 20px;border-radius:18px}
-  .slot b{font-size:44px}
-  .slot span{font-size:10.5px}
+  .count{margin-top:30px}
+  .count-panel{padding:26px 22px 28px;border-radius:26px}
+  .count-label{font-size:27px}
+  .clock{gap:16px;margin-top:18px}
+  .slot{flex:0 0 auto;min-width:112px;padding:16px 22px;border-radius:20px}
+  .slot b{font-size:62px}
+  .slot span{font-size:11px}
   .boom h3{font-size:44px}
   .boom p{font-size:19px}
+  .credits{padding:48px 20px 56px}
+  .credits h3{font-size:26px}
+  .credits .roll{gap:13px;max-width:440px}
+  .credits .roll span{font-size:17px}
+  .credits .tail{font-size:21px}
   .admiro{gap:14px}
   .arow{padding:18px 20px;border-radius:20px;gap:16px}
   .arow .mark{width:42px;height:42px;font-size:19px}
@@ -298,7 +352,7 @@ img{max-width:100%}
   .letter h2{font-size:54px}
   .letter p{font-size:17.5px;margin-top:16px}
   .sign strong{font-size:44px}
-  .end{padding:84px 20px 90px}
+  .end{padding:84px 20px 88px}
   .end h2{font-size:40px}
   .end .heart{font-size:44px}
 }
@@ -347,7 +401,7 @@ img{max-width:100%}
   <div class="shell narrow">
     <div class="invite">
       <div class="invite-inner">
-        <p class="eyebrow" style="text-align:center">Estás invitada</p>
+        <p class="eyebrow eyebrow-coral" style="text-align:center">Estás invitada</p>
         <h2>Cena de cumpleaños</h2>
         <p class="sub">Solo tú y yo, mi amor.</p>
 
@@ -360,16 +414,18 @@ img{max-width:100%}
         </dl>
 
         <div class="count" id="count">
-          <p class="count-label">Faltan para que pase por ti</p>
-          <div class="clock" id="clock">
-            <div class="slot"><b id="cd-h">—</b><span>horas</span></div>
-            <div class="slot"><b id="cd-m">—</b><span>min</span></div>
-            <div class="slot"><b id="cd-s">—</b><span>seg</span></div>
-          </div>
-          <div class="boom">
-            <h3>¡Feliz cumpleaños mi amor!</h3>
-            <p>Ya es la hora, voy en camino por ti.</p>
-            <p class="hand">Alístate, que hoy te consiento todo el día.</p>
+          <div class="count-panel">
+            <p class="count-label">Faltan para que pase por ti</p>
+            <div class="clock" id="clock">
+              <div class="slot slot-1"><b id="cd-h">—</b><span>horas</span></div>
+              <div class="slot slot-2"><b id="cd-m">—</b><span>min</span></div>
+              <div class="slot slot-3"><b id="cd-s">—</b><span>seg</span></div>
+            </div>
+            <div class="boom">
+              <h3>¡Feliz cumpleaños mi amor!</h3>
+              <p>Ya es la hora, voy en camino por ti.</p>
+              <p class="hand">Alístate, que hoy te consiento todo el día.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -380,7 +436,7 @@ img{max-width:100%}
 <section class="band band-rose">
   <div class="shell narrow">
     <div class="head">
-      <p class="eyebrow">De corazón</p>
+      <p class="eyebrow eyebrow-plum">De corazón</p>
       <h2>Lo que admiro de ti</h2>
       <p class="lede">Cosas que pienso de ti y que te digo poco.</p>
     </div>
@@ -410,8 +466,8 @@ img{max-width:100%}
       <article class="arow">
         <div class="mark">🏋️</div>
         <div>
-          <h3>Que eres disciplinada</h3>
-          <p>Sales de trabajar muerta del cansancio y aun así te vas para el gimnasio. Así llueva, así no tengas ganas. Eso me encanta de ti.</p>
+          <h3>Que eres juiciosa</h3>
+          <p>Sales de trabajar muerta del cansancio y aun así te vas para el gimnasio. Así llueva, así no tengas ganas. Eso me gusta arto de ti.</p>
         </div>
       </article>
       <article class="arow">
@@ -460,13 +516,14 @@ img{max-width:100%}
 <section class="band band-lav" id="carta">
   <div class="shell narrow">
     <div class="letter">
-      <p class="eyebrow">Para ti</p>
+      <p class="eyebrow eyebrow-gold">Para ti</p>
       <h2>Mi amor,</h2>
-      <p>Tú sabes que yo casi no escribo, que para eso te mando audios. Pero hoy me senté a hacerte esto con calma, porque hay cosas que te digo poco y quiero que hoy te queden bien claras.</p>
-      <p>Te admiro arto, en serio. Eres una mujer berraca, juiciosa y de las que no aflojan. Me encanta cómo cuidas a tu gente, cómo te acuerdas de todo y cómo sacas adelante todo lo que te propones. A veces me quedo mirándote y pienso que me gané la lotería contigo.</p>
-      <p>Hoy no es día de hablar de mí. Hoy el mundo gira alrededor tuyo y con toda la razón. Quiero que te consientan, que te celebren y que no hagas nada que no tengas ganas de hacer.</p>
-      <p>Ojalá este año te traiga salud, tranquilidad y todo lo que estás buscando. Y que te sobre para celebrarlo.</p>
-      <p>Feliz cumpleaños, mi amor. Eres lo mejor que tengo.</p>
+      <p>Tú sabes que yo casi no escribo, que para eso te mando audios. Pero hoy me senté a hacerte esto con calma, porque hay cosas que te digo poco.</p>
+      <p>La verdad me gustas arto, y no solo por bonita. Me gusta lo juiciosa que eres, cómo cuidas a tu gente y cómo le metes a todo lo que te propones. Quiero que sepas que estoy muy orgulloso de ti.</p>
+      <p>Eres la mejor persona que ha llegado a mi vida. Así de simple.</p>
+      <p>Hoy no es día de hablar de mí, hoy es tuyo. Quiero que te consientan y que no hagas nada que no tengas ganas de hacer.</p>
+      <p>Ojalá este año te vaya bien en todo, que tengas salud y tranquilidad, y que Dios te dé todo lo que estás buscando.</p>
+      <p>Feliz cumpleaños mi amor.</p>
       <div class="sign">
         <span>Te amo un montón mucho,</span>
         <strong>Tavo</strong>
@@ -477,11 +534,35 @@ img{max-width:100%}
 
 <footer class="end">
   <div class="heart">♡</div>
-  <p class="eyebrow" style="margin-top:12px">Feliz cumpleaños, mi amor</p>
+  <p class="eyebrow eyebrow-coral" style="margin-top:12px">Feliz cumpleaños, mi amor</p>
   <h2>Hoy el día es tuyo.<br>Disfrútalo completo.</h2>
   <p>Te amo. Nos vemos esta noche.</p>
   <span class="stamp">01 · 09 · 2026</span>
 </footer>
+
+<section class="credits" aria-labelledby="cred-t">
+  <div class="dots" aria-hidden="true">
+    <i style="background:var(--coral)"></i>
+    <i style="background:var(--gold)"></i>
+    <i style="background:var(--band-lime)"></i>
+    <i style="background:var(--plum)"></i>
+    <i style="background:var(--teal)"></i>
+  </div>
+  <h3 id="cred-t">Créditos</h3>
+  <ul class="roll">
+    <li><b>Dirección y producción</b><span>Tavo</span></li>
+    <li><b>Guion</b><span>Tavo, como a las 2 de la mañana</span></li>
+    <li><b>Ideas</b><span>Pocas, pero buenas</span></li>
+    <li><b>Revisión de ortografía</b><span>Nadie. Se nota</span></li>
+    <li><b>Presupuesto</b><span>$0. El cariño sí sobró</span></li>
+    <li><b>Efectos especiales</b><span>El confeti ese</span></li>
+    <li><b>Tipografías</b><span>Prestadas. Gracias Google</span></li>
+    <li><b>Escenas eliminadas</b><span>Varias. Mejor ni pregunte</span></li>
+    <li><b>Catering</b><span>Lo de esta noche</span></li>
+    <li><b>Agradecimiento especial</b><span>A ti, por aguantarme</span></li>
+  </ul>
+  <p class="tail">Ningún osito salió lastimado en la elaboración de esta página.</p>
+</section>
 
 <script>
 (function(){
