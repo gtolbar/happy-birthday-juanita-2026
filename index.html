@@ -1,5 +1,6 @@
 <title>La vuelta al sol de Juanita</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23EFE1C3'/%3E%3Crect x='15.2' y='5.5' width='1.8' height='6' fill='%23B77F17'/%3E%3Cellipse cx='16' cy='4.6' rx='2' ry='2.9' fill='%23E9962A'/%3E%3Cpath d='M5 19h22v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z' fill='%238C2F2A'/%3E%3Cpath d='M5 12.5h22V19H5z' fill='%23F4E9D2'/%3E%3Ccircle cx='10' cy='15.8' r='1.3' fill='%234F87A8'/%3E%3Ccircle cx='16' cy='15.8' r='1.3' fill='%23B77F17'/%3E%3Ccircle cx='22' cy='15.8' r='1.3' fill='%235A7A4E'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Caveat:wght@500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap">
@@ -279,40 +280,59 @@ em{font-style:italic}
 .arow h3{font-size:20px}
 .arow p{margin-top:5px;color:var(--ink-soft);font-size:15.5px}
 
-/* ---------- lista de logros ---------- */
-.checklist{list-style:none;margin:0;padding:0;display:grid;gap:11px}
-.checklist li{
-  position:relative;display:flex;gap:12px;align-items:flex-start;
-  padding:13px 15px;background:var(--paper-3);box-shadow:var(--soft);border-radius:2px;
-  background-image:var(--grain);background-blend-mode:multiply;
+/* ---------- logros, en acordeón ---------- */
+.logros{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.logro{
+  background:var(--paper-3);box-shadow:var(--soft);border-radius:2px;
+  background-image:var(--grain);background-blend-mode:multiply;overflow:hidden;
+}
+.logro:nth-child(odd){transform:rotate(-.3deg)}
+.logro:nth-child(even){transform:rotate(.25deg)}
+.logro-btn{
+  width:100%;display:flex;gap:12px;align-items:flex-start;text-align:left;
+  padding:13px 14px;background:none;border:0;cursor:pointer;color:inherit;
   font-family:Kalam,cursive;font-weight:700;font-size:17px;line-height:1.35;
 }
-.checklist li:nth-child(odd){transform:rotate(-.3deg)}
-.checklist li:nth-child(even){transform:rotate(.25deg)}
-.checklist .tick{flex:none;width:22px;height:22px;margin-top:1px}
-.checklist .tick path{fill:none;stroke:var(--red);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
-.checklist li:nth-child(3n+2) .tick path{stroke:var(--moss)}
-.checklist li:nth-child(3n+3) .tick path{stroke:var(--sky-2)}
+.logro-btn .tick{flex:none;width:22px;height:22px;margin-top:1px}
+.logro-btn .tick path{fill:none;stroke:var(--red);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.logro:nth-child(3n+2) .tick path{stroke:var(--moss)}
+.logro:nth-child(3n+3) .tick path{stroke:var(--sky-2)}
+.logro-t{flex:1}
+.logro-mas{
+  flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+  font-family:Nunito,sans-serif;font-weight:700;font-size:15px;line-height:1;
+  color:var(--paper-3);background:var(--ink-soft);opacity:.7;
+  transition:transform .28s ease, opacity .2s ease;
+}
+.logro-btn:hover .logro-mas{opacity:1}
+.logro.abierto .logro-mas{transform:rotate(45deg);opacity:1;background:var(--red)}
+.logro-det{padding:0 14px 15px 48px}
+.logro-det .nota{
+  font-family:Caveat,cursive;font-size:20px;line-height:1.35;color:var(--ink-soft);
+  border-left:2px dashed var(--line);padding-left:12px;
+}
+.logro-det .polaroid{margin-top:14px;max-width:190px}
 
-/* fila de sellos con sus cualidades */
-.traits{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:26px}
-.traits .stamp-mark{font-size:10.5px;padding:7px 13px}
-.traits .stamp-mark:nth-child(even){transform:rotate(2deg)}
-
-/* ---------- mapa de pueblos ---------- */
-.mapa{position:relative;padding:6px 0 2px}
-.mapa .ruta{display:block;width:100%;height:26px;margin-bottom:14px}
-.towns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+/* mapa de pueblos, dentro del logro del trabajo */
+.mapa{margin-top:14px}
+.mapa .ruta{display:block;width:100%;height:22px;margin-bottom:10px}
+.towns{display:flex;flex-wrap:wrap;gap:8px}
 .town{
-  font-family:Kalam,cursive;font-weight:700;font-size:15px;
-  padding:7px 14px;border:2px dashed currentColor;border-radius:5px;opacity:.82;
-  background:rgba(255,253,246,.4);
+  font-family:Kalam,cursive;font-weight:700;font-size:14px;
+  padding:5px 11px;border:2px dashed currentColor;border-radius:5px;opacity:.85;
+  background:rgba(255,253,246,.45);
 }
 .town:nth-child(5n+1){color:var(--red);transform:rotate(-2deg)}
 .town:nth-child(5n+2){color:var(--sky-2);transform:rotate(1.6deg)}
 .town:nth-child(5n+3){color:var(--mustard-2);transform:rotate(-1.2deg)}
 .town:nth-child(5n+4){color:var(--moss);transform:rotate(2.2deg)}
 .town:nth-child(5n+5){color:var(--cover);transform:rotate(-1.8deg)}
+
+/* fila de sellos con sus cualidades */
+.traits{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:26px}
+.traits .stamp-mark{font-size:10.5px;padding:7px 13px}
+.traits .stamp-mark:nth-child(even){transform:rotate(2deg)}
+
 
 /* ---------- polaroids (galería opcional) ---------- */
 .photos{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
@@ -475,17 +495,6 @@ em{font-style:italic}
 
 /* ---------- confeti y avisito ---------- */
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:80;display:none}
-#toast{
-  position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));
-  transform:translateX(-50%) translateY(20px) rotate(-1deg);
-  background:var(--paper-3);color:var(--ink);border-radius:3px;
-  padding:11px 20px;box-shadow:var(--soft-2);
-  font-family:Kalam,cursive;font-weight:700;font-size:15px;
-  opacity:0;pointer-events:none;z-index:90;
-  transition:opacity .25s ease, transform .25s ease;
-  max-width:calc(100vw - 32px);text-align:center;
-}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0) rotate(-1deg)}
 
 /* ============================================================
    Tablet en adelante
@@ -563,7 +572,6 @@ em{font-style:italic}
 </style>
 
 <canvas id="confetti"></canvas>
-<div id="toast" role="status"></div>
 
 <header class="hero">
   <div class="sky-layer ambient" id="heroSky" aria-hidden="true"></div>
@@ -697,25 +705,16 @@ em{font-style:italic}
   </div>
 </section>
 
-<section class="band band-a">
+<section class="band band-a" id="tuano">
   <div class="shell narrow">
     <div class="head">
       <p class="eyebrow eyebrow-mustard">Tu año</p>
       <h2>Todo lo que hiciste</h2>
       <svg class="underline" viewBox="0 0 170 8" aria-hidden="true"><path d="M2 6 C 40 1, 74 8, 110 3 S 158 5, 168 2"></path></svg>
-      <p class="lede">Lo fui anotando por ahí. Míralo junto, a ver si así te das cuenta.</p>
+      <p class="lede">Lo fui anotando por ahí. Toca cada uno, que le puse nota.</p>
     </div>
 
-    <ul class="checklist" id="checklist">
-      <li>Aprendiste a manejar tu moto</li>
-      <li>Y después te compraste la tuya</li>
-      <li>Aprendiste a montar patines, y hasta a saltar</li>
-      <li>Convertiste tus bordados en regalos para los demás</li>
-      <li>Aprendiste a cocinar más saludable</li>
-      <li>Fuiste constante con el gimnasio, sin fallar</li>
-      <li>Viajaste y te le mediste a nuevos retos en el trabajo</li>
-      <li>Y los pantalones empezaron a notarlo</li>
-    </ul>
+    <ul class="logros" id="logros"></ul>
 
     <div class="traits" aria-label="Cómo eres">
       <span class="stamp-mark sm-red">Vendedora</span>
@@ -723,37 +722,6 @@ em{font-style:italic}
       <span class="stamp-mark sm-moss">Amorosa</span>
       <span class="stamp-mark sm-mustard">Fiel</span>
       <span class="stamp-mark sm-red">Religiosa</span>
-    </div>
-  </div>
-</section>
-
-<section class="band band-b">
-  <div class="shell narrow">
-    <div class="head">
-      <p class="eyebrow eyebrow-sky">El mapa</p>
-      <h2>Por dónde has andado</h2>
-      <svg class="underline" viewBox="0 0 170 8" aria-hidden="true"><path d="M2 6 C 40 1, 74 8, 110 3 S 158 5, 168 2"></path></svg>
-      <p class="lede">Los pueblos donde has trabajado. Este cuaderno se me va a quedar corto.</p>
-    </div>
-
-    <div class="mapa">
-      <svg class="ruta" viewBox="0 0 320 26" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M6 18 C 62 2, 112 26, 164 12 S 262 4, 314 16" fill="none" stroke="#8C2F2A" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" opacity=".65"></path>
-        <circle cx="6" cy="18" r="3.6" fill="#8C2F2A"></circle>
-        <path d="M314 16 l-8 -4.5 l0 9 z" fill="#8C2F2A"></path>
-      </svg>
-      <div class="towns">
-        <span class="town">Pitalito</span>
-        <span class="town">Palermo</span>
-        <span class="town">Teruel</span>
-        <span class="town">Rivera</span>
-        <span class="town">Campoalegre</span>
-        <span class="town">Hobo</span>
-        <span class="town">Planadas</span>
-        <span class="town">Tello</span>
-        <span class="town">Aipe</span>
-        <span class="town">Ibagué</span>
-      </div>
     </div>
   </div>
 </section>
@@ -950,18 +918,106 @@ em{font-style:italic}
   ambient("bkAmbient", 5);
   ambient("endSky", 4);
 
-  /* ---------- palomitas de la lista ---------- */
+  /* ============================================================
+     LOS LOGROS DEL AÑO
+     t = título   n = la nota que sale al tocarlo
+     f = ruta de una foto (opcional; vacío = sin foto)
+     towns = pueblos, solo para el del trabajo
+     ============================================================ */
+  var LOGROS = [
+    { t:"Aprendiste a manejar tu moto", f:"",
+      n:"Arrancaste con susto y ahora manejas como si nada." },
+    { t:"Y después te compraste la tuya", f:"",
+      n:"Con tu plata y sin pedirle nada a nadie." },
+    { t:"Aprendiste a montar patines, y hasta a saltar", f:"",
+      n:"Te caíste varias veces y seguiste. Ahora hasta saltas." },
+    { t:"Convertiste tus bordados en regalos", f:"",
+      n:"Lo que era un pasatiempo terminó siendo el regalo de medio mundo." },
+    { t:"Aprendiste a cocinar más saludable", f:"",
+      n:"Y de paso me enderezaste la comida a mí también." },
+    { t:"Le fuiste constante al gimnasio todo el año", f:"",
+      n:"Sin importar el cansancio ni el clima. Semana tras semana." },
+    { t:"Te le mediste a nuevos retos en el trabajo", f:"",
+      n:"Te le mediste a vender, que nunca lo habías hecho formalmente. Y de paso te recorriste medio Huila:",
+      towns:["Pitalito","Palermo","Teruel","Rivera","Campoalegre","Hobo","Planadas","Tello","Aipe","Ibagué"] },
+    { t:"Y los pantalones empezaron a notarlo", f:"",
+      n:"Tú lo negabas, pero la ropa no miente." }
+  ];
+
   (function(){
+    var host = document.getElementById("logros");
+    if (!host) return;
     var ns = "http://www.w3.org/2000/svg";
-    [].forEach.call(document.querySelectorAll("#checklist li"), function(li){
-      var svg = document.createElementNS(ns, "svg");
-      svg.setAttribute("class", "tick");
-      svg.setAttribute("viewBox", "0 0 24 24");
-      svg.setAttribute("aria-hidden", "true");
+
+    LOGROS.forEach(function(g, i){
+      var li = document.createElement("li");
+      li.className = "logro";
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "logro-btn";
+      btn.setAttribute("aria-expanded", "false");
+
+      var tick = document.createElementNS(ns, "svg");
+      tick.setAttribute("class", "tick");
+      tick.setAttribute("viewBox", "0 0 24 24");
+      tick.setAttribute("aria-hidden", "true");
       var pt = document.createElementNS(ns, "path");
       pt.setAttribute("d", "M4 13.5 L9.5 19 L20 5");
-      svg.appendChild(pt);
-      li.insertBefore(svg, li.firstChild);
+      tick.appendChild(pt);
+
+      var tit = document.createElement("span");
+      tit.className = "logro-t"; tit.textContent = g.t;
+      var mas = document.createElement("span");
+      mas.className = "logro-mas"; mas.setAttribute("aria-hidden", "true"); mas.textContent = "+";
+
+      btn.appendChild(tick); btn.appendChild(tit); btn.appendChild(mas);
+
+      var det = document.createElement("div");
+      det.className = "logro-det";
+      det.id = "logro-det-" + i;
+      det.hidden = true;
+      btn.setAttribute("aria-controls", det.id);
+
+      var nota = document.createElement("p");
+      nota.className = "nota"; nota.textContent = g.n;
+      det.appendChild(nota);
+
+      if (g.towns){
+        var mapa = document.createElement("div");
+        mapa.className = "mapa";
+        mapa.innerHTML =
+          '<svg class="ruta" viewBox="0 0 320 22" preserveAspectRatio="none" aria-hidden="true">' +
+          '<path d="M6 15 C 62 2, 112 22, 164 10 S 262 3, 314 13" fill="none" stroke="#8C2F2A" ' +
+          'stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" opacity=".65"></path>' +
+          '<circle cx="6" cy="15" r="3.4" fill="#8C2F2A"></circle>' +
+          '<path d="M314 13 l-8 -4.5 l0 9 z" fill="#8C2F2A"></path></svg>' +
+          '<div class="towns"></div>';
+        var tw = mapa.querySelector(".towns");
+        g.towns.forEach(function(name){
+          var sp = document.createElement("span");
+          sp.className = "town"; sp.textContent = name;
+          tw.appendChild(sp);
+        });
+        det.appendChild(mapa);
+      }
+
+      if (g.f){
+        var fig = document.createElement("figure");
+        fig.className = "polaroid";
+        var im = document.createElement("img");
+        im.src = g.f; im.alt = g.t; im.loading = "lazy";
+        fig.appendChild(im);
+        det.appendChild(fig);
+      }
+
+      btn.addEventListener("click", function(){
+        var abierto = li.classList.toggle("abierto");
+        det.hidden = !abierto;
+        btn.setAttribute("aria-expanded", abierto ? "true" : "false");
+      });
+
+      li.appendChild(btn); li.appendChild(det); host.appendChild(li);
     });
   })();
 
@@ -1042,14 +1098,23 @@ em{font-style:italic}
     em.textContent = pad(Math.floor(s / 60) % 60);
     es.textContent = pad(s % 60);
   }
+  /* ?test=1 en el link muestra cómo se verá a la hora (para probar) */
+  try {
+    if (new URLSearchParams(location.search).get("test") === "1"){ forced = true; arrive(); }
+  } catch (e) {}
+
   tick();
   setInterval(tick, 1000);
 
   /* ---------- confeti ---------- */
-  var cv = document.getElementById("confetti");
   var partying = false;
   function party(){
     if (reduce || partying) return;
+    /* el canvas se busca aquí dentro: party() puede llamarse antes de
+       que se ejecute esta parte del script, si la página se abre ya
+       pasada la hora de la cena */
+    var cv = document.getElementById("confetti");
+    if (!cv) return;
     partying = true;
     var ctx = cv.getContext("2d"), w, h, bits = [];
     function size(){ w = cv.width = innerWidth; h = cv.height = innerHeight; }
@@ -1149,44 +1214,42 @@ em{font-style:italic}
     });
   })();
 
-  /* ---------- avisito ---------- */
-  var toast = document.getElementById("toast"), toastT;
-  function say(msg){
-    toast.textContent = msg;
-    toast.classList.add("show");
-    clearTimeout(toastT);
-    toastT = setTimeout(function(){ toast.classList.remove("show"); }, 2600);
+  /* ---------- tocar el regalo lo repite ---------- */
+  var slot = document.getElementById("gifslot");
+  function replay(){
+    if (!gift) return;
+    try { gift.currentTime = 0; var pr = gift.play(); if (pr && pr.catch) pr.catch(function(){}); } catch(e){}
   }
-
-  /* ---------- huevo de pascua: 5 toques al gif ---------- */
-  var slot = document.getElementById("gifslot"), taps = 0, tapT;
-  function tap(){
-    /* al tocarlo, el regalo se abre otra vez */
-    if (gift){
-      try { gift.currentTime = 0; var pr = gift.play(); if (pr && pr.catch) pr.catch(function(){}); } catch(e){}
-    }
-    taps++;
-    clearTimeout(tapT);
-    tapT = setTimeout(function(){ taps = 0; }, 1800);
-    if (taps === 3) say("Dos toques más…");
-    if (taps >= 5){
-      taps = 0;
-      forced = !forced;
-      if (forced){
-        arrive();
-        say("Modo prueba: así se va a ver a la hora");
-        document.getElementById("invitacion").scrollIntoView({behavior:"smooth", block:"center"});
-      } else {
-        count.classList.remove("is-time");
-        fired = false;
-        tick();
-        say("Listo, cuenta regresiva de vuelta");
-      }
-    }
-  }
-  slot.addEventListener("click", tap);
+  slot.addEventListener("click", replay);
   slot.addEventListener("keydown", function(e){
-    if (e.key === "Enter" || e.key === " "){ e.preventDefault(); tap(); }
+    if (e.key === "Enter" || e.key === " "){ e.preventDefault(); replay(); }
   });
+
+  /* ---------- confeti al llegar a la invitación ---------- */
+  (function(){
+    var sec = document.getElementById("invitacion");
+    if (!sec || reduce) return;
+    var listo = false;
+    function soltar(){
+      if (listo) return;
+      listo = true;
+      party();
+      window.removeEventListener("scroll", alScroll);
+    }
+    function alScroll(){
+      var r = sec.getBoundingClientRect();
+      if (r.top < innerHeight * 0.7 && r.bottom > 0) soltar();
+    }
+    if ("IntersectionObserver" in window){
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if (e.isIntersecting){ soltar(); io.disconnect(); } });
+      }, { threshold: 0.28 });
+      io.observe(sec);
+    }
+    /* red de seguridad, por si el observer no reporta */
+    window.addEventListener("scroll", alScroll, { passive: true });
+    alScroll();
+  })();
+
 })();
 </script>

@@ -19,8 +19,7 @@ La hora por defecto es el **1 de septiembre de 2026 a las 8:00 p. m.** (hora de 
 - Diseño mobile-first; los `@media (min-width)` agrandan para tablet y escritorio.
 - La cuenta regresiva marca horas, minutos y segundos. Al llegar a cero se
   revela el mensaje de cumpleaños con confeti.
-- **Modo prueba:** 5 toques seguidos al gif adelantan la página al estado
-  "ya es la hora". Otros 5 la devuelven a la cuenta regresiva.
+- **Modo prueba:** agrega `?test=1` al link para ver cómo se verá a la hora.
 - Un solo mundo visual: papel envejecido en tema claro y oscuro (es un cuaderno,
   no tiene modo noche).
 - El regalo es `regalo.mp4`, embebido como data URI en `VIDEO_SRC` para que la
