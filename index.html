@@ -311,7 +311,23 @@ em{font-style:italic}
   font-family:Caveat,cursive;font-size:20px;line-height:1.35;color:var(--ink-soft);
   border-left:2px dashed var(--line);padding-left:12px;
 }
-.logro-det .polaroid{margin-top:14px;max-width:190px}
+.logro-det .polaroid{margin-top:14px;max-width:200px}
+.logro-det .polaroid video{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;background:#DED0B4}
+
+/* sello de pasaporte, para el viaje */
+.sello-viaje{
+  display:inline-block;margin-top:15px;padding:9px 16px 7px;
+  border:3px double var(--sky-2);border-radius:7px;color:var(--sky-2);
+  transform:rotate(-6deg);opacity:.8;text-align:center;
+}
+.sello-viaje b{
+  display:block;font-family:Kalam,cursive;font-weight:700;
+  font-size:21px;letter-spacing:.14em;line-height:1;
+}
+.sello-viaje i{
+  display:block;font-style:normal;margin-top:3px;font-family:Nunito,sans-serif;
+  font-weight:700;font-size:9px;letter-spacing:.24em;
+}
 
 /* mapa de pueblos, dentro del logro del trabajo */
 .mapa{margin-top:14px}
@@ -670,7 +686,7 @@ em{font-style:italic}
         <div class="mark">🏋️</div>
         <div>
           <h3>Que eres juiciosa</h3>
-          <p>Sales de trabajar muerta del cansancio y aun así te vas para el gimnasio, y ahora hasta saliste a correr. Así llueva, así no tengas ganas. Eso me gusta arto de ti.</p>
+          <p>Sales de trabajar muerta del cansancio y aun así te vas para el gimnasio, y ahora hasta saliste a correr. Así llueva, así no tengas ganas. Yo con la mitad ya me estaría quejando.</p>
         </div>
       </article>
       <article class="arow">
@@ -940,6 +956,9 @@ em{font-style:italic}
     { t:"Te le mediste a nuevos retos en el trabajo", f:"",
       n:"Te le mediste a vender, que nunca lo habías hecho formalmente. Y de paso te recorriste medio Huila:",
       towns:["Pitalito","Palermo","Teruel","Rivera","Campoalegre","Hobo","Planadas","Tello","Aipe","Ibagué"] },
+    { t:"Sacaste tu primer pasaporte y te fuiste del país", f:"", v:"",
+      n:"Aruba. Empezaste las vueltas del pasaporte desde junio solo para eso, y valió cada una.",
+      sello:{ lugar:"ARUBA", fecha:"Septiembre 2025" } },
     { t:"Y los pantalones empezaron a notarlo", f:"",
       n:"Tú lo negabas, pero la ropa no miente." }
   ];
@@ -1002,12 +1021,32 @@ em{font-style:italic}
         det.appendChild(mapa);
       }
 
-      if (g.f){
+      if (g.sello){
+        var sl = document.createElement("span");
+        sl.className = "sello-viaje";
+        sl.innerHTML = "<b></b><i></i>";
+        sl.querySelector("b").textContent = g.sello.lugar;
+        sl.querySelector("i").textContent = g.sello.fecha;
+        det.appendChild(sl);
+      }
+
+      var media = null;
+      if (g.f || g.v){
         var fig = document.createElement("figure");
         fig.className = "polaroid";
-        var im = document.createElement("img");
-        im.src = g.f; im.alt = g.t; im.loading = "lazy";
-        fig.appendChild(im);
+        if (g.v){
+          media = document.createElement("video");
+          media.src = g.v;
+          media.muted = true; media.defaultMuted = true; media.loop = true;
+          media.playsInline = true; media.setAttribute("playsinline", "");
+          media.setAttribute("webkit-playsinline", "");
+          media.preload = "metadata";
+          media.setAttribute("aria-label", g.t);
+        } else {
+          media = document.createElement("img");
+          media.src = g.f; media.alt = g.t; media.loading = "lazy";
+        }
+        fig.appendChild(media);
         det.appendChild(fig);
       }
 
@@ -1015,6 +1054,10 @@ em{font-style:italic}
         var abierto = li.classList.toggle("abierto");
         det.hidden = !abierto;
         btn.setAttribute("aria-expanded", abierto ? "true" : "false");
+        if (media && media.tagName === "VIDEO"){
+          if (abierto){ var pr = media.play(); if (pr && pr.catch) pr.catch(function(){}); }
+          else { media.pause(); }
+        }
       });
 
       li.appendChild(btn); li.appendChild(det); host.appendChild(li);
