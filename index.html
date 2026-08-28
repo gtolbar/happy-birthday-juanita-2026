@@ -236,6 +236,11 @@ em{font-style:italic}
 .slot-1{transform:rotate(-1.4deg)}
 .slot-2{transform:rotate(.8deg)}
 .slot-3{transform:rotate(-.6deg)}
+/* los tres laten, desfasados, para que el bloque llame la atención */
+.slot b{animation:beat 1s ease-in-out infinite}
+.slot-1 b{animation-delay:0s}
+.slot-2 b{animation-delay:.14s}
+.slot-3 b{animation-delay:.28s}
 .slot b{
   display:block;font-family:Kalam,cursive;font-weight:700;
   font-size:40px;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink);
@@ -244,7 +249,6 @@ em{font-style:italic}
   display:block;margin-top:3px;font-family:Nunito,sans-serif;font-weight:700;
   font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
 }
-.slot-3 b{animation:beat 1s ease-in-out infinite}
 @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 
 .boom{display:none;position:relative;text-align:center;padding:2px 0}
@@ -274,6 +278,41 @@ em{font-style:italic}
 .arow:nth-child(5n+5) .mark{background:var(--cover)}
 .arow h3{font-size:20px}
 .arow p{margin-top:5px;color:var(--ink-soft);font-size:15.5px}
+
+/* ---------- lista de logros ---------- */
+.checklist{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.checklist li{
+  position:relative;display:flex;gap:12px;align-items:flex-start;
+  padding:13px 15px;background:var(--paper-3);box-shadow:var(--soft);border-radius:2px;
+  background-image:var(--grain);background-blend-mode:multiply;
+  font-family:Kalam,cursive;font-weight:700;font-size:17px;line-height:1.35;
+}
+.checklist li:nth-child(odd){transform:rotate(-.3deg)}
+.checklist li:nth-child(even){transform:rotate(.25deg)}
+.checklist .tick{flex:none;width:22px;height:22px;margin-top:1px}
+.checklist .tick path{fill:none;stroke:var(--red);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.checklist li:nth-child(3n+2) .tick path{stroke:var(--moss)}
+.checklist li:nth-child(3n+3) .tick path{stroke:var(--sky-2)}
+
+/* fila de sellos con sus cualidades */
+.traits{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:26px}
+.traits .stamp-mark{font-size:10.5px;padding:7px 13px}
+.traits .stamp-mark:nth-child(even){transform:rotate(2deg)}
+
+/* ---------- mapa de pueblos ---------- */
+.mapa{position:relative;padding:6px 0 2px}
+.mapa .ruta{display:block;width:100%;height:26px;margin-bottom:14px}
+.towns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.town{
+  font-family:Kalam,cursive;font-weight:700;font-size:15px;
+  padding:7px 14px;border:2px dashed currentColor;border-radius:5px;opacity:.82;
+  background:rgba(255,253,246,.4);
+}
+.town:nth-child(5n+1){color:var(--red);transform:rotate(-2deg)}
+.town:nth-child(5n+2){color:var(--sky-2);transform:rotate(1.6deg)}
+.town:nth-child(5n+3){color:var(--mustard-2);transform:rotate(-1.2deg)}
+.town:nth-child(5n+4){color:var(--moss);transform:rotate(2.2deg)}
+.town:nth-child(5n+5){color:var(--cover);transform:rotate(-1.8deg)}
 
 /* ---------- polaroids (galería opcional) ---------- */
 .photos{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
@@ -538,12 +577,11 @@ em{font-style:italic}
           aquí va el regalo
         </span>
       </span>
-      <figcaption>tócame</figcaption>
     </figure>
 
     <p class="kicker" style="margin-top:14px">Para mi amor</p>
     <h1>Feliz vuelta <span>al sol</span></h1>
-    <p class="hero-copy">Hoy es tu día, mi amor. Te hice esto con calma para que sepas todo lo que pienso de ti. Léelo completo, que abajo te tengo algo.</p>
+    <p class="hero-copy">Llevo días armando esto, escribiendo y borrando. Quería darte algo que no se comprara en ningún lado. Léelo completo, que abajo te tengo algo.</p>
     <p><span class="stamp-date">01 · 09 · 2026</span></p>
     <p style="margin-top:24px"><a class="cta" href="#invitacion">Ábreme <span class="arrow" aria-hidden="true">›</span></a></p>
   </div>
@@ -559,7 +597,7 @@ em{font-style:italic}
       <div class="invite-inner">
         <p class="eyebrow" style="text-align:center">Estás invitada</p>
         <h2>Cena de cumpleaños</h2>
-        <p class="sub">Solo tú y yo, mi amor.</p>
+        <p class="sub">Solo tú y yo, amor.</p>
 
         <dl class="rows">
           <div class="row"><dt>Cuándo</dt><dd>Martes 1 de septiembre</dd></div>
@@ -578,9 +616,9 @@ em{font-style:italic}
               <div class="slot slot-3"><b id="cd-s">—</b><span>seg</span></div>
             </div>
             <div class="boom">
-              <h3>¡Feliz cumpleaños mi amor!</h3>
+              <h3>¡Feliz cumpleaños amor!</h3>
               <p>Ya es la hora, voy en camino por ti.</p>
-              <p class="hand">Alístate, que hoy te consiento todo el día.</p>
+              <p class="hand">Hoy es todo tuyo, amor.</p>
             </div>
           </div>
         </div>
@@ -603,14 +641,14 @@ em{font-style:italic}
         <div class="mark">🧳</div>
         <div>
           <h3>Que te viniste sola</h3>
-          <p>Dejaste Neiva y te viniste a Bogotá a arrancar de cero, sin conocer a nadie. Eso no lo hace cualquiera, mi amor, y tú lo hiciste sin quejarte ni una vez.</p>
+          <p>Dejaste Neiva y te viniste a Bogotá a arrancar de cero, sin conocer a nadie. Sé que hubo días duros y que no fue fácil, pero la sacaste adelante. Eso no lo hace cualquiera, amor.</p>
         </div>
       </article>
       <article class="arow">
         <div class="mark">🎓</div>
         <div>
           <h3>Que te graduaste</h3>
-          <p>Trabajando todo el día, viajando de noche y estudiando cuando podías. Yo te vi haciéndolo y no te imaginas lo orgulloso que estoy de ti.</p>
+          <p>Trabajando todo el día, viajando de noche y estudiando cuando podías. Hasta alcancé a irte a recoger allá, jeje. Estoy muy orgulloso de ti.</p>
         </div>
       </article>
       <article class="arow">
@@ -624,37 +662,98 @@ em{font-style:italic}
         <div class="mark">🏋️</div>
         <div>
           <h3>Que eres juiciosa</h3>
-          <p>Sales de trabajar muerta del cansancio y aun así te vas para el gimnasio. Así llueva, así no tengas ganas. Eso me gusta arto de ti.</p>
+          <p>Sales de trabajar muerta del cansancio y aun así te vas para el gimnasio, y ahora hasta saliste a correr. Así llueva, así no tengas ganas. Eso me gusta arto de ti.</p>
         </div>
       </article>
       <article class="arow">
         <div class="mark">🏠</div>
         <div>
-          <h3>Que nunca sueltas a los tuyos</h3>
-          <p>Estés como estés, siempre estás pendiente de tu mamá, de tu papá y de tu hermano. Se te ilumina la cara cuando hablas de ellos y a mí me encanta verte así.</p>
+          <h3>Que estás pendiente de los tuyos</h3>
+          <p>Así andes ocupada o cansada, siempre sacas un rato para tu mamá, tu papá y tu hermano. Eso dice mucho de la persona que eres.</p>
         </div>
       </article>
       <article class="arow">
         <div class="mark">🧵</div>
         <div>
           <h3>Que tienes manos para todo</h3>
-          <p>Bordas, cocinas, arreglas y te inventas cosas. Se te ocurre algo por la mañana y por la tarde ya está hecho.</p>
+          <p>Bordas, tejes en crochet, haces postres y te inventas cosas. Se te ocurre algo por la mañana y por la tarde ya está hecho.</p>
         </div>
       </article>
       <article class="arow">
         <div class="mark">🧠</div>
         <div>
           <h3>Que te acuerdas de todo</h3>
-          <p>Las fechas, los detalles, lo que uno dijo hace meses. En esa cabecita tuya vive la agenda de todo el mundo.</p>
+          <p>Las fechas, los detalles, lo que uno dijo hace meses. Ya perdí la cuenta de las veces que me has salvado con eso.</p>
         </div>
       </article>
       <article class="arow">
         <div class="mark">☕</div>
         <div>
           <h3>Que todavía te sobra</h3>
-          <p>Después de todo eso todavía sacas tiempo para preguntar cómo voy yo. No sé de dónde sacas, mi amor.</p>
+          <p>Después de todo eso todavía sacas tiempo para preguntar cómo voy yo. No sé cómo haces, amor.</p>
         </div>
       </article>
+    </div>
+  </div>
+</section>
+
+<section class="band band-a">
+  <div class="shell narrow">
+    <div class="head">
+      <p class="eyebrow eyebrow-mustard">Tu año</p>
+      <h2>Todo lo que hiciste</h2>
+      <svg class="underline" viewBox="0 0 170 8" aria-hidden="true"><path d="M2 6 C 40 1, 74 8, 110 3 S 158 5, 168 2"></path></svg>
+      <p class="lede">Lo fui anotando por ahí. Míralo junto, a ver si así te das cuenta.</p>
+    </div>
+
+    <ul class="checklist" id="checklist">
+      <li>Aprendiste a manejar tu moto</li>
+      <li>Y después te compraste la tuya</li>
+      <li>Aprendiste a montar patines, y hasta a saltar</li>
+      <li>Convertiste tus bordados en regalos para los demás</li>
+      <li>Aprendiste a cocinar más saludable</li>
+      <li>Fuiste constante con el gimnasio, sin fallar</li>
+      <li>Viajaste y te le mediste a nuevos retos en el trabajo</li>
+      <li>Y los pantalones empezaron a notarlo</li>
+    </ul>
+
+    <div class="traits" aria-label="Cómo eres">
+      <span class="stamp-mark sm-red">Vendedora</span>
+      <span class="stamp-mark sm-sky">Detallista</span>
+      <span class="stamp-mark sm-moss">Amorosa</span>
+      <span class="stamp-mark sm-mustard">Fiel</span>
+      <span class="stamp-mark sm-red">Religiosa</span>
+    </div>
+  </div>
+</section>
+
+<section class="band band-b">
+  <div class="shell narrow">
+    <div class="head">
+      <p class="eyebrow eyebrow-sky">El mapa</p>
+      <h2>Por dónde has andado</h2>
+      <svg class="underline" viewBox="0 0 170 8" aria-hidden="true"><path d="M2 6 C 40 1, 74 8, 110 3 S 158 5, 168 2"></path></svg>
+      <p class="lede">Los pueblos donde has trabajado. Este cuaderno se me va a quedar corto.</p>
+    </div>
+
+    <div class="mapa">
+      <svg class="ruta" viewBox="0 0 320 26" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M6 18 C 62 2, 112 26, 164 12 S 262 4, 314 16" fill="none" stroke="#8C2F2A" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" opacity=".65"></path>
+        <circle cx="6" cy="18" r="3.6" fill="#8C2F2A"></circle>
+        <path d="M314 16 l-8 -4.5 l0 9 z" fill="#8C2F2A"></path>
+      </svg>
+      <div class="towns">
+        <span class="town">Pitalito</span>
+        <span class="town">Palermo</span>
+        <span class="town">Teruel</span>
+        <span class="town">Rivera</span>
+        <span class="town">Campoalegre</span>
+        <span class="town">Hobo</span>
+        <span class="town">Planadas</span>
+        <span class="town">Tello</span>
+        <span class="town">Aipe</span>
+        <span class="town">Ibagué</span>
+      </div>
     </div>
   </div>
 </section>
@@ -755,7 +854,7 @@ em{font-style:italic}
   <div class="sky-layer ambient" id="endSky" aria-hidden="true"></div>
   <div class="end-card">
     <div class="end-inner">
-      <p class="eyebrow">Feliz cumpleaños, mi amor</p>
+      <p class="eyebrow">Feliz cumpleaños, amor</p>
       <h2>Hoy el día es tuyo.<br>Disfrútalo completo.</h2>
       <p>Te amo. Nos vemos esta noche.</p>
       <p><span class="stamp-date">01 · 09 · 2026</span></p>
@@ -781,10 +880,12 @@ em{font-style:italic}
     <li><b>Efectos especiales</b><span>El confeti ese</span></li>
     <li><b>Tipografías</b><span>Prestadas. Gracias Google</span></li>
     <li><b>Escenas eliminadas</b><span>Varias. Mejor ni pregunte</span></li>
+    <li><b>Actor principal</b><span>Ese gato es Tofito, no me lo nieguen</span></li>
+    <li><b>Inspiración</b><span>Betty la fea. No pregunte por qué</span></li>
     <li><b>Catering</b><span>Lo de esta noche</span></li>
     <li><b>Agradecimiento especial</b><span>A ti, por aguantarme</span></li>
   </ul>
-  <p class="tail">Ningún osito salió lastimado en la elaboración de esta página.</p>
+  <p class="tail">Ningún gatico salió lastimado en la elaboración de esta página.</p>
 </section>
 
 <script>
@@ -848,6 +949,21 @@ em{font-style:italic}
   ambient("heroSky", 6);
   ambient("bkAmbient", 5);
   ambient("endSky", 4);
+
+  /* ---------- palomitas de la lista ---------- */
+  (function(){
+    var ns = "http://www.w3.org/2000/svg";
+    [].forEach.call(document.querySelectorAll("#checklist li"), function(li){
+      var svg = document.createElementNS(ns, "svg");
+      svg.setAttribute("class", "tick");
+      svg.setAttribute("viewBox", "0 0 24 24");
+      svg.setAttribute("aria-hidden", "true");
+      var pt = document.createElementNS(ns, "path");
+      pt.setAttribute("d", "M4 13.5 L9.5 19 L20 5");
+      svg.appendChild(pt);
+      li.insertBefore(svg, li.firstChild);
+    });
+  })();
 
   /* ---------- el regalo ---------- */
   var gift = null;
@@ -931,8 +1047,10 @@ em{font-style:italic}
 
   /* ---------- confeti ---------- */
   var cv = document.getElementById("confetti");
+  var partying = false;
   function party(){
-    if (reduce) return;
+    if (reduce || partying) return;
+    partying = true;
     var ctx = cv.getContext("2d"), w, h, bits = [];
     function size(){ w = cv.width = innerWidth; h = cv.height = innerHeight; }
     size(); addEventListener("resize", size);
@@ -960,7 +1078,7 @@ em{font-style:italic}
         ctx.restore();
       }
       if (alive && Date.now() - t0 < 11000) requestAnimationFrame(loop);
-      else cv.style.display = "none";
+      else { cv.style.display = "none"; partying = false; }
     })();
   }
 
@@ -999,6 +1117,7 @@ em{font-style:italic}
     function flyBalloons(){
       if (flew || reduce) return;
       flew = true;
+      party();  /* al cerrar la carta también cae confeti */
       var rise = document.getElementById("bkRise");
       for (var i = 0; i < 12; i++){
         (function(i){
