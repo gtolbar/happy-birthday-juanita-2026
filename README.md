@@ -23,7 +23,8 @@ La hora por defecto es el **1 de septiembre de 2026 a las 8:00 p. m.** (hora de 
   "ya es la hora". Otros 5 la devuelven a la cuenta regresiva.
 - Un solo mundo visual: papel envejecido en tema claro y oscuro (es un cuaderno,
   no tiene modo noche).
-- El espacio del gif se llena poniendo la ruta en `GIF_SRC`, al inicio del `<script>`.
+- El regalo es `regalo.mp4`, embebido como data URI en `VIDEO_SRC` para que la
+  página siga siendo un solo archivo. Se reproduce una vez y al tocarlo repite.
 - La carta vive dentro de un cuaderno de aventuras que se abre al tocar la
   portada y se escribe línea por línea. Sus fotos van en `BOOK_PHOTOS`
   (entre 2 y 4; con `src` vacío queda el espacio marcado).
