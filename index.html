@@ -1035,18 +1035,29 @@ em{font-style:italic}
 
   /* ============================================================
      SONIDO
-     Se intenta con audio de una. Si el navegador lo bloquea (que es lo
-     normal), el video arranca callado y se le pone el sonido en cuanto
-     ella toque cualquier parte de la página. Sin botones a la vista.
+     Un video con audio no arranca solo: el navegador lo bloquea. Pero
+     un video que YA está sonando sí se puede desmutear, siempre que la
+     persona haya tocado la pantalla alguna vez. Así que todos arrancan
+     callados (eso nunca falla) y se les quita el silencio enseguida.
      ============================================================ */
   var videos = [], desbloqueado = false;
 
+  function quitarSilencio(v){
+    if (!desbloqueado) return;
+    try { v.muted = false; } catch (e) {}
+  }
   function ponerSonido(){
+    if (desbloqueado) return;
     desbloqueado = true;
     videos.forEach(function(v){
-      v.muted = false;
-      if (!v.paused) return;
-      var pr = v.play(); if (pr && pr.catch) pr.catch(function(){});
+      quitarSilencio(v);
+      /* si apenas va empezando, se devuelve para que lo oiga completo */
+      if (v === videos[0] && v.currentTime > 0 && v.currentTime < 3){
+        try { v.currentTime = 0; } catch (e) {}
+      }
+      if (v.paused && v.dataset.arranco === "1"){
+        var pr = v.play(); if (pr && pr.catch) pr.catch(function(){});
+      }
     });
   }
   ["pointerdown", "touchstart", "keydown"].forEach(function(ev){
@@ -1058,18 +1069,21 @@ em{font-style:italic}
     }, { passive: true });
   });
 
-  /* intenta reproducir con sonido; si no lo dejan, lo hace callado */
+  /* arranca callado, que es lo único que nunca se bloquea, y en cuanto
+     está sonando se le devuelve el audio */
   function reproducir(v){
-    v.muted = !desbloqueado;
+    v.dataset.arranco = "1";
+    v.muted = true;
     var pr = v.play();
-    if (pr && pr.catch) pr.catch(function(){
-      v.muted = true;
-      var p2 = v.play(); if (p2 && p2.catch) p2.catch(function(){});
-    });
+    if (pr && pr.then){
+      pr.then(function(){ quitarSilencio(v); }).catch(function(){});
+    } else {
+      quitarSilencio(v);
+    }
   }
   function registrarVideo(v){
     videos.push(v);
-    v.muted = !desbloqueado;
+    v.muted = true;
   }
 
   /* ---------- globos ---------- */
@@ -1337,17 +1351,23 @@ em{font-style:italic}
     /* arranca cuando la torta entra en pantalla, para que caiga al ritmo
        del scroll y no se acabe antes de que llegue */
     var arrancado = false;
+    /* solo se da por arrancado cuando de verdad está sonando; si un
+       intento falla, el siguiente scroll lo vuelve a probar */
+    v.addEventListener("playing", function(){
+      arrancado = true;
+      removeEventListener("scroll", mirar);
+      removeEventListener("resize", mirar);
+    }, { once: true });
     function mirar(){
-      if (arrancado) return;
+      if (arrancado || !v.paused) return;
       var r = frame.getBoundingClientRect();
-      if (r.height && r.top < innerHeight * 0.75 && r.bottom > innerHeight * 0.18){
-        arrancado = true;
-        removeEventListener("scroll", mirar);
+      if (r.height && r.top < innerHeight * 0.8 && r.bottom > innerHeight * 0.12){
         reproducir(v);
       }
     }
     addEventListener("scroll", mirar, { passive: true });
     addEventListener("resize", mirar);
+    setTimeout(mirar, 400);
   })();
 
   /* ---------- hora ---------- */
@@ -1473,22 +1493,19 @@ em{font-style:italic}
     wrap.addEventListener("click", seguir);
     registrarVideo(v);
     v.src = INTRO_SRC;
-    /* primero con sonido; si lo bloquean, callado */
-    v.muted = !desbloqueado;
-    var pr = v.play();
-    if (pr && pr.catch) pr.catch(function(){
-      v.muted = true;
-      var p2 = v.play();
-      if (p2 && p2.catch) p2.catch(function(){
-        /* ni así arrancó: se le pide que toque */
+    v.addEventListener("canplay", function(){ reproducir(v); }, { once: true });
+    reproducir(v);
+    /* si aun así no arrancó, se le pide que toque */
+    setTimeout(function(){
+      if (v.paused){
         var h = document.getElementById("introHint");
         if (h) h.classList.add("ver");
         wrap.addEventListener("click", function(){
-          var p3 = v.play(); if (p3 && p3.catch) p3.catch(function(){});
+          reproducir(v);
           if (h) h.classList.remove("ver");
         }, { once: true });
-      });
-    });
+      }
+    }, 1200);
   })();
 
   /* ---------- la invitación se abre como el cuaderno ---------- */
