@@ -508,19 +508,6 @@ em{font-style:italic}
 .book-sign span{display:block;font-family:Caveat,cursive;font-size:19px;color:var(--ink-soft)}
 .book-sign strong{font-family:Caveat,cursive;font-weight:700;font-size:34px;color:var(--ink);line-height:1}
 
-/* ---------- cierre ---------- */
-.end{position:relative;text-align:center;padding:52px var(--pad) 56px;overflow:hidden}
-.end-card{
-  position:relative;z-index:2;max-width:520px;margin:0 auto;padding:30px 20px;
-  background:var(--paper-3);box-shadow:var(--soft-2);border-radius:3px;
-  background-image:var(--grain);background-blend-mode:multiply;transform:rotate(-.5deg);
-}
-.end-card::after{content:"";position:absolute;inset:9px;border:2px dashed var(--line);border-radius:3px;pointer-events:none}
-.end-inner{position:relative;z-index:1}
-.end h2{font-size:29px;margin-top:10px}
-.end p{margin-top:12px;color:var(--ink-soft);font-size:16px}
-.end .stamp-date{margin-top:20px}
-
 /* ---------- créditos ---------- */
 .credits{
   position:relative;text-align:center;
@@ -693,9 +680,6 @@ em{font-style:italic}
   .book-end p{font-size:23px}
   .book-sign strong{font-size:38px}
 
-  .end{padding:84px 20px 88px}
-  .end-card{padding:44px 34px}
-  .end h2{font-size:40px}
   .credits{padding:50px 20px 58px}
   .credits h3{font-size:27px}
   .credits .roll{gap:13px;max-width:440px}
@@ -984,17 +968,6 @@ em{font-style:italic}
     </figure>
   </div>
 </section>
-<footer class="end">
-  <div class="sky-layer ambient" id="endSky" aria-hidden="true"></div>
-  <div class="end-card">
-    <div class="end-inner">
-      <p class="eyebrow">Feliz cumpleaños, amor</p>
-      <h2>Hoy el día es tuyo.<br>Disfrútalo completo.</h2>
-      <p>Te amo. Nos vemos esta noche.</p>
-      <p><span class="stamp-date">01 · 09 · 2026</span></p>
-    </div>
-  </div>
-</footer>
 <section class="credits" aria-labelledby="cred-t">
   <div class="dots" aria-hidden="true">
     <i style="background:var(--red)"></i>
@@ -1083,7 +1056,6 @@ em{font-style:italic}
   }
   ambient("heroSky", 6);
   ambient("bkAmbient", 5);
-  ambient("endSky", 4);
 
   /* ============================================================
      LOS LOGROS DEL AÑO
