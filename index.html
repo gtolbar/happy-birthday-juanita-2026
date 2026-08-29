@@ -608,22 +608,44 @@ em{font-style:italic}
   min-height:100vh;min-height:100dvh;
   display:grid;place-items:center;padding:0 var(--pad);text-align:center;
 }
-.intro-wrap{width:min(560px,100%);margin:0 auto;position:relative;cursor:pointer}
+.intro-wrap{width:min(560px,100%);margin:0 auto;position:relative;cursor:pointer;perspective:1200px}
 .intro-hint{
-  margin-top:16px;font-family:Kalam,cursive;font-weight:700;font-size:16px;
-  color:var(--ink);opacity:0;pointer-events:none;
-  transition:opacity .45s ease;
+  margin-top:14px;font-family:Caveat,cursive;font-size:22px;
+  color:var(--ink-soft);opacity:0;pointer-events:none;
+  transition:opacity .5s ease;
 }
-.intro-hint.ver{opacity:1;animation:latir 2s ease-in-out infinite}
-.intro-hint .disco{
-  display:grid;place-items:center;width:56px;height:56px;margin:0 auto 10px;
-  border-radius:50%;background:var(--red);color:#F6EBD3;
-  font-size:20px;line-height:1;padding-left:4px;
-  box-shadow:0 4px 12px rgba(80,25,20,.34);
+.intro-hint.ver{opacity:.9;animation:respirar 2.4s ease-in-out infinite}
+@keyframes respirar{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+/* los postigos: dos hojas de madera que se abren hacia adentro */
+.postigos{
+  position:absolute;inset:0;z-index:4;overflow:hidden;
+  transform-style:preserve-3d;pointer-events:none;
 }
-@keyframes latir{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-/* mientras espera el toque, el video se atenúa un poco */
-.intro-wrap.esperando .intro-video{filter:saturate(.75) brightness(.97)}
+.hoja{
+  position:absolute;top:0;bottom:0;width:50.4%;
+  background:
+    repeating-linear-gradient(180deg,
+      rgba(0,0,0,.10) 0 2px, rgba(255,255,255,.05) 2px 5px, transparent 5px 26px),
+    linear-gradient(100deg, #4E86A6, #3D6C88 62%, #33596F);
+  box-shadow:inset 0 0 0 2px rgba(28,58,74,.55), 0 8px 22px rgba(40,60,75,.3);
+  transition:transform 1s cubic-bezier(.3,.75,.2,1), opacity .4s ease .7s;
+  backface-visibility:hidden;
+}
+.hoja::after{
+  content:"";position:absolute;inset:9px;border:2px solid rgba(255,255,255,.14);border-radius:2px;
+}
+.hoja.izq{left:0;transform-origin:left center}
+.hoja.der{right:0;transform-origin:right center}
+/* las manijas, que se juntan en la mitad */
+.hoja::before{
+  content:"";position:absolute;top:50%;width:11px;height:11px;border-radius:50%;
+  background:var(--mustard);box-shadow:0 1px 3px rgba(0,0,0,.4);transform:translateY(-50%);
+}
+.hoja.izq::before{right:9px}
+.hoja.der::before{left:9px}
+.postigos.abierto .hoja.izq{transform:rotateY(-108deg);opacity:0}
+.postigos.abierto .hoja.der{transform:rotateY(108deg);opacity:0}
 .intro-video{
   display:block;width:100%;height:auto;
   -webkit-mask-image:
@@ -728,7 +750,11 @@ em{font-style:italic}
 <section class="intro" id="intro">
   <div class="intro-wrap">
     <video class="intro-video" id="introVideo" muted playsinline webkit-playsinline preload="auto" aria-hidden="true"></video>
-    <p class="intro-hint" id="introHint"><span class="disco" aria-hidden="true">&#9654;</span>toca para empezar</p>
+    <span class="postigos" id="postigos" aria-hidden="true">
+      <span class="hoja izq"></span>
+      <span class="hoja der"></span>
+    </span>
+    <p class="intro-hint" id="introHint">ábrela</p>
   </div>
 </section>
 <header class="hero" id="hero">
@@ -856,7 +882,7 @@ em{font-style:italic}
   <div class="shell narrow">
     <div class="head" style="text-align:center">
       <p class="eyebrow eyebrow-moss">Para ti</p>
-      <h2>El cuaderno</h2>
+      <h2>Lo que te escribí</h2>
     </div>
 
     <div class="book" id="book">
@@ -1539,34 +1565,29 @@ em{font-style:italic}
   cadena(document.getElementById("logros"), document.getElementById("masLogros"), 1);
 
   /* ---------- el video del principio ----------
-     Se intenta arrancar con sonido. Si el navegador lo permite, empieza
-     solo. Si lo bloquea (lo normal en el celular), se queda quieto en el
-     primer cuadro con un "toca para empezar": ese toque sí puede llevar
-     sonido, y así lo oye completo desde el segundo cero.               */
+     Está tapado por dos postigos. Al tocarlos se abren hacia adentro y
+     el video arranca con sonido, porque la reproducción va dentro del
+     mismo toque, que es lo único que el navegador acepta.            */
   (function(){
     var v = document.getElementById("introVideo");
     if (!v || !INTRO_SRC) return;
-    var wrap = v.parentNode, listo = false, empezo = false;
+    var wrap = v.parentNode, listo = false, abierto = false;
+    var postigos = document.getElementById("postigos");
     var aviso = document.getElementById("introHint");
 
     function seguir(){
       if (listo) return;
       listo = true;
-      if (scrollY > 60) return;                 /* si ya bajó, no la subimos */
+      if (scrollY > 60) return;
       var h = document.getElementById("hero");
       if (h) h.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
     }
-    function pedirToque(){
-      if (empezo) return;
-      wrap.classList.add("esperando");
-      if (aviso) aviso.classList.add("ver");
-    }
-    function arrancarConSonido(){
-      empezo = true;
-      wrap.classList.remove("esperando");
+    function abrir(conSonido){
+      if (abierto) return;
+      abierto = true;
+      if (postigos) postigos.classList.add("abierto");
       if (aviso) aviso.classList.remove("ver");
-      desbloqueado = true;
-      v.muted = false;
+      if (conSonido){ desbloqueado = true; v.muted = false; }
       try { v.currentTime = 0; } catch (e) {}
       var pr = v.play();
       if (pr && pr.catch) pr.catch(function(){
@@ -1577,30 +1598,32 @@ em{font-style:italic}
 
     v.addEventListener("ended", seguir);
     wrap.addEventListener("click", function(){
-      /* si está quieto por lo que sea, el toque lo enciende con sonido;
-         si ya va corriendo, el toque sirve para pasar de largo */
-      if (v.paused) arrancarConSonido();
+      if (!abierto) abrir(true);   /* el toque abre y enciende el audio */
       else seguir();
     });
 
     registrarVideo(v);
     v.src = INTRO_SRC;
-
-    /* deja pintado el primer cuadro mientras espera */
     v.addEventListener("loadeddata", function(){
       try { v.currentTime = 0; } catch (e) {}
     }, { once: true });
 
-    /* intento con sonido: si pasa, perfecto; si no, se pide el toque */
+    /* si el navegador deja arrancar con sonido, se abre solo */
     v.muted = false;
     var pr = v.play();
     if (pr && pr.then){
-      pr.then(function(){ empezo = true; }).catch(pedirToque);
+      pr.then(function(){
+        v.pause();
+        try { v.currentTime = 0; } catch (e) {}
+        setTimeout(function(){ abrir(true); }, 500);
+      }).catch(function(){
+        if (aviso) aviso.classList.add("ver");
+      });
     } else {
-      setTimeout(function(){ if (v.paused) pedirToque(); else empezo = true; }, 700);
+      setTimeout(function(){ if (!abierto && aviso) aviso.classList.add("ver"); }, 700);
     }
-    /* red de seguridad: si por lo que sea sigue quieto, se pide el toque */
-    setTimeout(function(){ if (v.paused && !empezo) pedirToque(); }, 1500);
+    /* red de seguridad */
+    setTimeout(function(){ if (!abierto && aviso) aviso.classList.add("ver"); }, 1500);
   })();
 
   /* ---------- la invitación se abre como el cuaderno ---------- */
@@ -1614,10 +1637,34 @@ em{font-style:italic}
       abierto = true;
       libro.classList.add("is-open");
       tapa.setAttribute("aria-expanded", "true");
+      crecerSuave(libro.querySelector(".sobre-stage"), libro.querySelector(".sobre-inside"));
       setTimeout(function(){ tapa.style.visibility = "hidden"; }, 1100);
       party();   /* al abrir la invitación cae el confeti */
     });
   })();
+
+
+  /* ============================================================
+     Al abrirse, lo de adentro es más alto que la portada. En vez de
+     pegar el salto, se anima el alto de la caja.
+     ============================================================ */
+  function crecerSuave(caja, adentro){
+    if (!caja || !adentro) return;
+    var alto0 = caja.offsetHeight;
+    caja.style.aspectRatio = "auto";
+    caja.style.height = alto0 + "px";
+    caja.style.overflow = "hidden";
+    /* se mide lo de adentro ya visible */
+    var alto1 = adentro.scrollHeight;
+    if (reduce || !alto1){ caja.style.height = ""; caja.style.overflow = ""; return; }
+    caja.style.transition = "height .85s cubic-bezier(.25,.75,.25,1)";
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ caja.style.height = alto1 + "px"; });
+    });
+    setTimeout(function(){
+      caja.style.transition = ""; caja.style.height = ""; caja.style.overflow = "";
+    }, 950);
+  }
 
   /* ---------- el cuaderno ---------- */
   (function(){
@@ -1675,6 +1722,7 @@ em{font-style:italic}
       opened = true;
       book.classList.add("is-open");
       cover.setAttribute("aria-expanded", "true");
+      crecerSuave(book.querySelector(".book-stage"), book.querySelector(".book-inside"));
       setTimeout(function(){ cover.style.visibility = "hidden"; }, 1050);
       if (reduce){
         lines.forEach(function(l){ l.style.opacity = 1; l.style.transform = "none"; });
