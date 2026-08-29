@@ -617,37 +617,53 @@ em{font-style:italic}
 .intro-hint.ver{opacity:.9;animation:respirar 2.4s ease-in-out infinite}
 @keyframes respirar{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
-/* los postigos: dos hojas de madera que se abren hacia adentro */
-.postigos{
-  position:absolute;inset:0;z-index:4;overflow:hidden;
-  transform-style:preserve-3d;pointer-events:none;
+/* el regalo envuelto: papel kraft, cinta y lacre. Se desenvuelve al tocarlo */
+.envoltura{
+  position:absolute;inset:0;z-index:4;border:0;padding:0;margin:0;
+  background:none;cursor:pointer;overflow:hidden;perspective:1400px;
 }
-.hoja{
+.papel{
   position:absolute;top:0;bottom:0;width:50.4%;
   background:
-    repeating-linear-gradient(180deg,
-      rgba(0,0,0,.10) 0 2px, rgba(255,255,255,.05) 2px 5px, transparent 5px 26px),
-    linear-gradient(100deg, #4E86A6, #3D6C88 62%, #33596F);
-  box-shadow:inset 0 0 0 2px rgba(28,58,74,.55), 0 8px 22px rgba(40,60,75,.3);
-  transition:transform 1s cubic-bezier(.3,.75,.2,1), opacity .4s ease .7s;
-  backface-visibility:hidden;
+    radial-gradient(120% 90% at 30% 20%, rgba(255,255,255,.16), transparent 60%),
+    linear-gradient(155deg, #DFC69C, #CDB183 58%, #BFA173);
+  background-image:var(--grain), linear-gradient(155deg, #DFC69C, #CDB183 58%, #BFA173);
+  background-blend-mode:multiply,normal;
+  box-shadow:inset 0 0 40px rgba(120,85,40,.22);
+  transition:transform 1s cubic-bezier(.32,.72,.24,1), opacity .8s ease .18s;
 }
-.hoja::after{
-  content:"";position:absolute;inset:9px;border:2px solid rgba(255,255,255,.14);border-radius:2px;
+.papel.izq{left:0;transform-origin:left center;border-right:1px solid rgba(120,85,40,.35)}
+.papel.der{right:0;transform-origin:right center}
+/* el pliegue del centro */
+.papel.der::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:14px;
+  background:linear-gradient(90deg, rgba(120,85,40,.22), transparent);
 }
-.hoja.izq{left:0;transform-origin:left center}
-.hoja.der{right:0;transform-origin:right center}
-/* las manijas, que se juntan en la mitad */
-.hoja::before{
-  content:"";position:absolute;top:50%;width:11px;height:11px;border-radius:50%;
-  background:var(--mustard);box-shadow:0 1px 3px rgba(0,0,0,.4);transform:translateY(-50%);
+/* la cinta */
+.cinta{position:absolute;background:linear-gradient(180deg,#9E3A32,#7E2A24);box-shadow:0 1px 4px rgba(60,20,15,.35)}
+.cinta.v{width:clamp(16px,6.5%,30px);left:calc(50% - clamp(8px,3.25%,15px));top:0;bottom:0}
+.cinta.h{height:clamp(16px,9%,30px);top:calc(50% - clamp(8px,4.5%,15px));left:0;right:0;background:linear-gradient(90deg,#9E3A32,#7E2A24)}
+.cinta{transition:opacity .45s ease .06s, transform .6s ease .06s}
+/* el lacre */
+.lacre{
+  position:absolute;left:50%;top:50%;
+  width:clamp(52px,20%,88px);aspect-ratio:1;transform-origin:center;
+  translate:-50% -50%;
+  border-radius:48% 52% 47% 53%/52% 47% 53% 48%;
+  background:radial-gradient(70% 70% at 34% 30%, #C0483C, #8C2F2A 60%, #6B1F1B);
+  box-shadow:0 4px 12px rgba(60,20,15,.5), inset 0 -3px 6px rgba(0,0,0,.28), inset 0 3px 5px rgba(255,255,255,.16);
+  display:grid;place-items:center;transform:rotate(-7deg);
+  font-family:Kalam,cursive;font-weight:700;font-size:clamp(15px,4.4vw,22px);color:#F3D9C6;
+  letter-spacing:.03em;text-shadow:0 1px 1px rgba(0,0,0,.4);
+  transition:transform .4s cubic-bezier(.3,1.5,.5,1), opacity .35s ease;
 }
-.hoja.izq::before{right:9px}
-.hoja.der::before{left:9px}
-.postigos.abierto .hoja.izq{transform:rotateY(-108deg);opacity:0}
-.postigos.abierto .hoja.der{transform:rotateY(108deg);opacity:0}
+.envoltura.abierta{pointer-events:none}
+.envoltura.abierta .lacre{transform:rotate(-7deg) scale(1.5);opacity:0}
+.envoltura.abierta .cinta{opacity:0;transform:scale(1.06)}
+.envoltura.abierta .papel.izq{transform:translateX(-8%) rotateY(-26deg);opacity:0}
+.envoltura.abierta .papel.der{transform:translateX(8%) rotateY(26deg);opacity:0}
 .intro-video{
-  display:block;width:100%;height:auto;
+  display:block;width:100%;height:auto;aspect-ratio:640/444;background:var(--paper-2);
   -webkit-mask-image:
     linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%),
     linear-gradient(to bottom, transparent 0%, #000 8%, #000 90%, transparent 100%);
@@ -750,12 +766,15 @@ em{font-style:italic}
 <section class="intro" id="intro">
   <div class="intro-wrap">
     <video class="intro-video" id="introVideo" muted playsinline webkit-playsinline preload="auto" aria-hidden="true"></video>
-    <span class="postigos" id="postigos" aria-hidden="true">
-      <span class="hoja izq"></span>
-      <span class="hoja der"></span>
-    </span>
-    <p class="intro-hint" id="introHint">ábrela</p>
+    <button class="envoltura" id="envoltura" type="button" aria-label="Abrir el regalo">
+      <span class="papel izq" aria-hidden="true"></span>
+      <span class="papel der" aria-hidden="true"></span>
+      <span class="cinta v" aria-hidden="true"></span>
+      <span class="cinta h" aria-hidden="true"></span>
+      <span class="lacre" aria-hidden="true">J&amp;G</span>
+    </button>
   </div>
+  <p class="intro-hint" id="introHint">ábrelo</p>
 </section>
 <header class="hero" id="hero">
   <div class="sky-layer ambient" id="heroSky" aria-hidden="true"></div>
@@ -1565,14 +1584,14 @@ em{font-style:italic}
   cadena(document.getElementById("logros"), document.getElementById("masLogros"), 1);
 
   /* ---------- el video del principio ----------
-     Está tapado por dos postigos. Al tocarlos se abren hacia adentro y
-     el video arranca con sonido, porque la reproducción va dentro del
-     mismo toque, que es lo único que el navegador acepta.            */
+     Viene envuelto en papel, con cinta y lacre. Un solo toque en la
+     envoltura la abre y arranca el video con sonido: la reproducción
+     va dentro del mismo toque, que es lo único que el navegador acepta. */
   (function(){
     var v = document.getElementById("introVideo");
     if (!v || !INTRO_SRC) return;
     var wrap = v.parentNode, listo = false, abierto = false;
-    var postigos = document.getElementById("postigos");
+    var envoltura = document.getElementById("envoltura");
     var aviso = document.getElementById("introHint");
 
     function seguir(){
@@ -1582,10 +1601,10 @@ em{font-style:italic}
       var h = document.getElementById("hero");
       if (h) h.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
     }
-    function abrir(conSonido){
+    function desenvolver(conSonido){
       if (abierto) return;
       abierto = true;
-      if (postigos) postigos.classList.add("abierto");
+      if (envoltura) envoltura.classList.add("abierta");
       if (aviso) aviso.classList.remove("ver");
       if (conSonido){ desbloqueado = true; v.muted = false; }
       try { v.currentTime = 0; } catch (e) {}
@@ -1596,11 +1615,23 @@ em{font-style:italic}
       });
     }
 
-    v.addEventListener("ended", seguir);
+    /* un toque en la envoltura: abre y suena */
+    if (envoltura){
+      /* click y touchend: en iPhone el primer toque a veces no llega
+         como click. desenvolver() se protege sola de repetirse. */
+      function alTocar(e){
+        e.preventDefault(); e.stopPropagation();
+        desenvolver(true);
+      }
+      envoltura.addEventListener("click", alTocar);
+      envoltura.addEventListener("touchend", alTocar);
+    }
+    /* ya abierta, tocar el video sirve para pasar de largo */
     wrap.addEventListener("click", function(){
-      if (!abierto) abrir(true);   /* el toque abre y enciende el audio */
+      if (!abierto) desenvolver(true);
       else seguir();
     });
+    v.addEventListener("ended", seguir);
 
     registrarVideo(v);
     v.src = INTRO_SRC;
@@ -1608,21 +1639,20 @@ em{font-style:italic}
       try { v.currentTime = 0; } catch (e) {}
     }, { once: true });
 
-    /* si el navegador deja arrancar con sonido, se abre solo */
+    /* si el navegador deja el audio, se desenvuelve solo */
     v.muted = false;
     var pr = v.play();
     if (pr && pr.then){
       pr.then(function(){
         v.pause();
         try { v.currentTime = 0; } catch (e) {}
-        setTimeout(function(){ abrir(true); }, 500);
+        setTimeout(function(){ desenvolver(true); }, 600);
       }).catch(function(){
         if (aviso) aviso.classList.add("ver");
       });
     } else {
       setTimeout(function(){ if (!abierto && aviso) aviso.classList.add("ver"); }, 700);
     }
-    /* red de seguridad */
     setTimeout(function(){ if (!abierto && aviso) aviso.classList.add("ver"); }, 1500);
   })();
 
