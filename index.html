@@ -508,20 +508,6 @@ em{font-style:italic}
 .book-sign span{display:block;font-family:Caveat,cursive;font-size:19px;color:var(--ink-soft)}
 .book-sign strong{font-family:Caveat,cursive;font-weight:700;font-size:34px;color:var(--ink);line-height:1}
 
-/* ---------- botón de sonido ---------- */
-.snd{
-  position:absolute;right:8px;bottom:10px;z-index:5;
-  display:inline-flex;align-items:center;gap:6px;
-  border:2px solid var(--stroke);border-radius:999px;
-  background:var(--paper-3);color:var(--ink);cursor:pointer;
-  font-family:Kalam,cursive;font-weight:700;font-size:13px;line-height:1;
-  padding:7px 12px;box-shadow:0 2px 7px rgba(70,45,25,.25);
-  transition:transform .15s ease;
-}
-.snd:hover{transform:translateY(-1px)}
-.snd .ico{font-size:14px}
-.snd.solo-icono{padding:8px;width:36px;height:36px;justify-content:center}
-
 /* ---------- el pastel del final ---------- */
 .regalo{position:relative;padding:26px 0 40px;text-align:center}
 
@@ -1049,35 +1035,41 @@ em{font-style:italic}
 
   /* ============================================================
      SONIDO
-     Los navegadores no dejan arrancar un video con sonido por su
-     cuenta, así que empiezan callados y ella lo activa con el botón.
-     Una vez activado, vale para los dos videos.
+     Se intenta con audio de una. Si el navegador lo bloquea (que es lo
+     normal), el video arranca callado y se le pone el sonido en cuanto
+     ella toque cualquier parte de la página. Sin botones a la vista.
      ============================================================ */
-  var conSonido = false, videos = [];
-  function pintarSonido(){
+  var videos = [], desbloqueado = false;
+
+  function ponerSonido(){
+    desbloqueado = true;
     videos.forEach(function(v){
-      v.el.muted = !conSonido;
-      if (!v.btn) return;
-      v.btn.innerHTML = '<span class="ico" aria-hidden="true">' + (conSonido ? "🔊" : "🔇") + "</span>" +
-                        (v.texto && !conSonido ? "<span>con sonido</span>" : "");
-      v.btn.className = "snd" + ((v.texto && !conSonido) ? "" : " solo-icono");
-      v.btn.setAttribute("aria-label", conSonido ? "Quitar el sonido" : "Poner el sonido");
-      v.btn.setAttribute("aria-pressed", conSonido ? "true" : "false");
+      v.muted = false;
+      if (!v.paused) return;
+      var pr = v.play(); if (pr && pr.catch) pr.catch(function(){});
     });
   }
-  function registrarVideo(el, caja, conTexto){
-    el.muted = true;
-    var b = document.createElement("button");
-    b.type = "button";
-    b.addEventListener("click", function(e){
-      e.preventDefault(); e.stopPropagation();
-      conSonido = !conSonido;
-      pintarSonido();
-      if (conSonido){ var pr = el.play(); if (pr && pr.catch) pr.catch(function(){}); }
+  ["pointerdown", "touchstart", "keydown"].forEach(function(ev){
+    addEventListener(ev, function once(){
+      ["pointerdown", "touchstart", "keydown"].forEach(function(e2){
+        removeEventListener(e2, once);
+      });
+      ponerSonido();
+    }, { passive: true });
+  });
+
+  /* intenta reproducir con sonido; si no lo dejan, lo hace callado */
+  function reproducir(v){
+    v.muted = !desbloqueado;
+    var pr = v.play();
+    if (pr && pr.catch) pr.catch(function(){
+      v.muted = true;
+      var p2 = v.play(); if (p2 && p2.catch) p2.catch(function(){});
     });
-    caja.appendChild(b);
-    videos.push({ el: el, btn: b, texto: !!conTexto });
-    pintarSonido();
+  }
+  function registrarVideo(v){
+    videos.push(v);
+    v.muted = !desbloqueado;
   }
 
   /* ---------- globos ---------- */
@@ -1336,7 +1328,7 @@ em{font-style:italic}
     v.addEventListener("loadeddata", function(){
       frame.innerHTML = "";
       frame.appendChild(v);
-      registrarVideo(v, document.getElementById("gifslot"));
+      registrarVideo(v);
       mirar();
     });
     v.src = VIDEO_SRC;
@@ -1351,7 +1343,7 @@ em{font-style:italic}
       if (r.height && r.top < innerHeight * 0.75 && r.bottom > innerHeight * 0.18){
         arrancado = true;
         removeEventListener("scroll", mirar);
-        var p = v.play(); if (p && p.catch) p.catch(function(){ arrancado = false; });
+        reproducir(v);
       }
     }
     addEventListener("scroll", mirar, { passive: true });
@@ -1479,17 +1471,23 @@ em{font-style:italic}
     }
     v.addEventListener("ended", seguir);
     wrap.addEventListener("click", seguir);
-    registrarVideo(v, wrap, true);
+    registrarVideo(v);
     v.src = INTRO_SRC;
+    /* primero con sonido; si lo bloquean, callado */
+    v.muted = !desbloqueado;
     var pr = v.play();
     if (pr && pr.catch) pr.catch(function(){
-      /* el navegador bloqueó el arranque: se avisa que toque */
-      var h = document.getElementById("introHint");
-      if (h) h.classList.add("ver");
-      wrap.addEventListener("click", function(){
-        var p2 = v.play(); if (p2 && p2.catch) p2.catch(function(){});
-        if (h) h.classList.remove("ver");
-      }, { once: true });
+      v.muted = true;
+      var p2 = v.play();
+      if (p2 && p2.catch) p2.catch(function(){
+        /* ni así arrancó: se le pide que toque */
+        var h = document.getElementById("introHint");
+        if (h) h.classList.add("ver");
+        wrap.addEventListener("click", function(){
+          var p3 = v.play(); if (p3 && p3.catch) p3.catch(function(){});
+          if (h) h.classList.remove("ver");
+        }, { once: true });
+      });
     });
   })();
 
