@@ -299,8 +299,15 @@ em{font-style:italic}
   background:var(--paper-3);box-shadow:var(--soft);border-radius:2px;
   background-image:var(--grain);background-blend-mode:multiply;overflow:hidden;
 }
-.logro:nth-child(odd){transform:rotate(-.3deg)}
-.logro:nth-child(even){transform:rotate(.25deg)}
+.logro:nth-child(odd){--rot:-.3deg}
+.logro:nth-child(even){--rot:.25deg}
+.logro{transform:rotate(var(--rot,0deg));transition:opacity .5s ease, transform .5s cubic-bezier(.2,.7,.3,1)}
+/* entran al hacer scroll; el estado oculto lo pone el JS, así que si algo
+   falla los logros se ven igual */
+.logro.oculto{opacity:0;transform:translateY(16px) rotate(var(--rot,0deg))}
+/* la palomita se dibuja sola */
+.logro .tick path{stroke-dasharray:26;stroke-dashoffset:0;transition:stroke-dashoffset .55s ease .12s}
+.logro.oculto .tick path{stroke-dashoffset:26}
 .logro-btn{
   width:100%;display:flex;gap:12px;align-items:flex-start;text-align:left;
   padding:13px 14px;background:none;border:0;cursor:pointer;color:inherit;
@@ -682,7 +689,7 @@ em{font-style:italic}
       <p class="eyebrow eyebrow-sky">De corazón</p>
       <h2>Lo que admiro de ti</h2>
       <svg class="underline" viewBox="0 0 170 8" aria-hidden="true"><path d="M2 6 C 40 1, 74 8, 110 3 S 158 5, 168 2"></path></svg>
-      <p class="lede">Cosas que pienso de ti y que te digo poco.</p>
+      <p class="lede">Cosas que pienso de ti, de verdad.</p>
     </div>
 
     <div class="admiro">
@@ -721,14 +728,14 @@ em{font-style:italic}
       <article class="arow">
         <div class="mark">🏠</div>
         <div>
-          <h3>Que estás pendiente de los tuyos</h3>
+          <h3>Que siempre estás ahí para los tuyos</h3>
           <p>Así andes ocupada o cansada, siempre sacas un rato para tu mamá, tu papá y tu hermano. Eso dice mucho de la persona que eres.</p>
         </div>
       </article>
       <article class="arow">
         <div class="mark">🧵</div>
         <div>
-          <h3>Que tienes manos para todo</h3>
+          <h3>Que le metes a todo</h3>
           <p>Tejes en crochet, haces punto de cruz, postres y lo que se te atraviese. Se te ocurre algo por la mañana y por la tarde ya está hecho.</p>
         </div>
       </article>
@@ -736,14 +743,14 @@ em{font-style:italic}
         <div class="mark">🧠</div>
         <div>
           <h3>Que te acuerdas de todo</h3>
-          <p>Las fechas, los detalles, lo que uno dijo hace meses. Ya perdí la cuenta de las veces que me has salvado con eso.</p>
+          <p>Las fechas, los detalles, lo que uno dijo hace meses. Esa ha sido mi gran ayuda, jeje.</p>
         </div>
       </article>
       <article class="arow">
         <div class="mark">☕</div>
         <div>
-          <h3>Que todavía te sobra</h3>
-          <p>Después de todo eso todavía sacas tiempo para preguntar cómo voy yo. No sé cómo haces, amor.</p>
+          <h3>Que preguntas cómo voy yo</h3>
+          <p>Con todo lo que tienes encima, siempre sacas el rato para preguntarme cómo me fue. Eso no lo hace todo el mundo, amor.</p>
         </div>
       </article>
     </div>
@@ -756,7 +763,7 @@ em{font-style:italic}
       <p class="eyebrow eyebrow-mustard">Tu año</p>
       <h2>Todo lo que hiciste</h2>
       <svg class="underline" viewBox="0 0 170 8" aria-hidden="true"><path d="M2 6 C 40 1, 74 8, 110 3 S 158 5, 168 2"></path></svg>
-      <p class="lede">Lo fui anotando por ahí. Toca cada uno, que le puse nota.</p>
+      <p class="lede">Nueve cosas en un año. Toca cada una, que le puse nota.</p>
     </div>
 
     <ul class="logros" id="logros"></ul>
@@ -766,7 +773,7 @@ em{font-style:italic}
       <span class="stamp-mark sm-sky">Detallista</span>
       <span class="stamp-mark sm-moss">Amorosa</span>
       <span class="stamp-mark sm-mustard">Fiel</span>
-      <span class="stamp-mark sm-red">Religiosa</span>
+      <span class="stamp-mark sm-red">De mucha fe</span>
     </div>
   </div>
 </section>
@@ -814,18 +821,19 @@ em{font-style:italic}
 
             <div class="hand-letter" id="handLetter">
               <span class="ln big">Mi amor,</span>
-              <span class="ln gap">Tú sabes que yo casi no escribo, que para eso te mando audios.</span>
-              <span class="ln">Pero hoy me senté a hacerte esto con calma, porque hay cosas que te digo poco.</span>
-              <span class="ln gap">La verdad me gustas arto, y no solo por bonita.</span>
-              <span class="ln">Me gusta lo juiciosa que eres, cómo cuidas a tu gente</span>
-              <span class="ln">y cómo le metes a todo lo que te propones.</span>
-              <span class="ln">Quiero que sepas que estoy muy orgulloso de ti.</span>
-              <span class="ln gap">Eres la mejor persona que ha llegado a mi vida. Así de simple.</span>
-              <span class="ln gap">Hoy no es día de hablar de mí, hoy es tuyo.</span>
-              <span class="ln">Quiero que te consientan y que no hagas nada que no tengas ganas de hacer.</span>
+              <span class="ln gap">Yo sé que hoy es tu día y que no me toca hablar de mí,</span>
+              <span class="ln">pero quería escribirte porque hay cosas que pienso y casi nunca te las digo.</span>
+              <span class="ln gap">Tú eres una persona extremadamente especial y por ti he aprendido</span>
+              <span class="ln">cosas que antes no me importaban y hoy también son mías.</span>
+              <span class="ln gap">Me gusta lo juiciosa que eres, cómo le metes a todo lo que te propones,</span>
+              <span class="ln">cómo cuidas a la gente que quieres.</span>
+              <span class="ln">Quiero que sepas que estoy muy orgulloso de ti, de verdad.</span>
+              <span class="ln gap big">Eres la mejor persona que ha llegado a mi vida.</span>
+              <span class="ln gap">Hoy solo quiero que te consientan, que descanses</span>
+              <span class="ln">y que no hagas nada que no tengas ganas de hacer.</span>
               <span class="ln gap">Ojalá este año te vaya bien en todo, que tengas salud y tranquilidad,</span>
               <span class="ln">y que Dios te dé todo lo que estás buscando.</span>
-              <span class="ln gap big">Feliz cumpleaños mi amor.</span>
+              <span class="ln gap big">Feliz cumpleaños amor.</span>
             </div>
 
             <div class="tapes" id="bookPhotos"></div>
@@ -1146,6 +1154,35 @@ em{font-style:italic}
 
       li.appendChild(btn); li.appendChild(det); host.appendChild(li);
     });
+
+    /* entran uno por uno al hacer scroll. Si el observer no responde,
+       se muestran todos igual: nunca se quedan invisibles. */
+    if (!reduce){
+      var items = [].slice.call(host.children);
+      items.forEach(function(li){ li.classList.add("oculto"); });
+
+      function mostrar(li, i){
+        setTimeout(function(){ li.classList.remove("oculto"); }, i * 90);
+      }
+      /* mira la posición real de cada uno: no depende de ninguna API */
+      function revisar(){
+        var pend = 0, orden = 0;
+        items.forEach(function(li){
+          if (!li.classList.contains("oculto")) return;
+          pend++;
+          var r = li.getBoundingClientRect();
+          if (r.top < innerHeight * 0.92 && r.bottom > 0){ mostrar(li, orden++); }
+        });
+        if (!pend) removeEventListener("scroll", revisar);
+      }
+      addEventListener("scroll", revisar, { passive: true });
+      addEventListener("resize", revisar);
+      revisar();
+      /* las fotos mueven el alto de la página al cargar: se revisa otra vez */
+      setTimeout(revisar, 600);
+      setTimeout(revisar, 1800);
+      addEventListener("load", revisar);
+    }
   })();
 
   /* ---------- el regalo ---------- */
