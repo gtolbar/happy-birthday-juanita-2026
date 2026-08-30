@@ -605,16 +605,48 @@ em{font-style:italic}
 
 /* ---------- la intro ---------- */
 .intro{
-  min-height:100vh;min-height:100dvh;
+  position:relative;min-height:100vh;min-height:100dvh;
   display:grid;place-items:center;padding:0 var(--pad);text-align:center;
 }
-.intro-wrap{width:min(560px,100%);margin:0 auto;position:relative;cursor:pointer;perspective:1200px}
+.intro-stack{position:relative;z-index:1;width:min(560px,100%);margin:0 auto}
+.intro-wrap{width:100%;margin:0 auto;position:relative;cursor:pointer;perspective:1200px}
 .intro-hint{
-  margin-top:14px;font-family:Caveat,cursive;font-size:22px;
+  position:absolute;left:0;right:0;top:100%;margin:12px 0 0;
+  font-family:Caveat,cursive;font-size:22px;
   color:var(--ink-soft);opacity:0;pointer-events:none;
   transition:opacity .5s ease;
 }
 .intro-hint.ver{opacity:.9;animation:respirar 2.4s ease-in-out infinite}
+
+/* la portada vive en la misma pantalla del video y se abre cuando el
+   video termina. El plegado lo pone el JS: si el JS falla, se ve igual. */
+.hero.intro-hero{
+  padding:0;display:grid;grid-template-rows:1fr;opacity:1;
+  transition:grid-template-rows .95s cubic-bezier(.25,.75,.25,1), opacity .8s ease .2s;
+}
+/* el espacio de arriba va en un margen y no en un padding: el padding
+   no se deja comprimir y dejaba un escaloncito con la portada plegada */
+.hero.intro-hero > .shell{
+  overflow:hidden;min-height:0;
+  transition:transform .85s cubic-bezier(.25,.75,.25,1) .1s;
+}
+.hero.intro-hero > .shell > .kicker{margin-top:28px}
+.hero.intro-hero h1{font-size:clamp(40px,12vw,58px)}
+.hero.intro-hero .kicker{font-size:25px}
+.hero.intro-hero.plegado{grid-template-rows:0fr;opacity:0}
+.hero.intro-hero.plegado > .shell{transform:translateY(14px)}
+/* flechita a lápiz para avisar que abajo sigue */
+.intro-baja{
+  position:absolute;left:0;right:0;bottom:18px;margin:0;height:20px;
+  display:grid;place-items:center;
+  opacity:0;pointer-events:none;transition:opacity .6s ease;
+}
+.intro-baja::after{
+  content:"";width:15px;height:15px;
+  border-right:2.5px solid var(--ink-soft);border-bottom:2.5px solid var(--ink-soft);
+  border-radius:0 0 5px 0;transform:rotate(45deg) translate(-3px,-3px);
+}
+.intro-baja.ver{opacity:.6;animation:respirar 2.2s ease-in-out infinite}
 @keyframes respirar{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
 /* el regalo envuelto: papel kraft, cinta y lacre. Se desenvuelve al tocarlo */
@@ -764,28 +796,30 @@ em{font-style:italic}
 <canvas id="confetti"></canvas>
 
 <section class="intro" id="intro">
-  <div class="intro-wrap">
-    <video class="intro-video" id="introVideo" muted playsinline webkit-playsinline preload="auto" aria-hidden="true"></video>
-    <button class="envoltura" id="envoltura" type="button" aria-label="Abrir el regalo">
-      <span class="papel izq" aria-hidden="true"></span>
-      <span class="papel der" aria-hidden="true"></span>
-      <span class="cinta v" aria-hidden="true"></span>
-      <span class="cinta h" aria-hidden="true"></span>
-      <span class="lacre" aria-hidden="true">J&amp;G</span>
-    </button>
-  </div>
-  <p class="intro-hint" id="introHint">ábrelo</p>
-</section>
-<header class="hero" id="hero">
   <div class="sky-layer ambient" id="heroSky" aria-hidden="true"></div>
-  <div class="shell">
-
-    <p class="kicker">Para mi amor</p>
-    <h1>Feliz vuelta <span>al sol</span></h1>
-    <p class="hero-copy">Esto es un recuento del año que te fui recopilando. Ojalá te guste, lo hice con mucho cariño.</p>
-    <p><span class="stamp-date">01 · 09 · 2026</span></p>
+  <div class="intro-stack">
+    <div class="intro-wrap">
+      <video class="intro-video" id="introVideo" muted playsinline webkit-playsinline preload="auto" aria-hidden="true"></video>
+      <button class="envoltura" id="envoltura" type="button" aria-label="Abrir el regalo">
+        <span class="papel izq" aria-hidden="true"></span>
+        <span class="papel der" aria-hidden="true"></span>
+        <span class="cinta v" aria-hidden="true"></span>
+        <span class="cinta h" aria-hidden="true"></span>
+        <span class="lacre" aria-hidden="true">J&amp;G</span>
+      </button>
+      <p class="intro-hint" id="introHint">ábrelo</p>
+    </div>
+    <header class="hero intro-hero" id="hero">
+      <div class="shell">
+        <p class="kicker">Para mi amor</p>
+        <h1>Feliz vuelta <span>al sol</span></h1>
+        <p class="hero-copy">Esto es un recuento del año que te fui recopilando. Ojalá te guste, lo hice con mucho cariño.</p>
+        <p><span class="stamp-date">01 · 09 · 2026</span></p>
+      </div>
+    </header>
   </div>
-</header>
+  <p class="intro-baja" id="introBaja" aria-hidden="true"></p>
+</section>
 <span class="seam" aria-hidden="true">
   <svg viewBox="0 0 1200 14" preserveAspectRatio="none"><path d="M0 7 H1200" fill="none" stroke="#C4AC80" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"></path></svg>
 </span>
@@ -1593,14 +1627,23 @@ em{font-style:italic}
     var wrap = v.parentNode, listo = false, abierto = false;
     var envoltura = document.getElementById("envoltura");
     var aviso = document.getElementById("introHint");
+    var portada = document.getElementById("hero");
+    var flecha = document.getElementById("introBaja");
+
+    /* se pliega desde acá y no desde el CSS: si el JS se cae, el texto igual se ve */
+    if (portada) portada.classList.add("plegado");
 
     function seguir(){
       if (listo) return;
       listo = true;
-      if (scrollY > 60) return;
-      var h = document.getElementById("hero");
-      if (h) h.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      if (portada) portada.classList.remove("plegado");
+      if (flecha && scrollY < 60){
+        setTimeout(function(){ if (scrollY < 60) flecha.classList.add("ver"); }, 1100);
+      }
     }
+    addEventListener("scroll", function(){
+      if (flecha && scrollY > 40) flecha.classList.remove("ver");
+    }, { passive: true });
     function desenvolver(conSonido){
       if (abierto) return;
       abierto = true;
@@ -1632,6 +1675,12 @@ em{font-style:italic}
       else seguir();
     });
     v.addEventListener("ended", seguir);
+    /* Safari a veces se traga el "ended": lo vigilamos por tiempo */
+    v.addEventListener("timeupdate", function(){
+      if (v.duration && v.currentTime >= v.duration - 0.2) seguir();
+    });
+    /* si el video no carga, la portada sale igual */
+    v.addEventListener("error", seguir);
 
     registrarVideo(v);
     v.src = INTRO_SRC;
