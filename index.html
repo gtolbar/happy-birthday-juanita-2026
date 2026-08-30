@@ -158,25 +158,27 @@ em{font-style:italic}
 
 /* el regalo: se funde con el papel, sin marco */
 .gif-slot{
-  position:relative;z-index:2;display:block;margin:0 auto -6px;
-  width:min(520px,100%);border:0;background:none;padding:0;cursor:pointer;
+  position:relative;z-index:2;display:block;
+  width:min(520px, calc(100vw - 32px));
+  margin:28px auto 10px;
+  border:0;background:transparent;padding:0;cursor:pointer;
 }
 /* difuminado en los cuatro lados: la pared del video se funde con la hoja */
 .gif-slot .gif-frame,
 .gif-slot::after{
   -webkit-mask-image:
     linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, #000 3.5%, #000 96.5%, transparent 100%);
+    linear-gradient(to bottom, transparent 0%, #000 1%, #000 99%, transparent 100%);
   mask-image:
     linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, #000 3.5%, #000 96.5%, transparent 100%);
+    linear-gradient(to bottom, transparent 0%, #000 1%, #000 99%, transparent 100%);
   -webkit-mask-composite:source-in;
   mask-composite:intersect;
   -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
   -webkit-mask-size:100% 100%;mask-size:100% 100%;
 }
 .gif-frame{display:block;width:100%;line-height:0}
-.gif-frame video,.gif-frame img{display:block;width:100%;height:auto;aspect-ratio:16/9}
+.gif-frame video,.gif-frame img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:transparent}
 /* grano del papel encima, para que comparta la textura de la hoja */
 .gif-slot::after{
   content:"";position:absolute;inset:0;pointer-events:none;
@@ -757,7 +759,7 @@ em{font-style:italic}
   .hero h1{font-size:76px}
   .hero-copy{font-size:18px;max-width:40ch;margin-top:22px}
   .stamp-date{font-size:12px;padding:9px 20px}
-  .gif-slot{width:268px}
+  .gif-slot{width:min(520px,100%);margin-top:34px}
   .cta{font-size:21px;padding:15px 34px}
 
   .invite-wrap{margin-top:96px}
