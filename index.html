@@ -617,26 +617,28 @@ em{font-style:italic}
 .intro-stack{position:relative;z-index:1;width:min(560px,100%);margin:0 auto}
 .intro-wrap{width:100%;margin:0 auto;position:relative;cursor:pointer;perspective:1200px}
 .intro-hint{
-  position:absolute;left:0;right:0;top:100%;margin:12px 0 0;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  font-family:Caveat,cursive;font-size:22px;
-  color:var(--ink-soft);opacity:0;pointer-events:none;
+  position:absolute;left:0;right:0;top:100%;margin:18px 0 0;
+  display:flex;align-items:center;justify-content:center;gap:11px;
+  font-family:Caveat,cursive;font-weight:700;font-size:clamp(28px,8vw,36px);
+  line-height:1;color:var(--red);opacity:0;pointer-events:none;
   transition:opacity .5s ease;
 }
-.intro-hint.ver{opacity:.9;animation:respirar 2.4s ease-in-out infinite}
-/* el dedito que da el toque */
-.dedito{width:21px;height:24px;flex:none;overflow:visible}
-.dedito .palma{fill:var(--ink-soft)}
-.dedito .dedo{fill:none;stroke:var(--ink-soft);stroke-width:3.5;stroke-linecap:round}
-.dedito .pulgar{fill:none;stroke:var(--ink-soft);stroke-width:3.3;stroke-linecap:round}
-.dedito .chispa{fill:none;stroke:var(--ink-soft);stroke-width:1.9;stroke-linecap:round;opacity:.6;transform-box:fill-box;transform-origin:center}
-.intro-hint.ver .mano{animation:tocar 2.4s ease-in-out infinite}
-.intro-hint.ver .chispa{animation:chispear 2.4s ease-in-out infinite}
+.intro-hint span{display:inline-block;transform:rotate(-1.8deg)}
+.intro-hint.ver{opacity:1;animation:llamar 2.2s ease-in-out infinite}
+@keyframes llamar{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.045)}}
+/* el dedito que da el toque; crece con el texto */
+.dedito{width:.94em;height:1.14em;flex:none;overflow:visible}
+.dedito .palma{fill:var(--red)}
+.dedito .dedo{fill:none;stroke:var(--red);stroke-width:3.5;stroke-linecap:round}
+.dedito .pulgar{fill:none;stroke:var(--red);stroke-width:3.3;stroke-linecap:round}
+.dedito .chispa{fill:none;stroke:var(--red);stroke-width:2.1;stroke-linecap:round;opacity:.7;transform-box:fill-box;transform-origin:center}
+.intro-hint.ver .mano{animation:tocar 2.2s ease-in-out infinite}
+.intro-hint.ver .chispa{animation:chispear 2.2s ease-in-out infinite}
 @keyframes tocar{0%,38%,100%{transform:translateY(0)}52%,64%{transform:translateY(3px)}}
-@keyframes chispear{0%,44%,100%{opacity:0;transform:scale(.7)}58%{opacity:.6;transform:scale(1)}}
+@keyframes chispear{0%,44%,100%{opacity:0;transform:scale(.7)}58%{opacity:.75;transform:scale(1.1)}}
 @media (prefers-reduced-motion:reduce){
   .intro-hint.ver .mano,.intro-hint.ver .chispa{animation:none}
-  .intro-hint.ver .chispa{opacity:.6}
+  .intro-hint.ver .chispa{opacity:.7}
 }
 
 /* la portada vive en la misma pantalla del video y se abre cuando el
@@ -1527,27 +1529,41 @@ em{font-style:italic}
       frame.appendChild(v);
       registrarVideo(v);
       mirar();
+      arrancarReloj();
     });
     v.src = VIDEO_SRC;
     gift = v;
 
     /* arranca cuando la torta entra en pantalla, para que caiga al ritmo
        del scroll y no se acabe antes de que llegue */
-    var arrancado = false;
-    /* solo se da por arrancado cuando de verdad está sonando; si un
-       intento falla, el siguiente scroll lo vuelve a probar */
+    var arrancado = false, reloj = null;
+    /* solo se da por arrancado cuando de verdad está sonando */
     v.addEventListener("playing", function(){
       arrancado = true;
+      pararReloj();
       removeEventListener("scroll", mirar);
       removeEventListener("resize", mirar);
     }, { once: true });
+    function pararReloj(){ if (reloj){ clearInterval(reloj); reloj = null; } }
     function mirar(){
-      if (arrancado || !v.paused) return;
+      if (arrancado || !v.parentNode) return;
+      /* si ya va corriendo no lo toque: reproducir() lo volveria a mutear */
+      if (!v.paused && v.currentTime > 0) return;
       var r = frame.getBoundingClientRect();
-      if (r.height && r.top < innerHeight * 0.8 && r.bottom > innerHeight * 0.12){
+      if (r.height && r.top < innerHeight * 0.85 && r.bottom > innerHeight * 0.12){
         reproducir(v);
       }
     }
+    /* el scroll solo avisa mientras el dedo se mueve: si el primer intento
+       se cae justo cuando ella se queda quieta mirando la torta, no habria
+       otro aviso. Por eso ademas se reintenta con reloj hasta que suene. */
+    function arrancarReloj(){
+      if (reloj || arrancado) return;
+      reloj = setInterval(mirar, 450);
+      setTimeout(pararReloj, 180000);
+    }
+    v.addEventListener("canplay", mirar);
+    v.addEventListener("error", pararReloj);
     addEventListener("scroll", mirar, { passive: true });
     addEventListener("resize", mirar);
     setTimeout(mirar, 400);
